@@ -9,7 +9,9 @@ Business feature #2 Digital Certificate- where users can use their phone to view
 Business feature #3 Certificate Management- users can ask for approval and admins can approve or disapprove the request.
 
 
-Authentication/Authorization Feature #
+Authentication- refers to registering users or admins to the wesagn kunet app and allow them to properly sign in with the correct credentials.
+
+Authorization- refers to the process of defining who has the correct privelges for certain pages in the app and allowing that person to have access to it.
         
 
 
