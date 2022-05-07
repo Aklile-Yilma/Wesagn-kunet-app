@@ -37,6 +37,36 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'django.contrib.sites',
+
+    # 3rd party
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth',
+    
+    'allauth',
+    'allauth.account',
+    'rest_auth.registration',
+
+    # Local 
+    'accounts.apps.AccountsConfig',
+]
+
+SITE_ID = 1
+
+
+REST_FRAMEWORK = { 'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+        ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+'rest_framework.authentication.SessionAuthentication', 
+'rest_framework.authentication.TokenAuthentication', 
+],
+# 'USER_DETAILS_SERIALIZER': 'users.serializers.UserDetailsSerializer',
+}
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend'
 ]
 
 MIDDLEWARE = [
@@ -76,12 +106,12 @@ WSGI_APPLICATION = 'WesagnKunet.wsgi.application'
 DATABASES = {
 	
 	'default': {
-		'ENGINE': 'django.db.backends.postgresql_psycopg2',
+		'ENGINE': 'django.db.backends.postgresql',
 		'NAME': 'wesagn_kunet_db',
-		'USER': 'wesagn_kunet_admin',
-		'PASSWORD': 'ZCaK4pUX', # NOT RECOMMENDED BUT JUST FOR THIS ASSIGNMENT
-		'HOST': "",
-		'PORT': ""
+		'USER': 'postgres',
+		'PASSWORD': '1234', # NOT RECOMMENDED BUT JUST FOR THIS ASSIGNMENT
+		'HOST': "localhost",
+		'PORT': "5432"
 	}
 
 }
@@ -122,5 +152,9 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
+ACCOUNT_EMAIL_REQUIRED=True
 
 STATIC_URL = '/static/'
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL='accounts.CustomeUser'
