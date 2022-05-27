@@ -60,3 +60,49 @@ class MarriageCertificate(models.Model):
 	verified = models.BooleanField(default=False)
 
 
+
+class DeathCertificate(models.Model):
+
+	class DeacesedInfo(models.Model):
+
+		first_name=models.CharField(max_length=128)
+
+		middle_name=models.CharField(max_length=128)
+
+		last_name=models.CharField(max_length=128)
+
+		date_of_birth=models.DateField(auto_now=True)
+
+		title=models.CharField(max_length=128)
+
+		country=models.CharField(max_length=128)
+
+		nationality=models.CharField(max_length=128)
+
+		city=models.CharField(max_length=128)
+
+		subcity=models.CharField(max_length=128)
+
+		woreda=models.IntegerField()
+
+		house_number=models.IntegerField()
+		date_of_death=models.DateField(auto_now=False)
+
+		def __str__(self) -> str:
+			return " %s %s %s %s %s %s %s %s  " % (self.first_name, self.middle_name, self.last_name,\
+				self.title, self.country, self.nationality, self.city, self.subcity,)
+
+	detail=models.ForeignKey(CertificateDetails, on_delete=models.CASCADE)	
+	deacesed=models.ForeignKey(DeacesedInfo, related_name='deacesed_info', on_delete=models.CASCADE)
+	verified=models.BooleanField(default=False)	
+
+	
+
+
+
+
+
+
+
+
+

@@ -1,10 +1,11 @@
 from dataclasses import field
+from email.policy import default
 from rest_framework import serializers
 from traitlets import validate
 
 from accounts.serializers import ClientSerializer
 from accounts.models import Client
-from .models import MarriageCertificate, CertificateDetails, Address
+from .models import MarriageCertificate, CertificateDetails, Address, DeathCertificate
 
 
 class DetailSerializer(serializers.ModelSerializer):
@@ -65,3 +66,33 @@ class MarriageCertificateSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = MarriageCertificate
 		fields = "__all__"
+
+class DeathCertificateSerializer(serializers.ModelSerializer):
+	class DeacesedSerializer(serializers.ModelSerializer):
+		class Meta:
+			model=DeathCertificate.DeacesedInfo
+			fields="__all__"
+	deacesed=DeacesedSerializer()
+	detail=DetailSerializer(default=None)
+
+	def validate_deacesed(self, deacesed):
+		serializer=DeathCertificateSerializer.DeacesedSerializer(data=deacesed)
+		serializer.is_valid(raise_exception=True)
+		return serializer
+
+	def create(self,validated_data):
+		detail=CertificateDetails()
+		detail.save()
+		detail.users.set([Client.objects.get(user=self.context['user'])])
+		instance=DeathCertificate(
+			deacesed=validated_data.get('deacesed').save(),
+			detail=detail
+
+		)
+		instance.save()
+		return instance
+
+
+	class Meta:
+		model=DeathCertificate
+		fields="__all__"
