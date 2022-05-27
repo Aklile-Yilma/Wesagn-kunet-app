@@ -31,12 +31,6 @@ class RegisterSerializer(serializers.Serializer):
     def validate_password1(self, password):
         return get_adapter().clean_password(password)
 
-    # def validate(self, data):
-    #     if data['password1'] != data['password2']:
-    #         raise serializers.ValidationError(
-    #             ("The password don't match."))
-    #     return data
-
     def custom_signup(self, request, user):
         pass
 
