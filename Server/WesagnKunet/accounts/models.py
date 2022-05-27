@@ -94,6 +94,10 @@ class Client(models.Model):
     nationality=models.CharField(max_length=30, blank=True)
     phone_number=models.CharField(max_length=15, blank=True)
     photo=models.ImageField(upload_to='uploads',blank=True)
+
+
+
+
         
 
       

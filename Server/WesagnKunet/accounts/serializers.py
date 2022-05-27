@@ -12,30 +12,30 @@ from django.contrib.auth import get_user_model
 
 class RegisterSerializer(serializers.Serializer):
     email = serializers.EmailField(required=settings.ACCOUNT_EMAIL_REQUIRED)
-    first_name = serializers.CharField(required=False, write_only=True)
-    middle_name=serializers.CharField(required=False, write_only=True)
-    last_name = serializers.CharField(required=False, write_only=True)
-    date_of_birth=serializers.DateField(default=timezone.now(), required=False, write_only=True)
-    sex=serializers.CharField(required=False, write_only=True)
-    blood_type=serializers.CharField(required=False, write_only=True)
-    city = serializers.CharField(required=False, write_only=True)
-    country=serializers.CharField(required=False, write_only=True)
-    nationality=serializers.CharField(required=False,write_only=True)
-    phone_number=serializers.CharField(required=False, write_only=True)
-    photo=serializers.ImageField(required=False, write_only=True)
+    first_name = serializers.CharField(required=False, write_only=False)
+    middle_name=serializers.CharField(required=False, write_only=False)
+    last_name = serializers.CharField(required=False, write_only=False)
+    date_of_birth=serializers.DateField(default=timezone.now(), required=False, write_only=False)
+    sex=serializers.CharField(required=False, write_only=False)
+    blood_type=serializers.CharField(required=False, write_only=False)
+    city = serializers.CharField(required=False, write_only=False)
+    country=serializers.CharField(required=False, write_only=False)
+    nationality=serializers.CharField(required=False,write_only=False)
+    phone_number=serializers.CharField(required=False, write_only=False)
+    photo=serializers.ImageField(required=False, write_only=False)
 
 
-    password1 = serializers.CharField(required=True, write_only=True)
-    password2 = serializers.CharField(required=True, write_only=True)
+    password = serializers.CharField(required=True, write_only=True)
+   
 
     def validate_password1(self, password):
         return get_adapter().clean_password(password)
 
-    def validate(self, data):
-        if data['password1'] != data['password2']:
-            raise serializers.ValidationError(
-                ("The password don't match."))
-        return data
+    # def validate(self, data):
+    #     if data['password1'] != data['password2']:
+    #         raise serializers.ValidationError(
+    #             ("The password don't match."))
+    #     return data
 
     def custom_signup(self, request, user):
         pass
@@ -55,7 +55,7 @@ class RegisterSerializer(serializers.Serializer):
             'photo': self.validated_data.get('photo', ''),
 
             
-            'password1': self.validated_data.get('password1', ''),
+            'password': self.validated_data.get('password', ''),
             'email': self.validated_data.get('email', ''),
         }
 
