@@ -59,4 +59,49 @@ class MarriageCertificate(models.Model):
 
 	verified = models.BooleanField(default=False)
 
+class BirthCertificate(models.Model):
+	GENDERS = (
+		('M', 'Male'),
+		('F','Female'),
+	)
+	
+
+	class child(models.Model):
+		first_name = models.CharField(max_length=128)
+		middle_name = models.CharField(max_length=128)
+		last_name = models.CharField(max_length=128)
+
+		def __str__(self) -> str:
+			return "%s %s %s" % (self.first_name, self.middle_name, self.last_name)
+
+
+	class ParentInformation(models.Model):
+		first_name = models.CharField(max_length=128)
+		middle_name = models.CharField(max_length=128)
+		last_name = models.CharField(max_length=128)
+
+		def __str__(self) -> str:
+			return "%s %s %s" % (self.first_name, self.middle_name, self.last_name)
+
+
+	mother= models.ForeignKey(ParentInformation, on_delete=models.CASCADE)
+	father= models.ForeignKey(ParentInformation, on_delete=models.CASCADE)
+	detail= models.ForeignKey(CertificateDetails, on_delete=models.CASCADE)
+	birth_date= models.DateField()
+	gender= models.CharField(max_length=1, choices=GENDERS, blank=False)
+	photo= models.ImageField(upload_to="", )
+	verified= models.BooleanField(default=False)
+
+
+
+
+
+
+
+
+
+
+
+		
+
 
