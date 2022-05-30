@@ -130,6 +130,7 @@ class DeathCertificate(models.Model):
 	
 
 
+<<<<<<< HEAD
 
 
 
@@ -137,3 +138,5 @@ class DeathCertificate(models.Model):
 
 
 
+=======
+>>>>>>> 603231f (modified requitements.txt)
