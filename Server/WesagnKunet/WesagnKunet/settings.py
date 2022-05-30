@@ -112,7 +112,7 @@ DATABASES = {
 			'ENGINE': 'django.db.backends.postgresql',
 			'NAME': 'wesagn_kunet_db',
 			'USER': 'postgres',
-			'PASSWORD': '1234', # NOT RECOMMENDED BUT JUST FOR THIS ASSIGNMENT
+			'PASSWORD': '123456789', # NOT RECOMMENDED BUT JUST FOR THIS ASSIGNMENT
 			'HOST': "localhost",
 			'PORT': "5432"
 			}

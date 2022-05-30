@@ -1,11 +1,4 @@
 from dataclasses import field
-<<<<<<< HEAD
-from email.policy import default
-
-=======
-from statistics import mode
-# from matplotlib.pyplot import cla
->>>>>>> 603231f (modified requitements.txt)
 from rest_framework import serializers
 from traitlets import validate
 
