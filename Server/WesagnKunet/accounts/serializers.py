@@ -28,7 +28,7 @@ class RegisterSerializer(serializers.Serializer):
     password = serializers.CharField(required=True, write_only=True)
    
 
-    def validate_password1(self, password):
+    def validate_password(self, password):
         return get_adapter().clean_password(password)
 
     def custom_signup(self, request, user):

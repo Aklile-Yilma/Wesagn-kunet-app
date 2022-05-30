@@ -67,7 +67,7 @@ class MarriageCertificateViewSet(viewsets.ViewSet, CertificateViewSet):
 
 class DeathCertificateViewSet(viewsets.ViewSet, CertificateViewSet):
 
-	permission_classes=[IsAuthenticated,]
+	permission_classes=(IsAuthenticated,)
 	
 
 	def list(self, request):

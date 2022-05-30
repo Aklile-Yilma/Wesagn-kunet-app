@@ -89,8 +89,8 @@ class DeathCertificate(models.Model):
 		date_of_death=models.DateField(auto_now=False)
 
 		def __str__(self) -> str:
-			return " %s %s %s %s %s %s %s %s  " % (self.first_name, self.middle_name, self.last_name,\
-				self.title, self.country, self.nationality, self.city, self.subcity,)
+			return " %s %s %s %s %s " % (self.first_name, self.middle_name, self.last_name,
+				self.title, self.country)
 
 	detail=models.ForeignKey(CertificateDetails, on_delete=models.CASCADE)	
 	deacesed=models.ForeignKey(DeacesedInfo, related_name='deacesed_info', on_delete=models.CASCADE)
