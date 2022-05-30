@@ -7,8 +7,9 @@ from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from .models import MarriageCertificate, CertificateDetails,DeathCertificate
-from .serializers import MarriageCertificateSerializer, DeathCertificateSerializer
+from .serializers import MarriageCertificateSerializer, DeathCertificateSerializer, BirthCertificateSerializer
+from .models import BirthCertificate, MarriageCertificate, CertificateDetails, DeathCertificate
+
 
 
 class CertificateViewSet:
@@ -32,7 +33,6 @@ class MarriageCertificateViewSet(viewsets.ViewSet, CertificateViewSet):
 	def list(self, request):
 		queryset = self._filter(MarriageCertificate.objects.all(), request)
 		serializer = MarriageCertificateSerializer(queryset, many=True)
-		print(queryset)
 		return Response(serializer.data)
 	
 	def retrieve(self, request, pk=None):
@@ -102,9 +102,57 @@ class DeathCertificateViewSet(viewsets.ViewSet, CertificateViewSet):
 		return Response(DeathCertificateSerializer(instance).data)
 
 	def delete(self, request, pk=None):
-		instance=get_object_or_404(DeathCertificate, pk=pk)
+		instance = get_object_or_404(DeathCertificate, pk=pk)
 		if not self._is_authenticated(instance, request):
 			raise PermissionDenied()
 		instance.delete()
 		
 		return Response()
+
+class BirthCertificateViewSet(viewsets.ViewSet, CertificateViewSet):
+
+	permission_classes = (IsAuthenticated,)
+
+	def list(self, request):
+
+		queryset = self._filter(BirthCertificate.objects.all(), request)
+		serializer = BirthCertificateViewSet(queryset, many=True)
+		return Response(serializer.data)
+
+	def retrieve(self, request, pk=None):
+		instance = get_object_or_404(BirthCertificate, pk=pk)
+		if not self._is_authenticated(instance, request):
+			raise PermissionDenied()
+		serializer = BirthCertificateSerializer(instance, many=False)
+		return Response(serializer.data)
+
+	def create(self, request):
+		serializer = BirthCertificateSerializer(data=request.data, context={"user": request.user})
+		serializer.is_valid(raise_exception=True)
+		instance = serializer.save()
+		return Response(BirthCertificateSerializer(instance).data)
+
+	def partial_update(self, request, pk=None):
+		if not request.user.is_admin:
+			raise PermissionDenied()
+		instance=get_object_or_404(BirthCertificate, pk=pk)
+		instance.verified=request.data.get('verified')
+		instance.save()
+		return Response(DeathCertificateSerializer(instance).data)
+
+	def delete(self, request, pk=None):
+		instance = get_object_or_404(BirthCertificate, pk=pk)
+		if not self._is_authenticated(instance, request):
+			raise PermissionDenied()
+		instance.delete()
+		return Response()
+
+	
+	
+
+	
+
+	
+	
+
+
