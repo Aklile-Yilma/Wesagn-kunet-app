@@ -2,7 +2,9 @@
 *.log
 *.pot
 *.pyc
-__pycache__
+*/__pycache__
 Server/*/db.sqlite3
 Server/*/media
+Server/*/uploads
 Server/*Env/
+*/migrations/
