@@ -18,7 +18,7 @@ class LoginRequest extends Request<String>{
                                        );
 
   @override
-  String? deserializeObject(response) {
+  String deserializeObject(response) {
     return jsonDecode(response)["key"];
   }
 

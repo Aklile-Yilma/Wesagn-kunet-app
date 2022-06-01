@@ -7,6 +7,7 @@ enum Method{
   get, post
 }
 
+
 abstract class Request<T>{
 
   String _url;
@@ -51,6 +52,6 @@ abstract class Request<T>{
     return _method;
   }
 
-  T? deserializeObject(dynamic response);
+  T deserializeObject(dynamic response);
    
 }

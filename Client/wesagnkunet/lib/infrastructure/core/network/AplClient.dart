@@ -7,18 +7,23 @@ import 'package:wesagnkunet/Config.dart' as config;
 class ApiClient {
 
 	String? _token;
-  String baseUrl;
+  String host;
+  String baseUrl = "";
 
 
-	ApiClient(this.baseUrl, {token}){
+	ApiClient(this.host, {token, baseUrl}){
 		_token = token;
+    if(baseUrl != null){
+      this.baseUrl = baseUrl;
+    }
   }
 
-  Uri _getCompleteUrl(url, {params}){
+  Uri _getCompleteUrl(String path, {params}){
+    path = "$baseUrl/$path".replaceAll("//", "/");
     if(params == null) {
-      return Uri.http(baseUrl, url);
+      return  Uri.http(host, path);
     }
-    return Uri.http(baseUrl, url, params);
+    return Uri.http(host, path, params);
   }
 
   Map<String, String> _getCompleteHeader(Map<String, String> header){
@@ -37,13 +42,13 @@ class ApiClient {
 
   Future<http.Response> _post(Request request, Map<String, String> headers) async{
     return http.post(
-      _getCompleteUrl(request.getUrl()),
+       _getCompleteUrl(request.getUrl()),
       body: request.getPostData(),
       headers: headers
     );
   }
 
-  Future<T?> execute<T>(Request<T> request) async{
+  Future<T> execute<T>(Request<T> request) async{
 
     Map<String, String> headers = _getCompleteHeader(request.getHeaders());
 
@@ -62,7 +67,7 @@ class ApiClient {
     }
 
     if(response.statusCode >=400){
-      throw ApiException();
+      throw ApiException(response.statusCode, response: response);
     }
 
     return request.deserializeObject(response.body);
@@ -73,6 +78,12 @@ class ApiClient {
 
 
 class ApiException implements Exception{
+
+  int statusCode;
+  http.Response? response;
+
+
+  ApiException(this.statusCode, {this.response});
 
   @override
   String toString() {
