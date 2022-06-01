@@ -1,8 +1,6 @@
 
 
 
-import 'package:flutter/services.dart';
-
 enum Method{
   get, post
 }
@@ -17,38 +15,38 @@ abstract class Request<T>{
   Map<String, String> _headers = {};
   List<String> _urlParams = [];
 
-  Request(this._url, {getParams, postParams, headers, method}){
-    if(getParams != null) {
+  Request(this._url, {getParams, postParams, headers, method}) {
+    if (getParams != null) {
       _getParams = getParams;
     }
-    if(postParams != null){
+    if (postParams != null) {
       _postParams = postParams;
     }
-    if(headers != null){
+    if (headers != null) {
       _headers = headers;
     }
-    if(method != null){
+    if (method != null) {
       _method = method;
     }
   }
 
-  String getUrl(){
+  String getUrl() {
     return _url;
   }
 
-  Map<String, dynamic> getGetParams(){
+  Map<String, dynamic> getGetParams() {
     return _getParams;
   }
 
-  Map<String, dynamic> getPostData(){
+  Map<String, dynamic> getPostData() {
     return _postParams;
   }
 
-  Map<String, String> getHeaders(){
+  Map<String, String> getHeaders() {
     return _headers;
   }
 
-  Method getMethod(){
+  Method getMethod() {
     return _method;
   }
 
