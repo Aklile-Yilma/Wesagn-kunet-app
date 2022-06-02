@@ -1,10 +1,8 @@
 from django.db import models
-
 from accounts.models import Client
 
 
 class CertificateDetails(models.Model):
-
 
 	users = models.ManyToManyField(Client)
 
@@ -84,8 +82,8 @@ class BirthCertificate(models.Model):
 			return "%s %s %s" % (self.first_name, self.middle_name, self.last_name)
 
 
-	mother= models.ForeignKey(ParentInformation,related_name='mother' ,on_delete=models.CASCADE)
-	father= models.ForeignKey(ParentInformation, related_name='father', on_delete=models.CASCADE)
+	mother= models.ForeignKey(ParentInformation, related_name="mother", on_delete=models.CASCADE)
+	father= models.ForeignKey(ParentInformation, related_name="father",  on_delete=models.CASCADE)
 	detail= models.ForeignKey(CertificateDetails, on_delete=models.CASCADE)
 	birth_date= models.DateField()
 	gender= models.CharField(max_length=15, choices=GENDERS, blank=False)
@@ -127,14 +125,3 @@ class DeathCertificate(models.Model):
 	detail=models.ForeignKey(CertificateDetails, on_delete=models.CASCADE)	
 	deacesed=models.ForeignKey(DeacesedInfo, related_name='deacesed_info', on_delete=models.CASCADE)
 	verified=models.BooleanField(default=False)	
-
-	
-
-
-
-
-
-
-
-
-

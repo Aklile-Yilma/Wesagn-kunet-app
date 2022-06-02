@@ -1,6 +1,4 @@
 from dataclasses import field
-from email.policy import default
-
 from rest_framework import serializers
 from traitlets import validate
 
