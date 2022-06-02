@@ -7,6 +7,7 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
 from WesagnKunet import settings
+from accounts.views import SignupView
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -25,9 +26,9 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('api/v1/admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
-    path('api/v1/auth/', include('rest_auth.urls')),
-    path('api/v1/auth/signup/', include('rest_auth.registration.urls')),
     path('api/v1/', include('accounts.urls')),
+    path('api/v1/auth/', include('rest_auth.urls')),
+    path('api/v1/auth/signup/', SignupView.as_view()),
 
 	path('api/v1/core/', include('core.urls')),
 

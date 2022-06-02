@@ -16,73 +16,61 @@ from django.contrib.auth import get_user_model
 
 
 class RegisterSerializer(serializers.Serializer): 
-    username=serializers.CharField(required=True)
-    email = serializers.EmailField(required=allauth_settings.EMAIL_REQUIRED)
-    first_name = serializers.CharField(required=False, write_only=False)
-    middle_name=serializers.CharField(required=False, write_only=False)
-    last_name = serializers.CharField(required=False, write_only=False)
-    date_of_birth=serializers.DateField(default=timezone.now(), required=False, write_only=False)
-    sex=serializers.CharField(required=False, write_only=False)
-    blood_type=serializers.CharField(required=False, write_only=False)
-    city = serializers.CharField(required=False, write_only=False)
-    country=serializers.CharField(required=False, write_only=False)
-    nationality=serializers.CharField(required=False,write_only=False)
-    phone_number=serializers.CharField(required=False, write_only=False)
-    photo=serializers.ImageField(required=False, write_only=False)
+	username=serializers.CharField(required=True)
+	email = serializers.EmailField(required=allauth_settings.EMAIL_REQUIRED)
+	first_name = serializers.CharField(required=False, write_only=False)
+	middle_name=serializers.CharField(required=False, write_only=False)
+	last_name = serializers.CharField(required=False, write_only=False)
+	date_of_birth=serializers.DateField(default=timezone.now(), required=False, write_only=False)
+	sex=serializers.CharField(required=False, write_only=False)
+	blood_type=serializers.CharField(required=False, write_only=False)
+	city = serializers.CharField(required=False, write_only=False)
+	country=serializers.CharField(required=False, write_only=False)
+	nationality=serializers.CharField(required=False,write_only=False)
+	phone_number=serializers.CharField(required=False, write_only=False)
 
-    password = serializers.CharField(required=True, write_only=True)
-    
-    def validate_email(self, email):
-        email=get_adapter().clean_email(email)
-        if allauth_settings.UNIQUE_EMAIL:
-            if email and email_address_exists(email):
-                raise serializers.ValidationError('Email already exists')
-        return email
+	password = serializers.CharField(required=True, write_only=True)
+	
+	def validate_email(self, email):
+		email=get_adapter().clean_email(email)
+		if allauth_settings.UNIQUE_EMAIL:
+			if email and email_address_exists(email):
+				raise serializers.ValidationError('Email already exists')
+		return email
    
 
-    def validate_password(self, password):
-        return get_adapter().clean_password(password)
+	def create(self, cleaned_data):
+		user = CustomeUser.objects.create_user(
+				username=cleaned_data.get("username"),
+				email=cleaned_data.get("email"),
+				password=cleaned_data.get("password")
+			)
+		client = Client(
+				user=user,
+				first_name=cleaned_data.get("first_name"),
+				middle_name=cleaned_data.get("middle_name"),
+				last_name=cleaned_data.get("last_name"),
+				date_of_birth=cleaned_data.get("date_of_birth"),
+				sex=cleaned_data.get("sex"),
+				blood_type=cleaned_data.get("blood_type"),
+				city=cleaned_data.get("city"),
+				country=cleaned_data.get("country"),
+				nationality=cleaned_data.get("nationality"),
+				phone_number=cleaned_data.get("phone_number"),
+			)
+		client.save()
+		return client
 
-    def custom_signup(self, request, user):
-        pass
-
-    def get_cleaned_data(self):
-        return {
-            'first_name': self.validated_data.get('first_name', ''),
-            'middle_name': self.validated_data.get('middle_name', ''),
-            'last_name': self.validated_data.get('last_name', ''),
-            'date_of_birth':self.validated_data.get('date_of_birth', '') ,
-            'sex':self.validated_data.get('sex', '') ,
-            'blood_type': self.validated_data.get('blood_type', ''),
-            'city':self.validated_data.get('city', '') ,
-            'country': self.validated_data.get('country', ''),
-            'nationality':self.validated_data.get('nationality', '') ,
-            'phone_number':self.validated_data.get('phone_number', '') ,
-            'photo': self.validated_data.get('photo', ''),
-
-            
-            'password': self.validated_data.get('password', ''),
-            'email': self.validated_data.get('email', ''),
-            'username': self.validated_data.get('username'),
-        }
-
-    def save(self, request):
-        adapter = get_adapter()
-        user = adapter.new_user(request)
-        self.cleaned_data = self.get_cleaned_data()
-        adapter.save_user(request, user, self)
-        setup_user_email(request, user, [])
-        user.save()
-        return user
+		
 
 class UserDetailsSerializer(serializers.ModelSerializer):
-    class Meta:
-        model=get_user_model()
-        fields=('pk', 'username', 'email', 'is_admin', 'is_staff',)
-        read_only_fields=('email',)
+	class Meta:
+		model=get_user_model()
+		fields=('pk', 'username', 'email', 'is_admin', 'is_staff',)
+		read_only_fields=('email',)
 
 
 class ClientSerializer(serializers.ModelSerializer):
-    class Meta:
-        model=Client
-        fields=('pk', 'user', 'first_name', 'middle_name', 'last_name', 'sex', 'date_of_birth', 'blood_type', 'city', 'country', 'nationality', 'phone_number', 'photo')
+	class Meta:
+		model=Client
+		fields=('pk', 'user', 'first_name', 'middle_name', 'last_name', 'sex', 'date_of_birth', 'blood_type', 'city', 'country', 'nationality', 'phone_number')
