@@ -84,13 +84,14 @@ class BirthCertificate(models.Model):
 			return "%s %s %s" % (self.first_name, self.middle_name, self.last_name)
 
 
-	mother= models.ForeignKey(ParentInformation, on_delete=models.CASCADE)
-	father= models.ForeignKey(ParentInformation, on_delete=models.CASCADE)
+	mother= models.ForeignKey(ParentInformation,related_name='mother' ,on_delete=models.CASCADE)
+	father= models.ForeignKey(ParentInformation, related_name='father', on_delete=models.CASCADE)
 	detail= models.ForeignKey(CertificateDetails, on_delete=models.CASCADE)
 	birth_date= models.DateField()
 	gender= models.CharField(max_length=15, choices=GENDERS, blank=False)
-	photo= models.ImageField(upload_to="", )
+	photo= models.ImageField(upload_to="uploads", blank=True)
 	verified= models.BooleanField(default=False)
+
 
 class DeathCertificate(models.Model):
 

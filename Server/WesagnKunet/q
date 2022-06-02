@@ -1,0 +1,117 @@
+List of relations
+-[ RECORD 1 ]---------------------------------
+Schema | public
+Name   | account_emailaddress
+Type   | table
+Owner  | postgres
+-[ RECORD 2 ]---------------------------------
+Schema | public
+Name   | account_emailconfirmation
+Type   | table
+Owner  | postgres
+-[ RECORD 3 ]---------------------------------
+Schema | public
+Name   | accounts_client
+Type   | table
+Owner  | postgres
+-[ RECORD 4 ]---------------------------------
+Schema | public
+Name   | accounts_customeuser
+Type   | table
+Owner  | postgres
+-[ RECORD 5 ]---------------------------------
+Schema | public
+Name   | accounts_customeuser_groups
+Type   | table
+Owner  | postgres
+-[ RECORD 6 ]---------------------------------
+Schema | public
+Name   | accounts_customeuser_user_permissions
+Type   | table
+Owner  | postgres
+-[ RECORD 7 ]---------------------------------
+Schema | public
+Name   | auth_group
+Type   | table
+Owner  | postgres
+-[ RECORD 8 ]---------------------------------
+Schema | public
+Name   | auth_group_permissions
+Type   | table
+Owner  | postgres
+-[ RECORD 9 ]---------------------------------
+Schema | public
+Name   | auth_permission
+Type   | table
+Owner  | postgres
+-[ RECORD 10 ]--------------------------------
+Schema | public
+Name   | authtoken_token
+Type   | table
+Owner  | postgres
+-[ RECORD 11 ]--------------------------------
+Schema | public
+Name   | core_address
+Type   | table
+Owner  | postgres
+-[ RECORD 12 ]--------------------------------
+Schema | public
+Name   | core_certificatedetails
+Type   | table
+Owner  | postgres
+-[ RECORD 13 ]--------------------------------
+Schema | public
+Name   | core_certificatedetails_users
+Type   | table
+Owner  | postgres
+-[ RECORD 14 ]--------------------------------
+Schema | public
+Name   | core_country
+Type   | table
+Owner  | postgres
+-[ RECORD 15 ]--------------------------------
+Schema | public
+Name   | core_deacesedinfo
+Type   | table
+Owner  | postgres
+-[ RECORD 16 ]--------------------------------
+Schema | public
+Name   | core_deathcertificate
+Type   | table
+Owner  | postgres
+-[ RECORD 17 ]--------------------------------
+Schema | public
+Name   | core_marriagecertificate
+Type   | table
+Owner  | postgres
+-[ RECORD 18 ]--------------------------------
+Schema | public
+Name   | core_spouse
+Type   | table
+Owner  | postgres
+-[ RECORD 19 ]--------------------------------
+Schema | public
+Name   | django_admin_log
+Type   | table
+Owner  | postgres
+-[ RECORD 20 ]--------------------------------
+Schema | public
+Name   | django_content_type
+Type   | table
+Owner  | postgres
+-[ RECORD 21 ]--------------------------------
+Schema | public
+Name   | django_migrations
+Type   | table
+Owner  | postgres
+-[ RECORD 22 ]--------------------------------
+Schema | public
+Name   | django_session
+Type   | table
+Owner  | postgres
+-[ RECORD 23 ]--------------------------------
+Schema | public
+Name   | django_site
+Type   | table
+Owner  | postgres
+

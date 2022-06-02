@@ -1,17 +1,23 @@
+from enum import unique
 
+from allauth.account import app_settings as allauth_settings 
+from allauth.utils import email_address_exists
+from  allauth.account.adapter import get_adapter
+from  allauth.account.utils import setup_user_email
 
 from django.utils import timezone
 from rest_framework import serializers
 from allauth.account.adapter import get_adapter
 from WesagnKunet import settings
-from .models import Client
+from .models import Client, CustomeUser
 from allauth.account.utils import setup_user_email
 from django.contrib.auth import get_user_model
 
 
 
-class RegisterSerializer(serializers.Serializer):
-    email = serializers.EmailField(required=settings.ACCOUNT_EMAIL_REQUIRED)
+class RegisterSerializer(serializers.Serializer): 
+    username=serializers.CharField(required=True)
+    email = serializers.EmailField(required=allauth_settings.EMAIL_REQUIRED)
     first_name = serializers.CharField(required=False, write_only=False)
     middle_name=serializers.CharField(required=False, write_only=False)
     last_name = serializers.CharField(required=False, write_only=False)
@@ -24,8 +30,14 @@ class RegisterSerializer(serializers.Serializer):
     phone_number=serializers.CharField(required=False, write_only=False)
     photo=serializers.ImageField(required=False, write_only=False)
 
-
     password = serializers.CharField(required=True, write_only=True)
+    
+    def validate_email(self, email):
+        email=get_adapter().clean_email(email)
+        if allauth_settings.UNIQUE_EMAIL:
+            if email and email_address_exists(email):
+                raise serializers.ValidationError('Email already exists')
+        return email
    
 
     def validate_password(self, password):
@@ -51,6 +63,7 @@ class RegisterSerializer(serializers.Serializer):
             
             'password': self.validated_data.get('password', ''),
             'email': self.validated_data.get('email', ''),
+            'username': self.validated_data.get('username'),
         }
 
     def save(self, request):
@@ -58,10 +71,7 @@ class RegisterSerializer(serializers.Serializer):
         user = adapter.new_user(request)
         self.cleaned_data = self.get_cleaned_data()
         adapter.save_user(request, user, self)
-        self.custom_signup(request, user)
         setup_user_email(request, user, [])
-        
-
         user.save()
         return user
 

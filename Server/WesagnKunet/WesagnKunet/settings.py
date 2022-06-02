@@ -68,9 +68,21 @@ REST_FRAMEWORK = { 'DEFAULT_PERMISSION_CLASSES': [
 		],
 	# 'USER_DETAILS_SERIALIZER': 'users.serializers.UserDetailsSerializer',
 	}
+
+
 AUTHENTICATION_BACKENDS = [
-		'django.contrib.auth.backends.ModelBackend'
-		]
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend', 
+]
+
+
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'localhost'
+
+
+
 
 MIDDLEWARE = [
 		'django.middleware.security.SecurityMiddleware',
@@ -139,6 +151,7 @@ AUTH_PASSWORD_VALIDATORS = [
 		]
 
 
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -159,6 +172,12 @@ ACCOUNT_EMAIL_REQUIRED=True
 
 STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_AUTH_REGISTER_SERIALIZERS = {    'REGISTER_SERIALIZER': 'accounts.serializers.RegisterSerializer',}
+
+# ACCOUNT_FORMS = {
+# 'signup': 'accounts.forms.CustomSignupForm',
+# }
 
 AUTH_USER_MODEL='accounts.CustomeUser'
 

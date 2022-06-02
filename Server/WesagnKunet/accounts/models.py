@@ -39,7 +39,8 @@ class CustomeUser(AbstractBaseUser, PermissionsMixin):
         unique=True
     )
     username=models.CharField(unique=True, verbose_name='username', max_length=255)
-  
+    #new 1 line below 
+    password=models.CharField(max_length=255)
     is_active=models.BooleanField(default=True)
     is_admin=models.BooleanField(default=False)
     is_staff=models.BooleanField(default=False)
