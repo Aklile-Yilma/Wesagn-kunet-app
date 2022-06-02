@@ -1,10 +1,6 @@
-
-
-
-
 import 'dart:convert';
 
-import 'package:wesagnkunet/infrastructure/core/network/Request.dart';
+import 'package:wesagnkunet/infrastructure/lib/network/Request.dart';
 import 'package:wesagnkunet/domain/core/marriage_certificate.dart';
 import 'package:wesagnkunet/infrastructure/core/serializers.dart';
 

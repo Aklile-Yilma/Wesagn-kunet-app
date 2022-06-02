@@ -6,9 +6,7 @@ import 'package:wesagnkunet/domain/auth/Client.dart';
 import 'package:wesagnkunet/domain/core/certificate.dart';
 import 'package:wesagnkunet/domain/core/marriage_certificate.dart';
 import 'package:wesagnkunet/infrastructure/auth/serializers.dart';
-import 'package:wesagnkunet/infrastructure/core/network/Serializer.dart';
-
-import '../../domain/auth/user.dart';
+import 'package:wesagnkunet/infrastructure/lib/network/Serializer.dart';
 
 
 class CertificateDetailSerializer extends Serializer<CertificateDetail>{
