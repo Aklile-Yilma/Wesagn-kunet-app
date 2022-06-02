@@ -41,7 +41,17 @@ class SignupView(APIView):
 class ClientViewSet(viewsets.ModelViewSet):
 	queryset=Client.objects.all()
 	serializer_class=ClientSerializer
-	permission_classes=[permissions.IsAdminUser]
+	permission_classes=[permissions.IsAuthenticated]
+
+	def list(self, request):
+
+		if(request.user.is_admin):
+			return super().list(request)
+
+		instance = Client.objects.get(user=request.user)
+		return Response(
+				self.serializer_class(instance).data
+			)
 
 
 

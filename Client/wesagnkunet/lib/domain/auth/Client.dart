@@ -1,10 +1,12 @@
 
 
 
+import 'package:wesagnkunet/domain/auth/user.dart';
+
 class Client{
 
   int pk;
-  int user;
+  User user;
 
   String firstName;
   String middleName;
@@ -19,7 +21,6 @@ class Client{
   String nationality;
 
   String phoneNumber;
-  String photoUrl;
 
   Client(
     this.pk,
@@ -34,7 +35,6 @@ class Client{
     this.country,
     this.nationality,
     this.phoneNumber,
-    this.photoUrl
   );
 
 }

@@ -1,7 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:wesagnkunet/domain/auth/Client.dart';
+import 'package:wesagnkunet/domain/auth/signup_response.dart';
+import 'package:wesagnkunet/domain/auth/user.dart';
 import 'package:wesagnkunet/infrastructure/auth/requests.dart';
 
-import 'package:wesagnkunet/infrastructure/core/network/AplClient.dart';
+import 'package:wesagnkunet/infrastructure/lib/network/AplClient.dart';
 import 'package:wesagnkunet/Config.dart' as config;
 
 
@@ -10,6 +13,21 @@ String PASSWORD = "temppasswd";
 String WRONG_PASSWORD = "wrong_password";
 
 String EXPECTED_TOKEN = "38c28b019bf88949a0dc86cc88ce1c5a172042b4";
+
+Client REQUEST_CLIENT = Client(
+                          -1,
+                          User(-1, "Nas", "nas@massapeal.com", password: "temppasswd"),
+                          "Nasir",
+                          "None",
+                          "Jones",
+                          "MALE",
+                          DateTime.now(),
+                          "A",
+                          "Addis Ababa",
+                          "Ethiopia",
+                          "Ethiopian",
+                          "+251912848343"
+                        );
 
 
 testLogin(ApiClient client) async{
@@ -34,6 +52,18 @@ testFailedLogin(ApiClient client) async{
 }
 
 
+testSignup(ApiClient client) async{
+
+  SignupResponse response = await client.execute(SignupRequest(REQUEST_CLIENT));
+
+  expect(response.token, isNot(null));
+  expect(response.client.firstName, REQUEST_CLIENT.firstName);
+  expect(response.client.user.email, REQUEST_CLIENT.user.email);
+  expect(response.client.user.password, null);
+
+}
+
+
 void main() {
   
 
@@ -47,6 +77,10 @@ void main() {
 
     test("Failed Login Test", () async {
       await testFailedLogin(apiClient);
+    });
+
+    test("Signup Test", () async{
+      await testSignup(apiClient);
     });
 
   });
