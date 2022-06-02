@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 
 // void main() {
@@ -7,7 +5,7 @@ import 'package:flutter/material.dart';
 // }
 
 class Settings extends StatelessWidget {
-  const Settings({super.key});
+  const Settings({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +22,6 @@ class Settings extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
                 color: Color.fromARGB(255, 110, 160, 201),
-
-               
               ),
             )),
         Positioned(
@@ -33,10 +29,7 @@ class Settings extends StatelessWidget {
           left: _deviceWidth * .02,
           bottom: _deviceHeight * .7,
           right: _deviceWidth * .5,
-          child:
-              
-
-              Image.asset("images/logo-primary.png"),
+          child: Image.asset("images/logo-primary.png"),
         ),
         Positioned(
           top: _deviceHeight * .35,

@@ -6,7 +6,7 @@ import 'package:flutter/gestures.dart';
 // }
 
 class SignUpPage extends StatelessWidget {
-  const SignUpPage({super.key});
+  const SignUpPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
