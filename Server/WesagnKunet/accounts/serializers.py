@@ -66,11 +66,14 @@ class RegisterSerializer(serializers.Serializer):
 class UserDetailsSerializer(serializers.ModelSerializer):
 	class Meta:
 		model=get_user_model()
-		fields=('pk', 'username', 'email', 'is_admin', 'is_staff',)
+		fields=('pk', 'username', 'email')
 		read_only_fields=('email',)
 
 
 class ClientSerializer(serializers.ModelSerializer):
+
+	user = UserDetailsSerializer()
+
 	class Meta:
 		model=Client
 		fields=('pk', 'user', 'first_name', 'middle_name', 'last_name', 'sex', 'date_of_birth', 'blood_type', 'city', 'country', 'nationality', 'phone_number')
