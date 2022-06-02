@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:wesagnkunet/infrastructure/core/network/AplClient.dart';
-import 'package:wesagnkunet/infrastructure/core/network/Request.dart';
+import 'package:wesagnkunet/infrastructure/lib/network/AplClient.dart';
+import 'package:wesagnkunet/infrastructure/lib/network/Request.dart';
 
 
 

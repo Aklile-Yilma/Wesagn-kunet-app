@@ -6,7 +6,7 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:wesagnkunet/domain/core/marriage_certificate.dart';
-import 'package:wesagnkunet/infrastructure/core/network/AplClient.dart';
+import 'package:wesagnkunet/infrastructure/lib/network/AplClient.dart';
 import 'package:wesagnkunet/infrastructure/core/requests.dart';
 import 'package:wesagnkunet/Config.dart' as config;
 
@@ -30,7 +30,6 @@ testMarraigeCertificates(ApiClient client) async{
 void main(){
 
   ApiClient client = ApiClient(config.API_HOST, baseUrl: config.API_PATH, token: TOKEN);
-
 
   group("Core Requests Tests", (){
 
