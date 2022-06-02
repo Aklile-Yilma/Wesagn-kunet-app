@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 
-// void main() {
-//   runApp(SignUpPage());
-// }
-
 class SignUpPage extends StatelessWidget {
   const SignUpPage({Key? key}) : super(key: key);
 
@@ -44,8 +40,6 @@ class SignUpPage extends StatelessWidget {
             TextField(
               decoration: InputDecoration(
                 labelText: "Password",
-                // suffixIcon:Icon(
-                //   icon: Icon(Icons.visibility_off))
               ),
             ),
             TextButton(
