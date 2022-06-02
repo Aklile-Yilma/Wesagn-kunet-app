@@ -2,10 +2,8 @@ import 'dart:html';
 
 import 'package:flutter/material.dart';
 
-
-
-class RecoverPassword extends StatelessWidget {
-  const RecoverPassword({super.key});
+class ChangePassword extends StatelessWidget {
+  const ChangePassword({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +20,6 @@ class RecoverPassword extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(30),
               color: Color.fromARGB(255, 110, 160, 201),
-
-              
             ),
           )),
       Positioned(
@@ -31,19 +27,15 @@ class RecoverPassword extends StatelessWidget {
         left: _deviceWidth * .01,
         bottom: _deviceHeight * .7,
         right: _deviceWidth * .7,
-        child:
-           
-
-            Image.asset("images/logo-primary.png"),
+        child: Image.asset("images/logo-primary.png"),
       ),
       Positioned(
           top: _deviceHeight * .1,
           left: _deviceWidth * .3,
-         
           child: Column(
             children: [
               Text(
-                "Recover your password",
+                "Create new password",
                 style: TextStyle(
                   fontSize: 25,
                   fontWeight: FontWeight.bold,
@@ -51,14 +43,14 @@ class RecoverPassword extends StatelessWidget {
                 ),
               ),
               Text(
-                "Enter your credential which should ",
+                "Create a new password and never  ",
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.bold,
                   color: Color.fromARGB(255, 233, 234, 236),
                 ),
               ),
-              Text(" we use to recover your account",
+              Text(" share it with anyone for your safety",
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
@@ -94,7 +86,7 @@ class RecoverPassword extends StatelessWidget {
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                           gapPadding: _deviceHeight * .2),
-                      labelText: "Email address"),
+                      labelText: "New password"),
                 ),
                 SizedBox(
                   height: _deviceHeight * .04,
@@ -104,7 +96,7 @@ class RecoverPassword extends StatelessWidget {
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                           gapPadding: _deviceHeight * .02),
-                      labelText: "Phone number"),
+                      labelText: "Confirm your password"),
                 ),
                 SizedBox(
                   height: _deviceHeight * .1,
@@ -120,7 +112,7 @@ class RecoverPassword extends StatelessWidget {
                       padding: MaterialStateProperty.all<EdgeInsets>(
                           EdgeInsets.all(_deviceWidth * .05))),
                   child: Text(
-                    "Recover password",
+                    "Change password",
                     style: TextStyle(fontSize: 15),
                   ),
                 ),
@@ -130,3 +122,4 @@ class RecoverPassword extends StatelessWidget {
     ]));
   }
 }
+//   
