@@ -86,6 +86,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "go_router",
+      "rootUri": "file:///home/aklile/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/go_router-3.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "http",
       "rootUri": "file:///home/aklile/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/http-0.13.4",
       "packageUri": "lib/",
@@ -106,6 +112,12 @@
     {
       "name": "lints",
       "rootUri": "file:///home/aklile/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/lints-1.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "logging",
+      "rootUri": "file:///home/aklile/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/logging-1.0.2",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -290,7 +302,7 @@
       "languageVersion": "2.16"
     }
   ],
-  "generated": "2022-06-02T20:57:59.458694Z",
+  "generated": "2022-06-03T00:02:14.536377Z",
   "generator": "pub",
   "generatorVersion": "2.16.1"
 }
