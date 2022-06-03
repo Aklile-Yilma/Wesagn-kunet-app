@@ -9,6 +9,12 @@ from drf_yasg import openapi
 from WesagnKunet import settings
 from accounts.views import SignupView
 
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+    TokenVerifyView,
+)
+
 schema_view = get_schema_view(
    openapi.Info(
       title="Snippets API",
@@ -24,6 +30,9 @@ schema_view = get_schema_view(
 
 
 urlpatterns = [
+    path('api/v1/token/create/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/v1/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/v1/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
     path('api/v1/admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     path('api/v1/', include('accounts.urls')),

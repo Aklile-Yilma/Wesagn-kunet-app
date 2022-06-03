@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from datetime import timedelta
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
 		'rest_framework',
 		'rest_framework.authtoken',
 		'rest_auth',
+		'rest_framework_simplejwt',
 
 		'allauth',
 		'allauth.account',
@@ -63,11 +65,18 @@ REST_FRAMEWORK = { 'DEFAULT_PERMISSION_CLASSES': [
 	'rest_framework.permissions.AllowAny',
 	],
 	'DEFAULT_AUTHENTICATION_CLASSES': [
-		'rest_framework.authentication.SessionAuthentication', 
-		'rest_framework.authentication.TokenAuthentication', 
+		# 'rest_framework.authentication.SessionAuthentication', 
+		# 'rest_framework.authentication.TokenAuthentication', 
+		'rest_framework_simplejwt.authentication.JWTAuthentication',
 		],
-	# 'USER_DETAILS_SERIALIZER': 'users.serializers.UserDetailsSerializer',
+	'NON_FIELD_ERRORS_KEY':'errors',
 	}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=2),
+	'AUTH_HEADER_TYPES': ('Bearer',),
+}
 
 
 AUTHENTICATION_BACKENDS = [
