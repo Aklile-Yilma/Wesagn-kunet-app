@@ -89,26 +89,46 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
-          Positioned(
-              top: _deviceHeight * 0.25,
-              left: _deviceHeight * 0.1,
-              child: _box(_deviceWidth * 0.3, _deviceHeight * 0.2,
-                  "/images/home_page/stork.png", "Birth Certificate")),
-          Positioned(
-              top: _deviceHeight * 0.25,
-              left: _deviceWidth * 0.6,
-              child: _box(_deviceWidth * 0.3, _deviceHeight * 0.2,
-                  "/images/home_page/marriage.png", "Marriage Certificate")),
-          Positioned(
-              top: _deviceHeight * 0.6,
-              left: _deviceHeight * 0.1,
-              child: _box(_deviceWidth * 0.3, _deviceHeight * 0.2,
-                  "/images/home_page/casket.png", "Death Certificate")),
-          Positioned(
-              top: _deviceHeight * 0.6,
-              left: _deviceWidth * 0.6,
-              child: _box(_deviceWidth * 0.3, _deviceHeight * 0.2,
-                  "/images/home_page/marriage.png", "Birth Certificate")),
+          GestureDetector(
+            onTap: () {
+              context.go("/birthForm");
+            },
+            child: Positioned(
+                top: _deviceHeight * 0.25,
+                left: _deviceHeight * 0.1,
+                child: _box(_deviceWidth * 0.3, _deviceHeight * 0.2,
+                    "/images/home_page/stork.png", "Birth Certificate")),
+          ),
+          GestureDetector(
+            onTap: () {
+              context.go("marriageForm");
+            },
+            child: Positioned(
+                top: _deviceHeight * 0.25,
+                left: _deviceWidth * 0.6,
+                child: _box(_deviceWidth * 0.3, _deviceHeight * 0.2,
+                    "/images/home_page/marriage.png", "Marriage Certificate")),
+          ),
+          GestureDetector(
+            onTap: () {
+              context.go("deathForm");
+            },
+            child: Positioned(
+                top: _deviceHeight * 0.6,
+                left: _deviceHeight * 0.1,
+                child: _box(_deviceWidth * 0.3, _deviceHeight * 0.2,
+                    "/images/home_page/casket.png", "Death Certificate")),
+          ),
+          GestureDetector(
+            onTap: () {
+              context.go("birthForm");
+            },
+            child: Positioned(
+                top: _deviceHeight * 0.6,
+                left: _deviceWidth * 0.6,
+                child: _box(_deviceWidth * 0.3, _deviceHeight * 0.2,
+                    "/images/home_page/marriage.png", "Birth Certificate")),
+          ),
         ]),
       ),
       bottomNavigationBar: navBar(context, _deviceWidth, _deviceHeight),

@@ -40,6 +40,7 @@ class LoginPage extends StatelessWidget {
                       }
                       return null;
                     },
+                    controller: _controller,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'user@example.com',
@@ -53,6 +54,7 @@ class LoginPage extends StatelessWidget {
                         }
                         return null;
                       },
+                      controller: _controller,
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Password',
