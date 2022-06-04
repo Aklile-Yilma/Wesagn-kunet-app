@@ -3,6 +3,7 @@ from rest_framework import permissions
 from .serializers import UserDetailsSerializer, ClientSerializer, RegisterSerializer
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model
+from django.core.exceptions import PermissionDenied
 from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -47,19 +48,20 @@ class SignupView(APIView):
 class ClientViewSet(viewsets.ModelViewSet):
 	queryset=Client.objects.all()
 	serializer_class=ClientSerializer
-	permission_classes=[permissions.IsAuthenticated]
+	permission_classes=[permissions.IsAdminUser]
 
-	def list(self, request):
 
-		if(request.user.is_admin):
-			return super().list(request)
+class MyAccountView(APIView):
 
+	
+	def get(self, request):
+		print(request.user)
+		if not request.user.is_authenticated:
+			raise PermissionDenied()
+		
 		instance = Client.objects.get(user=request.user)
 		return Response(
-				self.serializer_class(instance).data
+				ClientSerializer(instance=instance).data
 			)
-
-
-
 
 

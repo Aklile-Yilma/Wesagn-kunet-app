@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:go_router/go_router.dart';
 import 'package:wesagnkunet/presentation/routes.dart';
 import 'package:wesagnkunet/presentation/core/welcomeScreen.dart';
@@ -23,4 +24,10 @@ class MainApp extends StatelessWidget{
   }
 
 
+=======
+import 'package:wesagnkunet/presentation/auth/SignUpPage.dart';
+
+void main() {
+  runApp(MaterialApp(home: SignUpPage()));
+>>>>>>> 5962724e9da9528cb145708414a2680fb2bcb3fe
 }
