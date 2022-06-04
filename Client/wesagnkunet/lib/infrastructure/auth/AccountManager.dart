@@ -3,23 +3,24 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class AccountManager{
 
-	static const String accountPrefix = "lib.auth.data.AccountManager.Username";
+	static const String tokenKey = "lib.auth.data.AccountManager.Token";
 
 
-	static void addToken(String username, String token) async{
+	static setToken(String token) async{
 		
 		SharedPreferences prefs = await SharedPreferences.getInstance();
 		prefs.setString(
-			"$accountPrefix.$username",
+			tokenKey,
 			token
 		);
 
 	}
 
-	static void getToken(String username) async{
+	static Future<String?> getToken() async{
 
 		SharedPreferences prefs = await SharedPreferences.getInstance();
-		prefs.getString("$accountPrefix}.$username");
+		return prefs.getString(tokenKey);
+    
 
 	}
 

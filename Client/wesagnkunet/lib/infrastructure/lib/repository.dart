@@ -1,7 +1,7 @@
 
 
 
-abstract class Repository<I, O>{
+abstract class RepositoryCall<I, O>{
 
 	void storeCache(O value);
 
