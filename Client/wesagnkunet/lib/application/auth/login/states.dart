@@ -16,7 +16,7 @@ class LoginState extends Equatable{
 
   LoginState([
       this.status = LoginStatus.none, 
-      this.apiException = null
+      this.apiException
     ]){
     log("Received Status: $status");
     
