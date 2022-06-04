@@ -1,5 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:wesagnkunet/application/core/home_bloc.dart';
+
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -53,90 +58,125 @@ class HomePage extends StatelessWidget {
           title: const Text(
         "Wesagn Kunet",
       )),
-      body: SizedBox(
-        height: _deviceHeight,
-        child: Stack(children: [
-          Container(
-            width: _deviceWidth,
-            height: _deviceHeight * 0.3,
-            alignment: Alignment.centerLeft,
-            padding: EdgeInsets.only(
-                top: _deviceHeight * 0.05, left: _deviceWidth * 0.05),
-            color: const Color.fromRGBO(0, 0, 139, 1),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Column(children: [
-                  Align(
-                      alignment: Alignment.centerLeft,
-                      child: _text("Good Morning", [255, 255, 255], 30)),
-                  Align(
-                      alignment: Alignment.centerLeft,
-                      child: _text("UserName", [255, 255, 255], 20)),
-                ]),
-              ],
-            ),
-          ),
-          Positioned(
-            top: _deviceHeight * 0.3,
-            child: SizedBox(
-              height: _deviceHeight * 0.7,
-              width: _deviceWidth,
-              child: Image.asset(
-                "assets/images/texture.jpg",
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          GestureDetector(
-            onTap: () {
-              context.go("/birthForm");
-            },
-            child: Positioned(
-                top: _deviceHeight * 0.25,
-                left: _deviceHeight * 0.1,
-                child: _box(_deviceWidth * 0.3, _deviceHeight * 0.2,
-                    "/images/home_page/stork.png", "Birth Certificate")),
-          ),
-          GestureDetector(
-            onTap: () {
-              context.go("marriageForm");
-            },
-            child: Positioned(
-                top: _deviceHeight * 0.25,
-                left: _deviceWidth * 0.6,
-                child: _box(_deviceWidth * 0.3, _deviceHeight * 0.2,
-                    "/images/home_page/marriage.png", "Marriage Certificate")),
-          ),
-          GestureDetector(
-            onTap: () {
-              context.go("deathForm");
-            },
-            child: Positioned(
-                top: _deviceHeight * 0.6,
-                left: _deviceHeight * 0.1,
-                child: _box(_deviceWidth * 0.3, _deviceHeight * 0.2,
-                    "/images/home_page/casket.png", "Death Certificate")),
-          ),
-          GestureDetector(
-            onTap: () {
-              context.go("birthForm");
-            },
-            child: Positioned(
-                top: _deviceHeight * 0.6,
-                left: _deviceWidth * 0.6,
-                child: _box(_deviceWidth * 0.3, _deviceHeight * 0.2,
-                    "/images/home_page/marriage.png", "Birth Certificate")),
-          ),
-        ]),
+      body: BlocProvider<HomeBloc>(
+        create: (context){
+          return HomeBloc()..add(HomeInit());
+        },
+
+        child: BlocBuilder<HomeBloc, HomeState>(
+
+          
+          builder: (context, state) {
+
+            log("Building For state: ${state.status}");
+
+            if(state.status == HomeStatus.loading){
+              return Stack(
+                children: const [
+                  Center(
+                    child: CircularProgressIndicator(),
+                  )
+                ],
+              );
+            }
+
+            return SizedBox(
+              height: _deviceHeight,
+              child: Stack(children: [
+                Container(
+                  width: _deviceWidth,
+                  height: _deviceHeight * 0.3,
+                  alignment: Alignment.centerLeft,
+                  padding: EdgeInsets.only(
+                      top: _deviceHeight * 0.05, left: _deviceWidth * 0.05),
+                  color: const Color.fromRGBO(0, 0, 139, 1),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Column(children: [
+                        Align(
+                            alignment: Alignment.centerLeft,
+                            child: _text("Good Morning", [255, 255, 255], 30)),
+                        Align(
+                            alignment: Alignment.centerLeft,
+                            child: _text("${state.client!.firstName} ${state.client!.middleName}", [255, 255, 255], 20)),
+                      ]),
+                    ],
+                  ),
+                ),
+                Positioned(
+                  top: _deviceHeight * 0.3,
+                  child: SizedBox(
+                    height: _deviceHeight * 0.7,
+                    width: _deviceWidth,
+                    child: Image.asset(
+                      "assets/images/texture.jpg",
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Positioned(
+                    top: _deviceHeight * 0.25,
+                    left: _deviceHeight * 0.1,
+                    child: GestureDetector(
+                      onTap: () {
+                        context.go("/forms/birthform");
+                      },
+                      child: _box(_deviceWidth * 0.3, _deviceHeight * 0.2,
+                          "/images/home_page/stork.png", "Birth Certificate"),
+                    )),
+                Positioned(
+                    top: _deviceHeight * 0.25,
+                    left: _deviceWidth * 0.6,
+                    child: GestureDetector(
+                      onTap: () {
+                        context.go("forms/marriageForm");
+                      },
+                      child: _box(_deviceWidth * 0.3, _deviceHeight * 0.2,
+                          "/images/home_page/marriage.png", "Marriage Certificate"),
+                    )),
+                Positioned(
+                    top: _deviceHeight * 0.6,
+                    left: _deviceHeight * 0.1,
+                    child: GestureDetector(
+                      onTap: () {
+                        context.go("forms/deathForm");
+                      },
+                      child: _box(_deviceWidth * 0.3, _deviceHeight * 0.2,
+                          "/images/home_page/casket.png", "Death Certificate"),
+                    )),
+                Builder(
+                  builder: (context) {
+
+                    if(!(state.client!.user.isAdmin)){
+                      return SizedBox.shrink();
+                    }
+
+                    return Positioned(
+                        top: _deviceHeight * 0.6,
+                        left: _deviceWidth * 0.6,
+                        child: GestureDetector(
+                          onTap: () {
+                            context.go("/auth");
+                          },
+                          child: _box(_deviceWidth * 0.3, _deviceHeight * 0.2,
+                              "/images/home_page/admin.png", "Birth Certificate"),
+                        ));
+                  }
+                ),
+              ]),
+            );
+          }
+        ),
       ),
-      bottomNavigationBar: navBar(context, _deviceWidth, _deviceHeight),
+      bottomNavigationBar: _navBar(context, _deviceWidth, _deviceHeight),
     );
   }
 }
 
-Widget navBar(BuildContext context, double _deviceWidth, double _deviceHeight) {
+Widget _navBar(
+    BuildContext context, double _deviceWidth, double _deviceHeight) {
   return SizedBox(
     width: _deviceWidth,
     height: _deviceHeight * 0.1,
