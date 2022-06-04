@@ -7,7 +7,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wesagnkunet/domain/auth/Client.dart';
 import 'package:wesagnkunet/infrastructure/auth/providers.dart';
-import 'package:wesagnkunet/infrastructure/auth/repsitories.dart';
+import 'package:wesagnkunet/infrastructure/auth/repositories.dart';
 import 'package:wesagnkunet/infrastructure/lib/network/AplClient.dart';
 
 abstract class HomeEvent extends Equatable{

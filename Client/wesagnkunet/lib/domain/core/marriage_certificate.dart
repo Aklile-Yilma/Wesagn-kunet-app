@@ -21,13 +21,15 @@ class MarriageCertificate{
   Spouse husband;
   CertificateDetail detail;
   DateTime marriageDate;
+  bool verified;
 
   MarriageCertificate(
     this.id,
     this.wife,
     this.husband,
     this.detail,
-    this.marriageDate
+    this.marriageDate,
+    this.verified
   );
 
 }

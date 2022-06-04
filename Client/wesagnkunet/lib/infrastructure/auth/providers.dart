@@ -1,7 +1,7 @@
 
 
 import 'package:wesagnkunet/infrastructure/auth/AccountManager.dart';
-import 'package:wesagnkunet/infrastructure/auth/repsitories.dart';
+import 'package:wesagnkunet/infrastructure/auth/repositories.dart';
 import 'package:wesagnkunet/infrastructure/core/providers.dart';
 
 class AuthInfrastractureProvider{

@@ -15,15 +15,9 @@ String USERNAME = "Nas";
 String PASSWORD = "temppasswd";
 String WRONG_PASSWORD = "wrong_password";
 
-JWTToken EXPECTED_TOKEN = JWTToken(
-                              "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY1NDUxMDIxMywiaWF0IjoxNjU0MzM3NDEzLCJqdGkiOiIzNmIxOTQ4YTUwOTA0Y2M5ODIzOTVjNDQ1MDQ4ZmFlYSIsInVzZXJfaWQiOjZ9.CJZQvbUtqzOTkbo2wMhYYBT7EAiS_pqwa2HBcYE1ZPs", 
-                              "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU0NDIzODEzLCJpYXQiOjE2NTQzMzc0MTMsImp0aSI6IjdlMDlhMWZiYjM4MjRjZjM5NTVmNDNjZGY5MjgyM2Y1IiwidXNlcl9pZCI6Nn0.6Lryb4uJ6ua_RToVjkDkU9HMd1QULOipFGT8vq-43qI"
-                      );
-
-
 Client REQUEST_CLIENT = Client(
                           -1,
-                          User(-1, "Nas", "nas@massapeal.com", password: "temppasswd"),
+                          User(-1, "Nas", "nas@massapeal.com", false, password: "temppasswd",),
                           "Nasir",
                           "None",
                           "Jones",

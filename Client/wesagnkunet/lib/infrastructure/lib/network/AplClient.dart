@@ -55,6 +55,15 @@ class ApiClient {
     );
   }
 
+  Future<http.Response> _patch(Request request, Map<String, String> headers) async{
+    return http.patch(
+       _getCompleteUrl(request.getUrl()),
+      body: jsonEncode(request.getPostData()),
+      headers: headers
+    );
+
+  }
+
   Future<T> execute<T>(Request<T> request) async{
 
     Map<String, String> headers = _getCompleteHeader(request.getHeaders());
@@ -68,6 +77,10 @@ class ApiClient {
 
       case Method.post:
         response = await _post(request, headers);
+        break;
+
+      case Method.patch:
+        response = await _patch(request, headers);
         break;
     }
 
