@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:wesagnkunet/presentation/pages/HomePage.dart';
+import 'package:wesagnkunet/presentation/auth/SignUpPage.dart';
 
 void main() {
-  runApp(MaterialApp(home: HomePage()));
+  runApp(MaterialApp(home: SignUpPage()));
 }
