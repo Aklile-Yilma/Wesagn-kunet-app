@@ -5,14 +5,17 @@ import 'dart:convert';
 
 import 'package:wesagnkunet/domain/auth/Client.dart';
 import 'package:wesagnkunet/domain/auth/signup_response.dart';
+import 'package:wesagnkunet/domain/auth/token.dart';
 import 'package:wesagnkunet/infrastructure/auth/serializers.dart';
 import 'package:wesagnkunet/infrastructure/lib/network/Request.dart';
 
 
-class LoginRequest extends Request<String>{
+class LoginRequest extends Request<JWTToken>{
+
+  JWTSerializer serializer = JWTSerializer();
 
 	LoginRequest(username, password): super(
-																				"/auth/login/",
+																				"/token/create/",
 																				method: Method.post,
 																				postParams: {
 																					"username": username,
@@ -21,8 +24,8 @@ class LoginRequest extends Request<String>{
 																			 );
 
 	@override
-	String deserializeObject(response) {
-		return jsonDecode(response)["key"];
+	JWTToken deserializeObject(response) {
+		return serializer.deSerialize(jsonDecode(response));
 	}
 
 }
@@ -30,8 +33,10 @@ class LoginRequest extends Request<String>{
 
 class SignupRequest extends Request<SignupResponse>{
   
+  JWTSerializer jwtSerializer = JWTSerializer();
 	ClientSerializer clientSerializer = ClientSerializer();
 	Client client;
+
 
 	SignupRequest(this.client):
 	super(
@@ -55,7 +60,7 @@ class SignupRequest extends Request<SignupResponse>{
 		
 		Map<String, dynamic> json = jsonDecode(response);
 		return SignupResponse(
-											json["token"],
+											jwtSerializer.deSerialize(json["token"]),
 											clientSerializer.deSerialize(json["client"])
 										);
   }

@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:wesagnkunet/domain/auth/Client.dart';
 import 'package:wesagnkunet/domain/auth/signup_response.dart';
+import 'package:wesagnkunet/domain/auth/token.dart';
 import 'package:wesagnkunet/domain/auth/user.dart';
 import 'package:wesagnkunet/infrastructure/auth/requests.dart';
 
@@ -8,11 +11,15 @@ import 'package:wesagnkunet/infrastructure/lib/network/AplClient.dart';
 import 'package:wesagnkunet/Config.dart' as config;
 
 
-String USERNAME = "osama";
+String USERNAME = "Nas";
 String PASSWORD = "temppasswd";
 String WRONG_PASSWORD = "wrong_password";
 
-String EXPECTED_TOKEN = "38c28b019bf88949a0dc86cc88ce1c5a172042b4";
+JWTToken EXPECTED_TOKEN = JWTToken(
+                              "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY1NDUxMDIxMywiaWF0IjoxNjU0MzM3NDEzLCJqdGkiOiIzNmIxOTQ4YTUwOTA0Y2M5ODIzOTVjNDQ1MDQ4ZmFlYSIsInVzZXJfaWQiOjZ9.CJZQvbUtqzOTkbo2wMhYYBT7EAiS_pqwa2HBcYE1ZPs", 
+                              "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU0NDIzODEzLCJpYXQiOjE2NTQzMzc0MTMsImp0aSI6IjdlMDlhMWZiYjM4MjRjZjM5NTVmNDNjZGY5MjgyM2Y1IiwidXNlcl9pZCI6Nn0.6Lryb4uJ6ua_RToVjkDkU9HMd1QULOipFGT8vq-43qI"
+                      );
+
 
 Client REQUEST_CLIENT = Client(
                           -1,
@@ -32,8 +39,11 @@ Client REQUEST_CLIENT = Client(
 
 testLogin(ApiClient client) async{
 
-  String? token = await client.execute(LoginRequest(USERNAME, PASSWORD));
-  expect(token, EXPECTED_TOKEN);
+  JWTToken? token = await client.execute(LoginRequest(USERNAME, PASSWORD));
+  expect(token, isNot(null));
+  // expect(token?.refresh, EXPECTED_TOKEN.refresh);
+  // expect(token?.access, EXPECTED_TOKEN.access);
+
 
 }
 
@@ -46,7 +56,7 @@ testFailedLogin(ApiClient client) async{
     fail("Exception not thrown");
   } on ApiException catch (e){
     failed = true;
-    expect(e.statusCode, 400);
+    expect(e.statusCode, 401);
   }
   expect(failed, true);
 }

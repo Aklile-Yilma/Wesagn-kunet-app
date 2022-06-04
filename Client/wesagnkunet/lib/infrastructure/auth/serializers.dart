@@ -1,6 +1,26 @@
 import 'package:wesagnkunet/domain/auth/Client.dart';
+import 'package:wesagnkunet/domain/auth/token.dart';
 import 'package:wesagnkunet/domain/auth/user.dart';
 import 'package:wesagnkunet/infrastructure/lib/network/Serializer.dart';
+
+
+
+class JWTSerializer extends Serializer<JWTToken>{
+
+  @override
+  JWTToken deSerialize(json) {
+    return JWTToken(
+      json["refresh"],
+      json["access"]
+    );
+  }
+
+  @override
+  serialize(JWTToken instance) {
+    throw UnimplementedError();
+  }
+
+}
 
 
 class UserSerializer extends Serializer<User>{
