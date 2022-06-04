@@ -17,22 +17,22 @@ class CertificateListScreen extends StatelessWidget {
           children: [
             CertificatesListView(
               path: "marriage_certificates",
-              image_path: "assets/wkimages/marriage.webp",
+              image_path: "assets/images/marriage.webp",
               title: "Birth certificates",
             ),
             CertificatesListView(
               path: "marriage_certificates",
-              image_path: "assets/wkimages/marriage.webp",
+              image_path: "assets/images/marriage.webp",
               title: "Marriage Certificates",
             ),
             CertificatesListView(
               path: "marriage_certificates",
-              image_path: "assets/wkimages/marriage.webp",
+              image_path: "assets/images/death.jpg",
               title: "Death Certificates",
             ),
             CertificatesListView(
               path: "marriage_certificates",
-              image_path: "assets/wkimages/marriage.webp",
+              image_path: "assets/images/marriage.webp",
               title: "Marriage Certificates",
             ),
           ],

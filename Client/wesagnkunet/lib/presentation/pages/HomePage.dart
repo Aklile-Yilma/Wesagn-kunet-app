@@ -89,54 +89,55 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
-          GestureDetector(
-            onTap: () {
-              context.go("/birthForm");
-            },
-            child: Positioned(
-                top: _deviceHeight * 0.25,
-                left: _deviceHeight * 0.1,
+          Positioned(
+              top: _deviceHeight * 0.25,
+              left: _deviceHeight * 0.1,
+              child: GestureDetector(
+                onTap: () {
+                  context.go("/forms/birthform");
+                },
                 child: _box(_deviceWidth * 0.3, _deviceHeight * 0.2,
-                    "/images/home_page/stork.png", "Birth Certificate")),
-          ),
-          GestureDetector(
-            onTap: () {
-              context.go("marriageForm");
-            },
-            child: Positioned(
-                top: _deviceHeight * 0.25,
-                left: _deviceWidth * 0.6,
+                    "/images/home_page/stork.png", "Birth Certificate"),
+              )),
+          Positioned(
+              top: _deviceHeight * 0.25,
+              left: _deviceWidth * 0.6,
+              child: GestureDetector(
+                onTap: () {
+                  context.go("forms/marriageForm");
+                },
                 child: _box(_deviceWidth * 0.3, _deviceHeight * 0.2,
-                    "/images/home_page/marriage.png", "Marriage Certificate")),
-          ),
-          GestureDetector(
-            onTap: () {
-              context.go("deathForm");
-            },
-            child: Positioned(
-                top: _deviceHeight * 0.6,
-                left: _deviceHeight * 0.1,
+                    "/images/home_page/marriage.png", "Marriage Certificate"),
+              )),
+          Positioned(
+              top: _deviceHeight * 0.6,
+              left: _deviceHeight * 0.1,
+              child: GestureDetector(
+                onTap: () {
+                  context.go("forms/deathForm");
+                },
                 child: _box(_deviceWidth * 0.3, _deviceHeight * 0.2,
-                    "/images/home_page/casket.png", "Death Certificate")),
-          ),
-          GestureDetector(
-            onTap: () {
-              context.go("birthForm");
-            },
-            child: Positioned(
-                top: _deviceHeight * 0.6,
-                left: _deviceWidth * 0.6,
+                    "/images/home_page/casket.png", "Death Certificate"),
+              )),
+          Positioned(
+              top: _deviceHeight * 0.6,
+              left: _deviceWidth * 0.6,
+              child: GestureDetector(
+                onTap: () {
+                  context.go("/auth");
+                },
                 child: _box(_deviceWidth * 0.3, _deviceHeight * 0.2,
-                    "/images/home_page/marriage.png", "Birth Certificate")),
-          ),
+                    "/images/home_page/admin.png", "Birth Certificate"),
+              )),
         ]),
       ),
-      bottomNavigationBar: navBar(context, _deviceWidth, _deviceHeight),
+      bottomNavigationBar: _navBar(context, _deviceWidth, _deviceHeight),
     );
   }
 }
 
-Widget navBar(BuildContext context, double _deviceWidth, double _deviceHeight) {
+Widget _navBar(
+    BuildContext context, double _deviceWidth, double _deviceHeight) {
   return SizedBox(
     width: _deviceWidth,
     height: _deviceHeight * 0.1,

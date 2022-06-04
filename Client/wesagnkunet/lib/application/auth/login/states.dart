@@ -14,10 +14,12 @@ class LoginState extends Equatable{
 
 	LoginStatus status = LoginStatus.none;
 
-  LoginState({status, this.apiException}){
-    if(status != null){
-      status = status;
-    }
+  LoginState([
+      this.status = LoginStatus.none, 
+      this.apiException = null
+    ]){
+    log("Received Status: $status");
+    
   }
 
 	@override
