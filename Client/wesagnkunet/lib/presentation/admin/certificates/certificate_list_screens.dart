@@ -1,0 +1,75 @@
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+import 'components/bottom_nav.dart';
+
+class CertificateListScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colors.lightBlueAccent,
+        appBar: AppBar(
+          title: Text("Certificates"),
+          centerTitle: true,
+        ),
+        body: ListView(
+          padding: EdgeInsets.all(5),
+          children: [
+            CertificatesListView(
+              path: "marriage_certificates",
+              image_path: "assets/wkimages/marriage.webp",
+              title: "Birth certificates",
+            ),
+            CertificatesListView(
+              path: "marriage_certificates",
+              image_path: "assets/wkimages/marriage.webp",
+              title: "Marriage Certificates",
+            ),
+            CertificatesListView(
+              path: "marriage_certificates",
+              image_path: "assets/wkimages/marriage.webp",
+              title: "Death Certificates",
+            ),
+            CertificatesListView(
+              path: "marriage_certificates",
+              image_path: "assets/wkimages/marriage.webp",
+              title: "Marriage Certificates",
+            ),
+          ],
+        ),
+        bottomNavigationBar: CustomeBottomNav());
+  }
+}
+
+class CertificatesListView extends StatelessWidget {
+  final String path;
+  final String image_path;
+  final String title;
+
+  CertificatesListView(
+      {required this.path, required this.image_path, required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () => context.go(path),
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Card(
+          elevation: 10,
+          child: Container(
+            child: Column(children: [
+              Image(
+                image: AssetImage(
+                  image_path,
+                ),
+                fit: BoxFit.cover,
+              ),
+              Text(title),
+            ]),
+          ),
+        ),
+      ),
+    );
+  }
+}

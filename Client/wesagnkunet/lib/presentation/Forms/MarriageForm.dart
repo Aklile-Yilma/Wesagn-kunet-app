@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class MarriageForm extends StatelessWidget {
   MarriageForm({Key? key}) : super(key: key);
@@ -55,6 +56,7 @@ class MarriageForm extends StatelessWidget {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('Processing Data')),
                 );
+                context.go("/wifeInformation");
               }
             },
             child: const Text(
@@ -99,6 +101,7 @@ class MarriageForm extends StatelessWidget {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Processing Data')),
                   );
+                  context.go("husbandInformation");
                 }
               },
               child: const Text(
@@ -144,6 +147,7 @@ class MarriageForm extends StatelessWidget {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Processing Data')),
                   );
+                  context.go("/");
                 }
               },
               child: const Text(
@@ -168,6 +172,7 @@ class MarriageForm extends StatelessWidget {
         }
         return null;
       },
+      controller: _controller,
       decoration: InputDecoration(
           border: const OutlineInputBorder(), labelText: labelIn),
     );
@@ -181,6 +186,7 @@ class MarriageForm extends StatelessWidget {
         }
         return null;
       },
+      controller: _controller,
       keyboardType: TextInputType.number,
       decoration: InputDecoration(
         border: const OutlineInputBorder(),

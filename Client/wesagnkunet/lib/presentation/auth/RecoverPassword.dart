@@ -2,10 +2,8 @@ import 'dart:html';
 
 import 'package:flutter/material.dart';
 
-
-
 class RecoverPassword extends StatelessWidget {
-  const RecoverPassword({super.key});
+  const RecoverPassword(Key? key) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +20,6 @@ class RecoverPassword extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(30),
               color: Color.fromARGB(255, 110, 160, 201),
-
-              
             ),
           )),
       Positioned(
@@ -31,15 +27,11 @@ class RecoverPassword extends StatelessWidget {
         left: _deviceWidth * .01,
         bottom: _deviceHeight * .7,
         right: _deviceWidth * .7,
-        child:
-           
-
-            Image.asset("images/logo-primary.png"),
+        child: Image.asset("images/logo-primary.png"),
       ),
       Positioned(
           top: _deviceHeight * .1,
           left: _deviceWidth * .3,
-         
           child: Column(
             children: [
               Text(

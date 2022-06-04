@@ -160,7 +160,6 @@ class LoginForm extends StatelessWidget {
 
 class LoginPage extends StatelessWidget {
 	LoginPage({Key? key}) : super(key: key);
-	final _controller = TextEditingController();
 
 	@override
 	Widget build(BuildContext context) {

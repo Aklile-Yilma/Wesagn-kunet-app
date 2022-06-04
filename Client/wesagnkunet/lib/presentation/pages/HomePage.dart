@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -43,32 +44,6 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _navigationBar() {
-    return Container(
-      child: Scaffold(
-        bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-              backgroundColor: Colors.blue,
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.business),
-              label: 'Business',
-              backgroundColor: Colors.blueAccent,
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Settings',
-              backgroundColor: Colors.pink,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final double _deviceWidth = MediaQuery.of(context).size.width;
@@ -93,7 +68,6 @@ class HomePage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Column(children: [
-                  // _text("Wesagn Kunet", [255, 255, 255], 50),
                   Align(
                       alignment: Alignment.centerLeft,
                       child: _text("Good Morning", [255, 255, 255], 30)),
@@ -115,58 +89,96 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
-          Positioned(
-              top: _deviceHeight * 0.25,
-              left: _deviceHeight * 0.1,
-              child: _box(_deviceWidth * 0.3, _deviceHeight * 0.2,
-                  "/images/home_page/stork.png", "Birth Certificate")),
-          Positioned(
-              top: _deviceHeight * 0.25,
-              left: _deviceWidth * 0.6,
-              child: _box(_deviceWidth * 0.3, _deviceHeight * 0.2,
-                  "/images/home_page/marriage.png", "Marriage Certificate")),
-          Positioned(
-              top: _deviceHeight * 0.6,
-              left: _deviceHeight * 0.1,
-              child: _box(_deviceWidth * 0.3, _deviceHeight * 0.2,
-                  "/images/home_page/casket.png", "Death Certificate")),
-          Positioned(
-              top: _deviceHeight * 0.6,
-              left: _deviceWidth * 0.6,
-              child: _box(_deviceWidth * 0.3, _deviceHeight * 0.2,
-                  "/images/home_page/marriage.png", "Birth Certificate")),
+          GestureDetector(
+            onTap: () {
+              context.go("/birthForm");
+            },
+            child: Positioned(
+                top: _deviceHeight * 0.25,
+                left: _deviceHeight * 0.1,
+                child: _box(_deviceWidth * 0.3, _deviceHeight * 0.2,
+                    "/images/home_page/stork.png", "Birth Certificate")),
+          ),
+          GestureDetector(
+            onTap: () {
+              context.go("marriageForm");
+            },
+            child: Positioned(
+                top: _deviceHeight * 0.25,
+                left: _deviceWidth * 0.6,
+                child: _box(_deviceWidth * 0.3, _deviceHeight * 0.2,
+                    "/images/home_page/marriage.png", "Marriage Certificate")),
+          ),
+          GestureDetector(
+            onTap: () {
+              context.go("deathForm");
+            },
+            child: Positioned(
+                top: _deviceHeight * 0.6,
+                left: _deviceHeight * 0.1,
+                child: _box(_deviceWidth * 0.3, _deviceHeight * 0.2,
+                    "/images/home_page/casket.png", "Death Certificate")),
+          ),
+          GestureDetector(
+            onTap: () {
+              context.go("birthForm");
+            },
+            child: Positioned(
+                top: _deviceHeight * 0.6,
+                left: _deviceWidth * 0.6,
+                child: _box(_deviceWidth * 0.3, _deviceHeight * 0.2,
+                    "/images/home_page/marriage.png", "Birth Certificate")),
+          ),
         ]),
       ),
-      bottomNavigationBar: const BottomNav(),
+      bottomNavigationBar: navBar(context, _deviceWidth, _deviceHeight),
     );
   }
 }
 
-class BottomNav extends StatelessWidget {
-  const BottomNav({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: 'Home',
-          backgroundColor: Colors.blue,
+Widget navBar(BuildContext context, double _deviceWidth, double _deviceHeight) {
+  return SizedBox(
+    width: _deviceWidth,
+    height: _deviceHeight * 0.1,
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        TextButton(
+          onPressed: () {
+            context.go("/MyAccounts");
+          },
+          child: Tooltip(
+            message: "My Certificates",
+            child: Image.asset(
+              "/images/certificate_icon.jpg",
+              height: 40,
+            ),
+          ),
         ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.business),
-          label: 'Business',
-          backgroundColor: Colors.blueAccent,
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.settings),
-          label: 'Settings',
-          backgroundColor: Colors.pink,
-        ),
+        TextButton(
+            onPressed: () {
+              context.go("/");
+            },
+            child: Tooltip(
+              message: "Home",
+              child: Icon(
+                Icons.home,
+                color: Colors.blue,
+              ),
+            )),
+        TextButton(
+            onPressed: () {
+              context.go("/Settings");
+            },
+            child: Tooltip(
+              message: "Settings",
+              child: Icon(
+                Icons.settings,
+                color: Colors.blue,
+              ),
+            ))
       ],
-    );
-  }
+    ),
+  );
 }
