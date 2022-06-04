@@ -28,9 +28,15 @@ class AccountManager{
 	static Future<String?> getToken() async{
 
 		SharedPreferences prefs = await SharedPreferences.getInstance();
-		return prefs.getString("$tokenKey$refreshPrefix");
+		return prefs.getString("$tokenKey$accessPrefix");
     
 
 	}
+
+  static discardToken() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove("$tokenKey$refreshPrefix");
+    prefs.remove("$tokenKey$accessPrefix");
+  }
 
 }

@@ -8,10 +8,20 @@ class AuthInfrastractureProvider{
 
 	static AuthRepository? authRepository;
 
+  static AuthenticatedAuthRepository? authenticatedAuthRepository;
+
 	static AuthRepository provideAuthRepository(){
 		authRepository ??= AuthRepository(CoreInfrastractureProvider.provideCleanApiClient());
 		return authRepository!;
 	}
+
+  static Future<AuthenticatedAuthRepository> provideAuthenticatedRepository() async{
+    authenticatedAuthRepository ??= AuthenticatedAuthRepository(await CoreInfrastractureProvider.provideAuthenticatedApiClient());
+    return authenticatedAuthRepository!;
+  }
+
+
+
 
 
 

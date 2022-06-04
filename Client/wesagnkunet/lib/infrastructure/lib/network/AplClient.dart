@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:http/http.dart' as http;
 
 import 'package:wesagnkunet/infrastructure/lib/network/Request.dart';
@@ -32,6 +35,8 @@ class ApiClient {
       header[config.AUTHORIZATION_KEY] =
           "${config.AUTHORIZATION_PREFIX} $_token";
     }
+    header["Content-Type"] = "application/json";
+    log("Header: $header");
     return header;
   }
 
@@ -45,7 +50,7 @@ class ApiClient {
   Future<http.Response> _post(Request request, Map<String, String> headers) async{
     return http.post(
        _getCompleteUrl(request.getUrl()),
-      body: request.getPostData(),
+      body: jsonEncode(request.getPostData()),
       headers: headers
     );
   }

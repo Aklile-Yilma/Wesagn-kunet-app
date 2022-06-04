@@ -66,3 +66,18 @@ class SignupRequest extends Request<SignupResponse>{
   }
 
 }
+
+
+class GetMyAccountRequest extends Request<Client>{
+
+  ClientSerializer serializer = ClientSerializer();
+
+
+  GetMyAccountRequest(): super("/auth/my-account");
+
+  @override
+  Client deserializeObject(response) {
+    return serializer.deSerialize(jsonDecode(response));
+  }
+
+}

@@ -30,7 +30,8 @@ class UserSerializer extends Serializer<User>{
 		return User(
 			json["pk"],
 			json["username"],
-			json["email"]
+			json["email"],
+      json["is_admin"]
 		);
 	}
 
