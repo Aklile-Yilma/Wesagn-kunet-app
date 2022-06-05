@@ -1,6 +1,7 @@
 import 'package:wesagnkunet/domain/auth/Client.dart';
 import 'package:wesagnkunet/domain/core/birth_certificate.dart';
 import 'package:wesagnkunet/domain/core/certificate.dart';
+import 'package:wesagnkunet/domain/core/death_certificates.dart';
 import 'package:wesagnkunet/domain/core/marriage_certificate.dart';
 import 'package:wesagnkunet/infrastructure/auth/serializers.dart';
 import 'package:wesagnkunet/infrastructure/lib/network/Serializer.dart';
@@ -137,6 +138,60 @@ class BirthCertificateSerializer extends Serializer<BirthCertificate> {
       "father": parentInformationSerializer.serialize(instance.father),
       "mother": parentInformationSerializer.serialize(instance.mother),
       "birth_date": instance.birthDate.toString().split(" ")[0]
+    };
+  }
+}
+
+class DeathSerializer extends Serializer<DeceasedInformation> {
+  @override
+  DeceasedInformation deSerialize(json) {
+    return DeceasedInformation(
+      json["first_name"],
+      json["middle_name"],
+      json["last_name"],
+      json["date_of_birth"],
+      json["title"],
+      json["country"],
+      json["nationality"],
+      json["city"],
+      json["subcity"],
+      json["woreda"],
+      json["house_number"],
+      json["date_of_death"],
+    );
+  }
+
+  @override
+  serialize(DeceasedInformation instance) {
+    return {
+      "first_name": instance.first_name,
+      "middle_name": instance.middle_name,
+      "last_name": instance.last_name,
+    };
+  }
+}
+
+class DeathCertificateSerializer extends Serializer<DeathCertificate> {
+  DeathSerializer deathSerializer = DeathSerializer();
+  CertificateDetailSerializer certificateDetailSerializer =
+      CertificateDetailSerializer();
+
+  @override
+  DeathCertificate deSerialize(json) {
+    return DeathCertificate(
+        json["id"],
+        deathSerializer.deSerialize(json["deceasedInformation"]),
+        certificateDetailSerializer.deSerialize(json["detail"]),
+        json["verified"]);
+  }
+
+  @override
+  serialize(DeathCertificate instance) {
+    return {
+      "deceasedInformation":
+          deathSerializer.serialize(instance.deceasedInformation),
+      "death_of_date":
+          instance.deceasedInformation.date_of_death.toString().split(" ")[0]
     };
   }
 }
