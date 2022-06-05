@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:wesagnkunet/presentation/auth/SignUpPage.dart';
+import 'package:wesagnkunet/presentation/Forms/MarriageForm.dart';
 
 void main() {
-  runApp(MaterialApp(home: SignUpPage()));
+  runApp(MaterialApp(home: MarriageForm()));
 }

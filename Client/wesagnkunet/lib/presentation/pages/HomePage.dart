@@ -126,8 +126,8 @@ class HomePage extends StatelessWidget {
                 onTap: () {
                   context.go("/auth");
                 },
-                child: _box(_deviceWidth * 0.3, _deviceHeight * 0.2,
-                    "/images/home_page/admin.png", "Birth Certificate"),
+                // child: _box(_deviceWidth * 0.3, _deviceHeight * 0.2,
+                //     "/images/home_page/admin.png", "Birth Certificate"),
               )),
         ]),
       ),
@@ -140,7 +140,7 @@ Widget _navBar(
     BuildContext context, double _deviceWidth, double _deviceHeight) {
   return SizedBox(
     width: _deviceWidth,
-    height: _deviceHeight * 0.1,
+    height: _deviceHeight * 0.2,
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,

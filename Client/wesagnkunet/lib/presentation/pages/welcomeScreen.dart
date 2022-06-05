@@ -22,26 +22,18 @@ class WelcomePage extends StatelessWidget {
                   Color.fromARGB(255, 131, 184, 230),
                 ]),
           )),
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(
-            height: _deviceHeight * .2,
-          ),
-          Center(
-            child: Positioned(
-              top: _deviceHeight * .3,
-              left: _deviceWidth * .4,
-              child: Image.asset('/images/cartoon.png'),
-            ),
-          ),
-          SizedBox(
-            height: _deviceHeight * .05,
-          ),
-          Text("wesagn kunet",
-              style: TextStyle(color: Colors.white, fontSize: 20))
-        ],
-      )
+      SizedBox(
+        height: _deviceHeight * .2,
+      ),
+      Positioned(
+        top: _deviceHeight * .3,
+        left: _deviceWidth * .4,
+        child: Image.asset('/images/cartoon.png'),
+      ),
+      SizedBox(
+        height: _deviceHeight * .05,
+      ),
+      Text("wesagn kunet", style: TextStyle(color: Colors.white, fontSize: 20))
     ]));
   }
 }

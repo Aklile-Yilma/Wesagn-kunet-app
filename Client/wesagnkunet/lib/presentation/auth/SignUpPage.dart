@@ -157,12 +157,12 @@ class SignUpPage extends StatelessWidget {
                   if (_pass != _confirmPass) {
                     return "Password doesn't match";
                   }
-
                   return null;
                 },
               ),
               _padding(),
               TextButton(
+                key: Key("SignUpButton"),
                 onPressed: () {},
                 style: ButtonStyle(
                     foregroundColor: MaterialStateProperty.all<Color>(
