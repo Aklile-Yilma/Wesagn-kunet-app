@@ -184,6 +184,7 @@ class SignUpPage extends StatelessWidget {
                           decoration: InputDecoration(
                             labelText: "Password",
                           ),
+                          obscureText: true,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return "Please enter password";
@@ -197,6 +198,7 @@ class SignUpPage extends StatelessWidget {
                           decoration: InputDecoration(
                             labelText: "Confirm Password",
                           ),
+                          obscureText: true,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return "Please enter password";
