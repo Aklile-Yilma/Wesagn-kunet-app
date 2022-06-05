@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'header.dart';
 import 'sidemenu.dart';
 
-class AdminMainScreen extends StatelessWidget {
+class AdminMainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

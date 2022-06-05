@@ -2,7 +2,7 @@
 
 
 enum Method{
-  get, post, patch
+  get, post, patch, delete
 }
 
 

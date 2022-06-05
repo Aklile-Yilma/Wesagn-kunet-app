@@ -6,6 +6,7 @@ import 'package:wesagnkunet/domain/core/marriage_certificate.dart';
 import 'package:wesagnkunet/infrastructure/lib/network/AplClient.dart';
 import 'package:wesagnkunet/infrastructure/core/requests.dart';
 import 'package:wesagnkunet/Config.dart' as config;
+import 'package:wesagnkunet/presentation/admin/screens/main_screen.dart';
 
 int EXPECTED_LENGTH = 1;
 
@@ -36,6 +37,8 @@ MarriageCertificate CREATE_CERTIFICATE = MarriageCertificate(
 
 int VERIFY_CERTIFICATE_ID = 2;
 
+int DELETE_CERTIFICATE_ID = 3;
+
 
 testMarraigeCertificates(ApiClient client) async {
   List<MarriageCertificate> certificates =
@@ -63,6 +66,13 @@ testVerifyMarriageCertificate(ApiClient adminClient) async{
 
 }
 
+
+testDeleteMarriageCertificate(ApiClient adminClient) async{
+
+  // await adminClient.execute(DeleteMarriageCertificateRequest(DELETE_CERTIFICATE_ID));
+  
+}
+
 void main() {
   ApiClient client =
       ApiClient(config.API_HOST, baseUrl: config.API_PATH, token: TOKEN);
@@ -80,6 +90,10 @@ void main() {
     
     test("Verify MarriageCertificate Request", () async {
       await testVerifyMarriageCertificate(adminClient);
+    });
+
+    test("Delete MarriageCertificate Request", () async {
+      await testDeleteMarriageCertificate(adminClient);
     });
   });
 }

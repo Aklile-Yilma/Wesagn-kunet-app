@@ -116,7 +116,7 @@ class BirthCertificateViewSet(viewsets.ViewSet, CertificateViewSet):
 	def list(self, request):
 
 		queryset = self._filter(BirthCertificate.objects.all(), request)
-		serializer = BirthCertificateViewSet(queryset, many=True)
+		serializer = BirthCertificateSerializer(queryset, many=True)
 		return Response(serializer.data)
 
 	def retrieve(self, request, pk=None):

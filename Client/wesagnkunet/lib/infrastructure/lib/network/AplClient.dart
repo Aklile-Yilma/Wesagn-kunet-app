@@ -6,26 +6,22 @@ import 'package:http/http.dart' as http;
 import 'package:wesagnkunet/infrastructure/lib/network/Request.dart';
 import 'package:wesagnkunet/Config.dart' as config;
 
-
-
 class ApiClient {
-
-	String? _token;
+  String? _token;
   String host;
   String baseUrl = "";
 
-
-	ApiClient(this.host, {token, baseUrl}){
-		_token = token;
-    if(baseUrl != null){
+  ApiClient(this.host, {token, baseUrl}) {
+    _token = token;
+    if (baseUrl != null) {
       this.baseUrl = baseUrl;
     }
   }
 
-  Uri _getCompleteUrl(String path, {params}){
+  Uri _getCompleteUrl(String path, {params}) {
     path = "$baseUrl/$path".replaceAll("//", "/");
-    if(params == null) {
-      return  Uri.http(host, path);
+    if (params == null) {
+      return Uri.http(host, path);
     }
     return Uri.http(host, path, params);
   }
@@ -47,25 +43,24 @@ class ApiClient {
         headers: headers);
   }
 
-  Future<http.Response> _post(Request request, Map<String, String> headers) async{
-    return http.post(
-       _getCompleteUrl(request.getUrl()),
-      body: jsonEncode(request.getPostData()),
-      headers: headers
-    );
+  Future<http.Response> _post(
+      Request request, Map<String, String> headers) async {
+    return http.post(_getCompleteUrl(request.getUrl()),
+        body: jsonEncode(request.getPostData()), headers: headers);
   }
 
-  Future<http.Response> _patch(Request request, Map<String, String> headers) async{
-    return http.patch(
-       _getCompleteUrl(request.getUrl()),
-      body: jsonEncode(request.getPostData()),
-      headers: headers
-    );
-
+  Future<http.Response> _patch(
+      Request request, Map<String, String> headers) async {
+    return http.patch(_getCompleteUrl(request.getUrl()),
+        body: jsonEncode(request.getPostData()), headers: headers);
   }
 
-  Future<T> execute<T>(Request<T> request) async{
+  Future<http.Response> _delete(
+      Request request, Map<String, String> headers) async {
+    return http.delete(_getCompleteUrl(request.getUrl()), headers: headers);
+  }
 
+  Future<T> execute<T>(Request<T> request) async {
     Map<String, String> headers = _getCompleteHeader(request.getHeaders());
 
     http.Response response;
@@ -82,9 +77,12 @@ class ApiClient {
       case Method.patch:
         response = await _patch(request, headers);
         break;
+      case Method.delete:
+        response = await _delete(request, headers);
+        break;
     }
 
-    if(response.statusCode >=400){
+    if (response.statusCode >= 400) {
       throw ApiException(response.statusCode, response: response);
     }
 
@@ -92,12 +90,9 @@ class ApiClient {
   }
 }
 
-
-class ApiException implements Exception{
-
+class ApiException implements Exception {
   int statusCode;
   http.Response? response;
-
 
   ApiException(this.statusCode, {this.response});
 

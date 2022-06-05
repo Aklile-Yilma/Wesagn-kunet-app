@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:wesagnkunet/domain/core/marriage_certificate.dart';
 
 class ListOfParticularCertificate extends StatelessWidget {
-  ListOfParticularCertificate({required this.particularcertificates});
+  ListOfParticularCertificate({required this.marriageCertificate});
 
-  String particularcertificates;
+  MarriageCertificate marriageCertificate;
 
   @override
   Widget build(BuildContext context) {
@@ -24,15 +25,23 @@ class ListOfParticularCertificate extends StatelessWidget {
           ),
           child: Column(children: [
             Text(
-              particularcertificates,
+              marriageCertificate.husband.firstName,
               style: TextStyle(color: Colors.black),
             ),
             SizedBox(
-              height: 200,
+              height: 10,
+            ),
+            Text(marriageCertificate.wife.firstName,
+                style: TextStyle(
+                  color: Colors.black,
+                )),
+            SizedBox(
+              height: 20,
             ),
             ElevatedButton(
                 child: Text("Detail Screen"),
-                onPressed: (() => context.go("marriage_certificate_detail"))),
+                onPressed: (() => context.go(
+                    "admin/marriage/certificates/${marriageCertificate.id}"))),
           ]),
         ),
       ),

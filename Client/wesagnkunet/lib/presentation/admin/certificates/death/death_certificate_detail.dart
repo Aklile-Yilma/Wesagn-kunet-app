@@ -16,7 +16,7 @@ class DeathCertificateDetail extends StatelessWidget {
         centerTitle: true,
       ),
       body: CertificateDeleteUpdateWidget(
-        Certificate: "Death Certificate 1",
+    
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => context.go("/"),

@@ -1,5 +1,3 @@
-
-
 import 'dart:developer';
 
 import 'package:wesagnkunet/infrastructure/auth/AccountManager.dart';
@@ -18,25 +16,26 @@ class CoreInfrastractureProvider{
   static ApiClient? authenticatedApiClient;
   static DBClient? dbClient;
 
-  static MarriageCertificateRepository? marriageCertificateRepository; 
+  static MarriageCertificateRepository? marriageCertificateRepository;
+  static BirthCertificateRepository? birthCertificateRepository;
+  static DeathCertificateRepository? deathCertificateRepository;
 
-
-  static ApiClient provideCleanApiClient(){
+  static ApiClient provideCleanApiClient() {
     cleanApiClient ??= ApiClient(config.API_HOST, baseUrl: config.API_PATH);
     return cleanApiClient!;
   }
 
   static Future<ApiClient> provideAuthenticatedApiClient() async {
-    if(authenticatedApiClient == null){
+    if (authenticatedApiClient == null) {
       String? token = await AccountManager.getToken();
-      if(token == null){
+      if (token == null) {
         throw Exception("Token not found");
       }
       log("Token: $token");
-      authenticatedApiClient = ApiClient(config.API_HOST, baseUrl: config.API_PATH, token: token);
+      authenticatedApiClient =
+          ApiClient(config.API_HOST, baseUrl: config.API_PATH, token: token);
     }
 
-    
     return authenticatedApiClient!;
   }
 
@@ -51,7 +50,17 @@ class CoreInfrastractureProvider{
     return marriageCertificateRepository!;
   }
 
+  static Future<BirthCertificateRepository>
+      provideBirthCertificateRepository() async {
+    birthCertificateRepository ??=
+        BirthCertificateRepository(await provideAuthenticatedApiClient());
+    return birthCertificateRepository!;
+  }
 
-
-
+  static Future<DeathCertificateRepository>
+      provideDeathCertificateRepository() async {
+    deathCertificateRepository ??=
+        DeathCertificateRepository(await provideAuthenticatedApiClient());
+    return deathCertificateRepository!;
+  }
 }

@@ -1,4 +1,15 @@
 # This is a generated file; do not edit or check into version control.
+<<<<<<< HEAD
+path_provider_linux=/home/temesgenzewude/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_linux-2.1.7/
+path_provider_windows=/home/temesgenzewude/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_windows-2.0.7/
+shared_preferences=/home/temesgenzewude/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences-2.0.15/
+shared_preferences_android=/home/temesgenzewude/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_android-2.0.12/
+shared_preferences_ios=/home/temesgenzewude/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_ios-2.1.1/
+shared_preferences_linux=/home/temesgenzewude/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_linux-2.1.1/
+shared_preferences_macos=/home/temesgenzewude/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_macos-2.0.4/
+shared_preferences_web=/home/temesgenzewude/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_web-2.0.4/
+shared_preferences_windows=/home/temesgenzewude/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_windows-2.1.1/
+=======
 path_provider_linux=/home/aklile/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_linux-2.1.7/
 path_provider_windows=/home/aklile/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_windows-2.0.7/
 shared_preferences=/home/aklile/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences-2.0.15/
@@ -8,3 +19,4 @@ shared_preferences_linux=/home/aklile/snap/flutter/common/flutter/.pub-cache/hos
 shared_preferences_macos=/home/aklile/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_macos-2.0.4/
 shared_preferences_web=/home/aklile/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_web-2.0.4/
 shared_preferences_windows=/home/aklile/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_windows-2.1.1/
+>>>>>>> f4c5dfd54949078865a1479e7930f1b48417a9ae

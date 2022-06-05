@@ -39,7 +39,11 @@ dependencies:
   go_router: ^3.1.1
   flutter_bloc: ^8.0.1
   equatable: ^2.0.3
+<<<<<<< HEAD
   sqflite: ^2.0.2+1
+=======
+  bloc_test: ^9.0.3
+>>>>>>> 80f72ac3f22545592b120ada15f7d11438ee6384
 
 dev_dependencies:
   flutter_test:

@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/home/aklile/Documents/labs and projects/3rd year/3rd year second semister/Flutter+Dart/Wesagn-kunet-app/Client/wesagnkunet/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-night-v8/values-night-v8.xml",
+            "outputFile": "/home/abreham/Documents/School_Stuff/Assignments/MobileDev/WesagnKunet/Client/wesagnkunet/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-night-v8/values-night-v8.xml",
             "map": [
                 {
-                    "source": "/home/aklile/Documents/labs and projects/3rd year/3rd year second semister/Flutter+Dart/Wesagn-kunet-app/Client/wesagnkunet/android/app/src/main/res/values-night/styles.xml",
+                    "source": "/home/abreham/Documents/School_Stuff/Assignments/MobileDev/WesagnKunet/Client/wesagnkunet/android/app/src/main/res/values-night/styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",

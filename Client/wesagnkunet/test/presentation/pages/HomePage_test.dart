@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
-import 'package:wesagnkunet/presentation/pages/HomePage.dart';
+import 'package:wesagnkunet/presentation/core/HomePage.dart';
 
 void main() {
   testWidgets('', (WidgetTester tester) async {
