@@ -1,3 +1,6 @@
+
+
+
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -7,28 +10,23 @@ import 'package:go_router/go_router.dart';
 import 'package:wesagnkunet/application/auth/login/bloc.dart';
 import 'package:wesagnkunet/application/auth/providers.dart';
 
-
 class LoginForm extends StatelessWidget {
   const LoginForm({Key? key}) : super(key: key);
 
 
 	@override
   Widget build(BuildContext context) {
-    
-		final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
-	
-		TextEditingController usernameController = TextEditingController();
-		TextEditingController passwordController = TextEditingController();
+    final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
 
-		double _deviceWidth = MediaQuery.of(context).size.width;
-		double _deviceHeight = MediaQuery.of(context).size.height;
+    TextEditingController usernameController = TextEditingController();
+    TextEditingController passwordController = TextEditingController();
 
-		return BlocBuilder<LoginBloc, LoginState>(
+    double _deviceWidth = MediaQuery.of(context).size.width;
+    double _deviceHeight = MediaQuery.of(context).size.height;
+
+    return BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
+          log("Building for state. Status: ${state.status}");
       
-		  builder: (context, state) {
-		    
-        log("Building for state. Status: ${state.status}");
-
         if(state.status == LoginStatus.loggedIn){
           WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
             log("Popping back to LaunchPage");
@@ -160,33 +158,30 @@ class LoginForm extends StatelessWidget {
 		    				);
 		  }
 		);
-
-
   }
-
 }
 
 
 class LoginPage extends StatelessWidget {
-	LoginPage({Key? key}) : super(key: key);
+  LoginPage({Key? key}) : super(key: key);
 
-	@override
-	Widget build(BuildContext context) {
-		double _deviceWidth = MediaQuery.of(context).size.width;
-		double _deviceHeight = MediaQuery.of(context).size.height;
-		return Scaffold(
-			body: Center(
-				child: SizedBox(
-					width: _deviceWidth * 0.5,
-					height: _deviceHeight * 0.8,
-					child: Center(
-						child: BlocProvider<LoginBloc>(
-							create: (_) => AuthApplicationProviders.provideLoginBloc(),
-							child: LoginForm(),
-						),
-					),
-				),
-			),
-		);
-	}
+  @override
+  Widget build(BuildContext context) {
+    double _deviceWidth = MediaQuery.of(context).size.width;
+    double _deviceHeight = MediaQuery.of(context).size.height;
+    return Scaffold(
+      body: Center(
+        child: SizedBox(
+          width: _deviceWidth * 0.5,
+          height: _deviceHeight * 0.8,
+          child: Center(
+            child: BlocProvider<LoginBloc>(
+              create: (_) => AuthApplicationProviders.provideLoginBloc(),
+              child: LoginForm(),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }

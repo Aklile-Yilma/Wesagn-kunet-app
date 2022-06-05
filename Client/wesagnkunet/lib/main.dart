@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
+import 'package:wesagnkunet/presentation/Forms/MarriageForm.dart';
+
+void main() {
+  runApp(MaterialApp(home: MarriageForm()));
+=======
 import 'package:go_router/go_router.dart';
 import 'package:wesagnkunet/presentation/routes.dart';
 import 'package:wesagnkunet/presentation/core/welcomeScreen.dart';
@@ -23,4 +29,5 @@ class MainApp extends StatelessWidget{
   }
 
 
+>>>>>>> 0721a885f2de1530ee9bcf9530fceb98a6bbed45
 }

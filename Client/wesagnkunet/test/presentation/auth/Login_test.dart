@@ -11,9 +11,11 @@ void main() {
 
   testWidgets('', (WidgetTester tester) async {
     await tester.pumpWidget(makeTestableWidget(child: LoginPage()));
-    expect(find.text('LogIn'), findsOneWidget);
-    //expect(find.text('Sign Up'), findsOneWidget);
+
     expect(find.byType(Form), findsNWidgets(1));
+    expect(find.text('LogIn'), findsOneWidget);
+    expect(find.byType(Container), findsOneWidget);
+    expect(find.byType(Image), findsOneWidget);
     expect(find.byType(TextFormField), findsNWidgets(2));
     await tester.tap(find.byType(ElevatedButton));
   });
