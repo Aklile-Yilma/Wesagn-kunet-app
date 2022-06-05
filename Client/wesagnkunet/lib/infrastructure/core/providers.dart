@@ -12,6 +12,7 @@ class CoreInfrastractureProvider {
 
   static MarriageCertificateRepository? marriageCertificateRepository;
   static BirthCertificateRepository? birthCertificateRepository;
+  static DeathCertificateRepository? deathCertificateRepository;
 
   static ApiClient provideCleanApiClient() {
     cleanApiClient ??= ApiClient(config.API_HOST, baseUrl: config.API_PATH);
@@ -44,5 +45,12 @@ class CoreInfrastractureProvider {
     birthCertificateRepository ??=
         BirthCertificateRepository(await provideAuthenticatedApiClient());
     return birthCertificateRepository!;
+  }
+
+  static Future<DeathCertificateRepository>
+      provideDeathCertificateRepository() async {
+    deathCertificateRepository ??=
+        DeathCertificateRepository(await provideAuthenticatedApiClient());
+    return deathCertificateRepository!;
   }
 }
