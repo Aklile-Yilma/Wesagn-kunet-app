@@ -2,8 +2,10 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
+import 'package:wesagnkunet/presentation/Forms/MarriageForm.dart';
 import 'package:wesagnkunet/presentation/auth/Login.dart';
 import 'package:wesagnkunet/presentation/auth/SignUpPage.dart';
+import 'package:wesagnkunet/presentation/core/CertificatesPage.dart';
 import 'package:wesagnkunet/presentation/core/HomePage.dart';
 import 'package:wesagnkunet/presentation/core/welcomeScreen.dart';
 
@@ -36,6 +38,11 @@ class WesagnKunetRouter extends GoRouter{
             path: "/core",
             builder: (BuildContext context, GoRouterState state) => HomePage()
       ),
+
+      GoRoute(
+            path: "/core/certificates/new/marriage",
+            builder: (BuildContext context, GoRouterState state) => MarriageForm()
+      )
 
     ],
 

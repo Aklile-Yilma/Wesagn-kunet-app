@@ -131,7 +131,7 @@ class HomePage extends StatelessWidget {
                     left: _deviceWidth * 0.6,
                     child: GestureDetector(
                       onTap: () {
-                        context.go("forms/marriageForm");
+                        context.go("/core/certificates/new/marriage");
                       },
                       child: _box(_deviceWidth * 0.3, _deviceHeight * 0.2,
                           "/images/home_page/marriage.png", "Marriage Certificate"),

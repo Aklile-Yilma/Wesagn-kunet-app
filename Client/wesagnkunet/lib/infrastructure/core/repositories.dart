@@ -38,11 +38,19 @@ class MarriageCertificateRepository{
 
   MarriageCertificateRepository(this.apiClient);
 
-  Future<List<MarriageCertificate>> getAll(){
-    return MarriageCertificatesRepositoryCall(apiClient).get(null);
+  Future<List<MarriageCertificate>> getAll() async{
+    return await MarriageCertificatesRepositoryCall(apiClient).get(null);
   }
 
-  
+  Future<MarriageCertificate> create(MarriageCertificate certificate) async{
+    return await apiClient.execute(CreateMarriageCertificateRequest(certificate));
+  }
+
+  Future<MarriageCertificate> verify(int certificateId) async{
+    return await apiClient.execute(VerifyMarriageCertificateRequest(certificateId));
+  }
+
+
 
 }
 

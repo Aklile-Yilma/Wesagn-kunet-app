@@ -74,3 +74,4 @@ class VerifyMarriageCertificateRequest extends Request<MarriageCertificate>{
   }
 
 }
+
