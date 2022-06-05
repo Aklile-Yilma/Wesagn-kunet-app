@@ -1,17 +1,20 @@
 import 'package:wesagnkunet/domain/core/marriage_certificate.dart';
+import 'package:wesagnkunet/infrastructure/core/db_requests.dart';
 import 'package:wesagnkunet/infrastructure/core/requests.dart';
+import 'package:wesagnkunet/infrastructure/lib/localdb/DBClient.dart';
 import 'package:wesagnkunet/infrastructure/lib/network/AplClient.dart';
 import 'package:wesagnkunet/infrastructure/lib/repository.dart';
 
 class MarriageCertificatesRepositoryCall
     extends RepositoryCall<void, List<MarriageCertificate>> {
   ApiClient apiClient;
+  DBClient dbClient;
 
-  MarriageCertificatesRepositoryCall(this.apiClient);
+  MarriageCertificatesRepositoryCall(this.apiClient, this.dbClient);
 
   @override
   Future<List<MarriageCertificate>?> getCached(input) async {
-    return null;
+    return await dbClient.execute(GetAllMarraigeCertificatesDBRequest());
   }
 
   @override
@@ -21,17 +24,20 @@ class MarriageCertificatesRepositoryCall
 
   @override
   void storeCache(value) {
-    // TODO: implement storeCache
+    for(MarriageCertificate certificate in value){
+      dbClient.execute(InsertMarriageCertificateDBRequest(certificate));
+    }
   }
 }
 
 class MarriageCertificateRepository {
   ApiClient apiClient;
+  DBClient dbClient;
 
-  MarriageCertificateRepository(this.apiClient);
+  MarriageCertificateRepository(this.apiClient, this.dbClient);
 
   Future<List<MarriageCertificate>> getAll() async {
-    return await MarriageCertificatesRepositoryCall(apiClient).get(null);
+    return await MarriageCertificatesRepositoryCall(apiClient, dbClient).get(null);
   }
 
   Future<MarriageCertificate> create(MarriageCertificate certificate) async {

@@ -48,7 +48,6 @@ class CreateMarriageCertificateRequest extends  Request<MarriageCertificate>{
 
   @override
   MarriageCertificate deserializeObject(response) {
-    log(response);
     return serializer.deSerialize(jsonDecode(response));
   }
 

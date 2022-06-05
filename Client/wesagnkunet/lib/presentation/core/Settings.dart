@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 
+import 'dart:ui';
+
+
 class Accounts extends StatelessWidget {
   const Accounts({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    double _deviceWidth = MediaQuery.of(context).size.width;
-    double _deviceHeight = MediaQuery.of(context).size.height;
+    double _deviceWidth = window.physicalSize.width/window.devicePixelRatio;
+    double _deviceHeight = window.physicalSize.height/window.devicePixelRatio;
     return Scaffold(
         body: ListView(
       children: [
@@ -25,7 +28,7 @@ class Accounts extends StatelessWidget {
               ),
               CircleAvatar(
                 radius: _deviceHeight * .1,
-                backgroundImage: AssetImage("images/texture.jpg"),
+                backgroundImage: AssetImage("assets/images/texture.jpg"),
               ),
 
               Text(

@@ -1,5 +1,6 @@
 
 
+import 'package:flutter/material.dart';
 import 'package:wesagnkunet/domain/core/certificate.dart';
 import 'package:wesagnkunet/domain/core/marriage_certificate.dart';
 import 'package:wesagnkunet/infrastructure/lib/network/Serializer.dart';
@@ -22,6 +23,7 @@ class MarriageCertificateDBSerializer extends Serializer<MarriageCertificate>{
       "husband_first_name": instance.husband.firstName,
       "husband_middle_name": instance.husband.middleName,
       "husband_last_name": instance.husband.lastName,
+      "marriage_date": instance.marriageDate.toString(),
       "issue_date": issueDate,
       "application_date": instance.detail.applicationDate.toString()
     };
@@ -30,6 +32,12 @@ class MarriageCertificateDBSerializer extends Serializer<MarriageCertificate>{
   
   @override
   MarriageCertificate deSerialize(dynamic json) {
+
+    DateTime? issueDate;
+    if(json["issue_date"] != null){
+      issueDate = DateTime.parse(json["issue_date"]);
+    }
+
 
     return MarriageCertificate(
                         json["id"],
@@ -45,7 +53,7 @@ class MarriageCertificateDBSerializer extends Serializer<MarriageCertificate>{
                         ),
                         CertificateDetail(
                           [],
-                          DateTime.parse(json["issue_date"]),
+                          issueDate,
                           DateTime.parse(json["application_date"])
                         ),
                         DateTime.parse(json["marriage_date"]),

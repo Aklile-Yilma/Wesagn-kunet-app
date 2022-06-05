@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wesagnkunet/application/core/marriage_certificate_form_bloc.dart';
+import 'package:wesagnkunet/presentation/core/widgets/BottomNavigation.dart';
 import 'package:wesagnkunet/presentation/lib/widgets/DatePickerButton.dart';
+import 'dart:ui';
 
 
 class MarriageForm extends StatelessWidget {
@@ -23,8 +25,8 @@ class MarriageForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double _deviceWidth = MediaQuery.of(context).size.width;
-    double _deviceHeight = MediaQuery.of(context).size.height;
+    double _deviceWidth = window.physicalSize.width/window.devicePixelRatio;
+    double _deviceHeight = window.physicalSize.height/window.devicePixelRatio;
     return Scaffold(
       body: Align(
         alignment: Alignment.center,
@@ -144,7 +146,8 @@ class MarriageForm extends StatelessWidget {
             )
           )
         )
-      )
+      ),
+      bottomNavigationBar: const CoreBottomNavigation(),
     );
   }
 

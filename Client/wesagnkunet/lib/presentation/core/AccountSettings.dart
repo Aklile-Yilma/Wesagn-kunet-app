@@ -1,79 +1,127 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wesagnkunet/application/core/settings_bloc.dart';
+import 'package:wesagnkunet/presentation/core/FrameForForms.dart';
+import 'package:wesagnkunet/presentation/core/widgets/BottomNavigation.dart';
+import 'dart:ui';
 
 class Accounts extends StatelessWidget {
   const Accounts({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    double _deviceWidth = MediaQuery.of(context).size.width;
-    double _deviceHeight = MediaQuery.of(context).size.height;
+    double _deviceWidth = window.physicalSize.width/window.devicePixelRatio;
+    double _deviceHeight = window.physicalSize.height/window.devicePixelRatio;
     return Scaffold(
-        body: ListView(
-      children: [
-        SizedBox(
-          height: _deviceHeight * .02,
-        ),
-        Container(
-          color: Color.fromARGB(255, 242, 244, 245),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Text(
-                "Account Information",
-                style: TextStyle(
-                    fontSize: 20, color: Color.fromARGB(255, 134, 187, 230)),
+        body: BlocProvider<SettingsBloc>(
+          create: (context) => SettingsBloc()..add(InitEvent()),
+
+          child: BlocBuilder<SettingsBloc, SettingsState>(
+            
+            builder: (context, state){
+
+                if(state.status == SettingStatus.loading){
+                  return CircularProgressIndicator();
+                }
+
+                if(state.status == SettingStatus.signedout){
+                  
+                  WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+                    context.go("/auth");
+                  });
+                  
+
+                  return SizedBox.shrink();
+
+                }
+
+
+                return ListView(
+                      children: [
+                  
+                  Container(
+                    color: Color.fromARGB(200, 200, 200, 200),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: 100,
+                        ),
+                        Container(
+                          height: 100,
+                          width: 100,
+                          decoration: BoxDecoration(
+                            color: Color.fromRGBO(0, 0, 139, 1),
+                            borderRadius: BorderRadius.circular(100.0)
+                          ),
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              "${state.client!.firstName[0]} ${state.client!.lastName[0]}",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold
+                              ),
+                            )
+                          ),
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Text(
+                          "${state.client!.firstName} ${state.client!.lastName}",
+                          style: TextStyle(
+                            fontSize: 20
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(state.client!.user.email),
+                         // SizedBox(
+                        //   height: 20,
+                        // ),
+                        SizedBox(
+                          height: 100,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    child: Column(
+                      children: [
+                        
+                        SizedBox(
+                          height: 12,
+                        ),
+                        SizedBox(
+                          height: _deviceHeight * .05,
+                        ),
+
+                        _tile("Signout", [255, 255, 255], (){
+                          context.read<SettingsBloc>().add(SignoutEvent());
+                        }),
+                        SizedBox(
+                          height: _deviceHeight * .05,
+                        ),
+                        SizedBox(
+                          height: _deviceHeight * .05,
+                        ),
+                      ],
+                    ),
+                  ),
+                      ]);
+            }
               ),
-              SizedBox(
-                height: 15,
-              ),
-              _tile("UserName", [0, 0, 139]),
-              SizedBox(
-                height: 10,
-              ),
-              _tile("Email", [255, 255, 255]),
-              // SizedBox(
-              //   height: 20,
-              // ),
-            ],
           ),
-        ),
-        Divider(
-            height: _deviceHeight * .2,
-            thickness: _deviceHeight * .01,
-            indent: _deviceWidth * .2,
-            endIndent: _deviceWidth * .2,
-            color: Color.fromARGB(255, 153, 178, 225)),
-        Container(
-          child: Column(
-            children: [
-              const Text(
-                "Account",
-                style: TextStyle(fontSize: 20, color: Colors.blue),
-              ),
-              SizedBox(
-                height: 12,
-              ),
-              _tile("ChangePassword", [0, 0, 139]),
-              SizedBox(
-                height: _deviceHeight * .05,
-              ),
-              _tile("Signout", [255, 255, 255]),
-              SizedBox(
-                height: _deviceHeight * .05,
-              ),
-              _tile("DeleteAccount", [0, 0, 139]),
-              SizedBox(
-                height: _deviceHeight * .05,
-              ),
-            ],
-          ),
-        ),
-      ],
-    ));
+          bottomNavigationBar: CoreBottomNavigation()
+        );
   }
 
-  Widget _tile(String labelIn, List color) {
+  Widget _tile(String labelIn, List color, onPressed) {
     return Center(
       // left: 5,
       child: Container(
@@ -89,7 +137,7 @@ class Accounts extends StatelessWidget {
                   spreadRadius: 10)
             ]),
         // color: Color.fromRGBO(color[0], color[1], color[2], 1),
-        child: TextButton(onPressed: () {}, child: Text(labelIn)),
+        child: TextButton(onPressed: onPressed, child: Text(labelIn, style: TextStyle(color: Colors.white),)),
       ),
     );
   }

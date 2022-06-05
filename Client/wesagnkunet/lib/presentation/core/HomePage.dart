@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wesagnkunet/application/core/home_bloc.dart';
+import 'package:wesagnkunet/presentation/core/widgets/BottomNavigation.dart';
+import 'dart:ui';
 
 
 class HomePage extends StatelessWidget {
@@ -51,8 +53,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double _deviceWidth = MediaQuery.of(context).size.width;
-    final double _deviceHeight = MediaQuery.of(context).size.height;
+    final double _deviceWidth = window.physicalSize.width/window.devicePixelRatio;
+    final double _deviceHeight = window.physicalSize.height/window.devicePixelRatio;
     return Scaffold(
       appBar: AppBar(
           title: const Text(
@@ -124,7 +126,7 @@ class HomePage extends StatelessWidget {
                         context.go("/forms/birthform");
                       },
                       child: _box(_deviceWidth * 0.3, _deviceHeight * 0.2,
-                          "/images/home_page/stork.png", "Birth Certificate"),
+                          "assets/images/home_page/stork.png", "Birth Certificate"),
                     )),
                 Positioned(
                     top: _deviceHeight * 0.25,
@@ -134,7 +136,7 @@ class HomePage extends StatelessWidget {
                         context.go("/core/certificates/new/marriage");
                       },
                       child: _box(_deviceWidth * 0.3, _deviceHeight * 0.2,
-                          "/images/home_page/marriage.png", "Marriage Certificate"),
+                          "assets/images/home_page/marriage.png", "Marriage Certificate"),
                     )),
                 Positioned(
                     top: _deviceHeight * 0.6,
@@ -144,7 +146,7 @@ class HomePage extends StatelessWidget {
                         context.go("forms/deathForm");
                       },
                       child: _box(_deviceWidth * 0.3, _deviceHeight * 0.2,
-                          "/images/home_page/casket.png", "Death Certificate"),
+                          "assets/images/home_page/casket.png", "Death Certificate"),
                     )),
                 Builder(
                   builder: (context) {
@@ -161,7 +163,7 @@ class HomePage extends StatelessWidget {
                             context.go("/auth");
                           },
                           child: _box(_deviceWidth * 0.3, _deviceHeight * 0.2,
-                              "/images/home_page/admin.png", "Birth Certificate"),
+                              "assets/images/home_page/admin.png", "Birth Certificate"),
                         ));
                   }
                 ),
@@ -170,55 +172,7 @@ class HomePage extends StatelessWidget {
           }
         ),
       ),
-      bottomNavigationBar: _navBar(context, _deviceWidth, _deviceHeight),
+      bottomNavigationBar: const CoreBottomNavigation(),
     );
   }
-}
-
-Widget _navBar(
-    BuildContext context, double _deviceWidth, double _deviceHeight) {
-  return SizedBox(
-    width: _deviceWidth,
-    height: _deviceHeight * 0.1,
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        TextButton(
-          onPressed: () {
-            context.go("/MyAccounts");
-          },
-          child: Tooltip(
-            message: "My Certificates",
-            child: Image.asset(
-              "/images/certificate_icon.jpg",
-              height: 40,
-            ),
-          ),
-        ),
-        TextButton(
-            onPressed: () {
-              context.go("/");
-            },
-            child: Tooltip(
-              message: "Home",
-              child: Icon(
-                Icons.home,
-                color: Colors.blue,
-              ),
-            )),
-        TextButton(
-            onPressed: () {
-              context.go("/Settings");
-            },
-            child: Tooltip(
-              message: "Settings",
-              child: Icon(
-                Icons.settings,
-                color: Colors.blue,
-              ),
-            ))
-      ],
-    ),
-  );
 }

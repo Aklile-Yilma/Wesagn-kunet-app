@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'dart:ui';
 
 import 'package:wesagnkunet/application/auth/SignupBloc.dart';
 import 'package:wesagnkunet/infrastructure/auth/providers.dart';
@@ -26,8 +27,8 @@ class SignUpPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double _deviceWidth = MediaQuery.of(context).size.width;
-    double _deviceHeight = MediaQuery.of(context).size.height;
+    double _deviceWidth = window.physicalSize.width/window.devicePixelRatio;
+    double _deviceHeight = window.physicalSize.height/window.devicePixelRatio;
 
     return Scaffold(
         body: BlocProvider<SignupBloc>(
@@ -261,7 +262,7 @@ class SignUpPage extends StatelessWidget {
                                   style: TextStyle(color: Colors.blue),
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
-                                      print("Log in");
+                                      context.go("/auth/login");
                                     })
                             ]),
                           ),

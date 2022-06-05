@@ -2,9 +2,12 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
+import 'package:wesagnkunet/domain/core/marriage_certificate.dart';
 import 'package:wesagnkunet/presentation/Forms/MarriageForm.dart';
 import 'package:wesagnkunet/presentation/auth/Login.dart';
 import 'package:wesagnkunet/presentation/auth/SignUpPage.dart';
+import 'package:wesagnkunet/presentation/core/AccountSettings.dart';
+import 'package:wesagnkunet/presentation/core/CertificateDetailPage.dart';
 import 'package:wesagnkunet/presentation/core/CertificatesPage.dart';
 import 'package:wesagnkunet/presentation/core/HomePage.dart';
 import 'package:wesagnkunet/presentation/core/welcomeScreen.dart';
@@ -42,7 +45,23 @@ class WesagnKunetRouter extends GoRouter{
       GoRoute(
             path: "/core/certificates/new/marriage",
             builder: (BuildContext context, GoRouterState state) => MarriageForm()
-      )
+      ),
+
+      GoRoute(
+            path: "/core/certificates",
+            builder: (BuildContext context, GoRouterState state) => Certificates()
+      ),
+
+      GoRoute(
+            path: "/core/certificates/marriage",
+            builder: (BuildContext context, GoRouterState state) => MarriageCertificateDetailPage(state.extra! as MarriageCertificate)
+      ),
+
+      GoRoute(
+            path: "/core/settings",
+            builder: (BuildContext context, GoRouterState state) => Accounts()
+      ),
+
 
     ],
 

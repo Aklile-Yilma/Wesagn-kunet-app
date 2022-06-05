@@ -28,6 +28,10 @@ class AuthRepository{
     return response.client;
   }
 
+  logout() async{
+    await AccountManager.discardToken();
+  }
+
 }
 
 

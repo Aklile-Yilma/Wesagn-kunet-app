@@ -8,12 +8,15 @@ import 'package:wesagnkunet/Config.dart' as config;
 
 import 'package:wesagnkunet/infrastructure/core/repositories.dart';
 
+import 'package:wesagnkunet/infrastructure/lib/localdb/DBClient.dart';
+
 
 class CoreInfrastractureProvider{
 
 
   static ApiClient? cleanApiClient;
   static ApiClient? authenticatedApiClient;
+  static DBClient? dbClient;
 
   static MarriageCertificateRepository? marriageCertificateRepository; 
 
@@ -37,8 +40,14 @@ class CoreInfrastractureProvider{
     return authenticatedApiClient!;
   }
 
+  static DBClient provideDBClient(){
+    dbClient ??= DBClient(config.CACHE_DB_PATH);
+    return dbClient!;
+  }
+
+
   static Future<MarriageCertificateRepository> provideMarriageCertificateRepository()async{
-    marriageCertificateRepository ??= MarriageCertificateRepository(await provideAuthenticatedApiClient());
+    marriageCertificateRepository ??= MarriageCertificateRepository(await provideAuthenticatedApiClient(), provideDBClient());
     return marriageCertificateRepository!;
   }
 

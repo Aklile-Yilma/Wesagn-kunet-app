@@ -1,6 +1,8 @@
 
 
 
+import 'dart:developer';
+
 abstract class RepositoryCall<I, O>{
 
 	void storeCache(O value);
@@ -14,16 +16,19 @@ abstract class RepositoryCall<I, O>{
 		O? cached = await getCached(input);
 
 		if(cached != null){
-
+      log("Returing Cached Value");
 			return cached;
 		}
 
+    log("Not Found in Cache");
 		O value = await networkCall(input);
 
 		if(cache){
+      log("Storing to Cache");
 			storeCache(value);
 		}
 
+    log("Returning Network Value");
 		return value;
 
 	}

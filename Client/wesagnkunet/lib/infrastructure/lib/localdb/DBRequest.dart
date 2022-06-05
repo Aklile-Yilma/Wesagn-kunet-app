@@ -9,8 +9,8 @@ abstract class DBRequest<R> {
 
   Map<String, dynamic> _inputMap = {};
   OperationType _type = OperationType.select;
-  String _condition = "";
-  List<dynamic> _conditionArgs = [];
+  String? _condition;
+  List<dynamic>? _conditionArgs;
 
   DBRequest(this.tableName, {inputMap, type, condition, conditionArgs}) {
     if (inputMap != null) {
@@ -38,11 +38,11 @@ abstract class DBRequest<R> {
     return _type;
   }
 
-  String getCondition() {
+  String? getCondition() {
     return _condition;
   }
 
-  List<dynamic> getConditionArgs() {
+  List<dynamic>? getConditionArgs() {
     return _conditionArgs;
   }
 

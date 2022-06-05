@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,8 +12,8 @@ class WelcomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double _deviceWidth = MediaQuery.of(context).size.width;
-    final double _deviceHeight = MediaQuery.of(context).size.height;
+    final double _deviceWidth = window.physicalSize.width;
+    final double _deviceHeight = window.physicalSize.height;
 
     return Scaffold(
         body: BlocProvider<LaunchBloc>(
@@ -28,12 +29,13 @@ class WelcomePage extends StatelessWidget {
 
                   if (state.status == AuthenticationStatus.authenticated) {
                     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
-                      context.push('/core');
+                      context.go('/core');
                     });
                   } else if (state.status ==
                       AuthenticationStatus.unauthenticated) {
                     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
-                      context.push('/auth');
+                      log("Directing to LoginPage");
+                      context.go('/auth/login');
                     });
                   }
 

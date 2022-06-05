@@ -45,7 +45,9 @@ class DBClient{
       await init();
     }
 
-    _checkAndCreateTable(request);
+    if(await _checkAndCreateTable(request)){
+      return null;
+    }
 
     dynamic response;
 
@@ -70,18 +72,23 @@ class DBClient{
   }
 
 
-  Future _checkAndCreateTable(DBRequest request) async{
+  Future<bool> _checkAndCreateTable(DBRequest request) async{
 
-    if( await _checkTableExists(request.tableName)){
+    if(! await _checkTableExists(request.tableName)){
       log("Createing Table ${request.tableName}");
       await db!.execute(request.getCreateTableQuery());
+      return true;
     }
+
+    return false;
 
   }
 
   Future<bool> _checkTableExists(String tableName) async{
 
-    return (await db!.query("sqlite_master", where: 'name = ?', whereArgs: [tableName])) != [];
+    var result = (await db!.query("sqlite_master", where: 'name = ?', whereArgs: [tableName]));
+
+    return result.isNotEmpty;
 
   }
 

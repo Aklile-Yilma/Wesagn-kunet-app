@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
@@ -17,11 +18,16 @@ class LoginForm extends StatelessWidget {
     TextEditingController usernameController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
 
-    double _deviceWidth = MediaQuery.of(context).size.width;
-    double _deviceHeight = MediaQuery.of(context).size.height;
+    // double _deviceWidth = window.physicalSize.width/window.devicePixelRatio;
+    // double _deviceHeight = window.physicalSize.height/window.devicePixelRatio;
+
+    double _deviceWidth = window.physicalSize.width/window.devicePixelRatio;
+    double _deviceHeight = window.physicalSize.height/window.devicePixelRatio;
+    
 
     return BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
       log("Building for state. Status: ${state.status}");
+    log("Device Size: ($_deviceWidth, $_deviceHeight)");
 
       if (state.status == LoginStatus.loggedIn) {
         WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
@@ -151,8 +157,13 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double _deviceWidth = MediaQuery.of(context).size.width;
-    double _deviceHeight = MediaQuery.of(context).size.height;
+    // double _deviceWidth = window.physicalSize.width/window.devicePixelRatio;
+    // double _deviceHeight = window.physicalSize.height/window.devicePixelRatio;
+
+    double _deviceWidth = window.physicalSize.width/window.devicePixelRatio;
+    double _deviceHeight = window.physicalSize.height/window.devicePixelRatio;
+    log("Device Size: ($_deviceWidth, $_deviceHeight)");
+    
     return Scaffold(
       body: Center(
         child: SizedBox(

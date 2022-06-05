@@ -1,12 +1,15 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+
 
 class ChangePassword extends StatelessWidget {
   const ChangePassword({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    double _deviceWidth = MediaQuery.of(context).size.width;
-    double _deviceHeight = MediaQuery.of(context).size.height;
+    double _deviceWidth = window.physicalSize.width/window.devicePixelRatio;
+    double _deviceHeight = window.physicalSize.height/window.devicePixelRatio;
     return Scaffold(
         body: Stack(children: [
       Positioned(
@@ -25,7 +28,7 @@ class ChangePassword extends StatelessWidget {
         left: _deviceWidth * .01,
         bottom: _deviceHeight * .7,
         right: _deviceWidth * .7,
-        child: Image.asset("images/logo-primary.png"),
+        child: Image.asset("assets/images/logo-primary.png"),
       ),
       Positioned(
           top: _deviceHeight * .1,

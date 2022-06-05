@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:wesagnkunet/domain/core/marriage_certificate.dart';
 import 'package:wesagnkunet/infrastructure/core/db_serializers.dart';
 import 'package:wesagnkunet/infrastructure/lib/localdb/DBRequest.dart';
@@ -26,9 +28,11 @@ abstract class MarriageCertificateDBRequest<R> extends DBRequest<R>{
       husband_middle_name text not null,
       husband_last_name text not null,
       
+      marriage_date text not null,
+
       issue_date text,
       application_date text
-    )
+    );
     ''';
   }
 
@@ -53,6 +57,33 @@ class GetMarriageCertificateDBRequest extends MarriageCertificateDBRequest<Marri
     }
 
     return serializer.deSerialize(response.first);
+  }
+
+}
+
+
+class GetAllMarraigeCertificatesDBRequest extends MarriageCertificateDBRequest<List<MarriageCertificate>>{
+  
+  MarriageCertificateDBSerializer serializer = MarriageCertificateDBSerializer();
+
+  GetAllMarraigeCertificatesDBRequest(): super(
+                                              type: OperationType.select
+                                            );
+
+  @override
+  List<MarriageCertificate>? deserializeObject(response) {
+    // TODO: implement deserializeObject
+    if(response.length == 0){
+      return null;
+    }
+
+    log("Found ${response.length} Results from cache");
+
+    List<MarriageCertificate> certificates = [];
+    for(Map<String, dynamic> json in response){
+      certificates.add(serializer.deSerialize(json));
+    }
+    return certificates;
   }
 
 }
