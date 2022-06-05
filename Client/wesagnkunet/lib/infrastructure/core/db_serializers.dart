@@ -1,5 +1,6 @@
 import 'package:wesagnkunet/domain/core/birth_certificate.dart';
 import 'package:wesagnkunet/domain/core/certificate.dart';
+import 'package:wesagnkunet/domain/core/death_certificates.dart';
 import 'package:wesagnkunet/domain/core/marriage_certificate.dart';
 import 'package:wesagnkunet/infrastructure/lib/network/Serializer.dart';
 
@@ -82,6 +83,56 @@ class BirthCertificateDBSerializer extends Serializer<BirthCertificate> {
             DateTime.parse(json["application_date"])),
         json["gender"],
         DateTime.parse(json["birth_date"]),
+        false);
+  }
+}
+
+class DeathCertificateDBSerializer extends Serializer<DeathCertificate> {
+  @override
+  Map<String, dynamic> serialize(instance) {
+    String? issueDate = null;
+    if (instance.detail.issueDate != null) {
+      issueDate = instance.detail.issueDate.toString();
+    }
+
+    return {
+      "id": instance.id,
+      "deceased_first_name": instance.deceasedInformation.first_name,
+      "deceased_middle_name": instance.deceasedInformation.middle_name,
+      "deceased_last_name": instance.deceasedInformation.last_name,
+      "title": instance.deceasedInformation.title,
+      "country": instance.deceasedInformation.country,
+      "nationality": instance.deceasedInformation.nationality,
+      "city": instance.deceasedInformation.city,
+      "subcity": instance.deceasedInformation.subcity,
+      "woreda": instance.deceasedInformation.woreda,
+      "house_number": instance.deceasedInformation.house_number,
+      "date_of_death": instance.deceasedInformation.date_of_death,
+      "issue_date": issueDate,
+      "application_date": instance.detail.applicationDate.toString()
+    };
+  }
+
+  @override
+  DeathCertificate deSerialize(dynamic json) {
+    return DeathCertificate(
+        json["id"],
+        DeceasedInformation(
+          json["first_name"],
+          json["middle_name"],
+          json["last_name"],
+          json["date_of_birth"],
+          json["title"],
+          json["country"],
+          json["nationality"],
+          json["city"],
+          json["subcity"],
+          json["woreda"],
+          json["house_number"],
+          json["date_of_death"],
+        ),
+        CertificateDetail([], DateTime.parse(json["issue_date"]),
+            DateTime.parse(json["application_date"])),
         false);
   }
 }
