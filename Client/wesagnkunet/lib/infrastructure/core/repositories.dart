@@ -1,4 +1,5 @@
 import 'package:wesagnkunet/domain/core/birth_certificate.dart';
+import 'package:wesagnkunet/domain/core/death_certificates.dart';
 import 'package:wesagnkunet/domain/core/marriage_certificate.dart';
 import 'package:wesagnkunet/infrastructure/core/requests.dart';
 import 'package:wesagnkunet/infrastructure/lib/network/AplClient.dart';
@@ -82,5 +83,46 @@ class BirthCertificateRepository {
   Future<BirthCertificate> verify(int certificateId) async {
     return await apiClient
         .execute(VerifyBirthCertificateRequest(certificateId));
+  }
+}
+
+class DeathCertificatesRepositoryCall
+    extends RepositoryCall<void, List<DeathCertificate>> {
+  ApiClient apiClient;
+
+  DeathCertificatesRepositoryCall(this.apiClient);
+
+  @override
+  Future<List<DeathCertificate>?> getCached(input) async {
+    return null;
+  }
+
+  @override
+  Future<List<DeathCertificate>> networkCall(input) async {
+    return apiClient.execute(GetDeathCertificatesRequest());
+  }
+
+  @override
+  void storeCache(value) {
+    // TODO: implement storeCache
+  }
+}
+
+class DeathCertificateRepository {
+  ApiClient apiClient;
+
+  DeathCertificateRepository(this.apiClient);
+
+  Future<List<DeathCertificate>> getAll() async {
+    return await DeathCertificatesRepositoryCall(apiClient).get(null);
+  }
+
+  Future<DeathCertificate> create(DeathCertificate certificate) async {
+    return await apiClient.execute(CreateDeathCertificateRequest(certificate));
+  }
+
+  Future<DeathCertificate> verify(int certificateId) async {
+    return await apiClient
+        .execute(VerifyDeathCertificateRequest(certificateId));
   }
 }
