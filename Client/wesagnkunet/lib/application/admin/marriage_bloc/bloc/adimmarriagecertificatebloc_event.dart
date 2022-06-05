@@ -16,48 +16,42 @@ class FetchMarriageCertificatesEvent extends AdminMarriageCertificateBlocEvent {
 
 class GetSingleMarriageCertificateEvent
     extends AdminMarriageCertificateBlocEvent {
-   GetSingleMarriageCertificateEvent(this.id);
-  int id;
+  GetSingleMarriageCertificateEvent(this.certificateId);
+  int certificateId;
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [certificateId];
 }
 
 class ApproveMarriageCertificateEvent
     extends AdminMarriageCertificateBlocEvent {
-  ApproveMarriageCertificateEvent(this.marriageCertificate, this.status);
-
-  bool status;
-  MarriageCertificate marriageCertificate;
+  ApproveMarriageCertificateEvent(this.certificateId);
+  int certificateId;
 
   @override
-  List<Object> get props => [marriageCertificate, status];
+  List<Object> get props => [certificateId];
 }
 
 class RejectMarriageCertificateEvent extends AdminMarriageCertificateBlocEvent {
-  RejectMarriageCertificateEvent(this.marriageCertificate, this.rejected);
-  MarriageCertificate marriageCertificate;
-  bool rejected;
+  RejectMarriageCertificateEvent(this.certificateId);
+  int certificateId;
 
   @override
-  List<Object> get props => [marriageCertificate, rejected];
+  List<Object> get props => [certificateId];
 }
 
 class DeleteMarriageCertificateEvent extends AdminMarriageCertificateBlocEvent {
-  DeleteMarriageCertificateEvent(this.marriageCertificate);
-  MarriageCertificate marriageCertificate;
+  DeleteMarriageCertificateEvent(this.certificateId);
+  int certificateId;
 
   @override
-  List<Object> get props => [marriageCertificate];
+  List<Object> get props => [certificateId];
 }
 
 class UpdateMarriageCertificateEvent extends AdminMarriageCertificateBlocEvent {
-  UpdateMarriageCertificateEvent(
-      this.marriageCertificate, this.issuedTime, this.status);
-  DateTime issuedTime;
-  bool status;
+  UpdateMarriageCertificateEvent(this.certificateId);
+  int certificateId;
 
-  MarriageCertificate marriageCertificate;
   @override
-  List<Object> get props => [marriageCertificate, issuedTime, status];
+  List<Object> get props => [certificateId];
 }

@@ -9,8 +9,6 @@ part 'adimmarriagecertificatebloc_state.dart';
 class AdminMarriageCertificateBloc extends Bloc<
     AdminMarriageCertificateBlocEvent, AdminMarriageCertificateBlocState> {
   AdminMarriageCertificateBloc() : super(AdimMarriageCertificateBlocInit()) {
-
-
     on<FetchMarriageCertificatesEvent>(
         (FetchMarriageCertificatesEvent event, Emitter emitter) async {
       emitter.call(FetchingMarriageCertificatesState());
@@ -26,15 +24,13 @@ class AdminMarriageCertificateBloc extends Bloc<
       }
     });
 
-
-
     on<GetSingleMarriageCertificateEvent>(
         (GetSingleMarriageCertificateEvent event, Emitter emitter) async {
       MarriageCertificate marriageCertificate;
 
       try {
         marriageCertificate =
-            await (await repository).get(); //TODO the get method to fetch particular certificate
+            await (await repository).getById(event.certificateId);
         emitter.call(LoadedMarriageCertificateState(marriageCertificate));
       } catch (error) {
         emitter.call(
@@ -42,13 +38,11 @@ class AdminMarriageCertificateBloc extends Bloc<
       }
     });
 
-
-
     on<ApproveMarriageCertificateEvent>(
         (ApproveMarriageCertificateEvent event, Emitter emitter) async {
       try {
-        final uprovedcertificate = await (await repository)
-            .update(event.marriageCertificate, event.status);
+        final uprovedcertificate =
+            await (await repository).verify(event.certificateId);
 
         emitter.call(ApprovedMarriageCertificteState(
             marriageCertificate: uprovedcertificate));
@@ -57,12 +51,11 @@ class AdminMarriageCertificateBloc extends Bloc<
       }
     });
 
-
     on<RejectMarriageCertificateEvent>(
         (RejectMarriageCertificateEvent event, Emitter emitter) async {
       try {
-        final rejectedMarriageCertificate = await (await repository)
-            .update(event.marriageCertificate, event.rejected);
+        final rejectedMarriageCertificate =
+            await (await repository).verify(event.certificateId);
         emitter.call(
             RejectedMarriageCertificateState(rejectedMarriageCertificate));
       } catch (error) {
@@ -70,13 +63,11 @@ class AdminMarriageCertificateBloc extends Bloc<
       }
     });
 
-
-
     on<UpdateMarriageCertificateEvent>(
         (UpdateMarriageCertificateEvent event, Emitter emitter) async {
       try {
-        final updatedMarriageCertificate = await (await repository)
-            .update(event.marriageCertificate, event.issuedTime, event.status);
+        final updatedMarriageCertificate =
+            await (await repository).verify(event.certificateId);
         emitter.call(UpdatedMarriageCertificateState(
             marriageCertificate: updatedMarriageCertificate));
       } catch (error) {
@@ -84,12 +75,10 @@ class AdminMarriageCertificateBloc extends Bloc<
       }
     });
 
-
-
     on<DeleteMarriageCertificateEvent>(
         (DeleteMarriageCertificateEvent event, Emitter emitter) async {
       try {
-        await (await repository).delete(event.marriageCertificate);
+        await (await repository).delete(event.certificateId);
 
         emitter.call(DeletedMarriageCertificateState());
       } catch (error) {
@@ -97,8 +86,6 @@ class AdminMarriageCertificateBloc extends Bloc<
       }
     });
   }
-
-
 
   Future<MarriageCertificateRepository> get repository async {
     return await CoreInfrastractureProvider

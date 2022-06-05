@@ -5,41 +5,44 @@ import 'package:wesagnkunet/infrastructure/lib/network/Request.dart';
 import 'package:wesagnkunet/domain/core/marriage_certificate.dart';
 import 'package:wesagnkunet/infrastructure/core/serializers.dart';
 
+class GetMarriageCertificatesRequest
+    extends Request<List<MarriageCertificate>> {
+  GetMarriageCertificatesRequest() : super("/core/marriage/");
 
-class GetMarriageCertificatesRequest extends Request<List<MarriageCertificate>>{
+  @override
+  List<MarriageCertificate> deserializeObject(response) {
+    List<MarriageCertificate> certificateList = [];
+    List<dynamic> json = jsonDecode(response);
 
-	GetMarriageCertificatesRequest(): super("/core/marriage/");
+    final MarriageCertificateSerializer serializer =
+        MarriageCertificateSerializer();
 
-	@override
-	List<MarriageCertificate> deserializeObject(response) {
+    for (int i = 0; i < json.length; i++) {
+      certificateList.add(serializer.deSerialize(json[i]));
+    }
 
-		List<MarriageCertificate> certificateList = [];
-		List<dynamic> json = jsonDecode(response);
-
-		final MarriageCertificateSerializer serializer = MarriageCertificateSerializer();
-
-		for(int i=0; i<json.length; i++){
-
-			certificateList.add(serializer.deSerialize(json[i]));
-
-		}
-
-		return certificateList;
-
-	}
-
+    return certificateList;
+  }
 }
 
+class GetMarriageCertificateRequest extends Request<MarriageCertificate> {
+  MarriageCertificateSerializer serializer = MarriageCertificateSerializer();
 
-class CreateMarriageCertificateRequest extends  Request<MarriageCertificate>{
-  
+  GetMarriageCertificateRequest(int certificateId)
+      : super("/core/marriage/$certificateId");
+
+  @override
+  MarriageCertificate deserializeObject(response) {
+    return serializer.deSerialize(jsonDecode(response));
+  }
+}
+
+class CreateMarriageCertificateRequest extends Request<MarriageCertificate> {
   MarriageCertificateSerializer serializer = MarriageCertificateSerializer();
   MarriageCertificate certificate;
- 
-  CreateMarriageCertificateRequest(this.certificate): super(
-                                                          "/core/marriage/",
-                                                          method: Method.post
-                                                        );
+
+  CreateMarriageCertificateRequest(this.certificate)
+      : super("/core/marriage/", method: Method.post);
 
   @override
   Map<String, dynamic> getPostData() {
@@ -51,26 +54,28 @@ class CreateMarriageCertificateRequest extends  Request<MarriageCertificate>{
     log(response);
     return serializer.deSerialize(jsonDecode(response));
   }
-
 }
 
-
-class VerifyMarriageCertificateRequest extends Request<MarriageCertificate>{
-
+class VerifyMarriageCertificateRequest extends Request<MarriageCertificate> {
   MarriageCertificateSerializer serializer = MarriageCertificateSerializer();
 
-  VerifyMarriageCertificateRequest(int certificateId): super(
-                                                                          "/core/marriage/$certificateId/",
-                                                                          method: Method.patch,
-                                                                          postParams: {
-                                                                            "pk": certificateId,
-                                                                            "verified": true
-                                                                          }
-                                                                        );
+  VerifyMarriageCertificateRequest(int certificateId)
+      : super("/core/marriage/$certificateId/",
+            method: Method.patch,
+            postParams: {"pk": certificateId, "verified": true});
 
   @override
   MarriageCertificate deserializeObject(response) {
     return serializer.deSerialize(jsonDecode(response));
   }
+}
 
+class DeleteMarriageCertificateRequest extends Request<void> {
+  DeleteMarriageCertificateRequest(int certificateId)
+      : super("/core/marriage/$certificateId/", method: Method.delete);
+
+  @override
+  void deserializeObject(response) {
+    return;
+  }
 }

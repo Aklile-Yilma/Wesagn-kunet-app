@@ -25,15 +25,54 @@ class MarriageCertificatesRepositoryCall
   }
 }
 
+class MarriageCertificateRepositoryCall
+    extends RepositoryCall<int, MarriageCertificate> {
+  ApiClient apiClient;
+
+  MarriageCertificateRepositoryCall(this.apiClient);
+
+  @override
+  Future<MarriageCertificate?> getCached(int input) async {
+    return null;
+  }
+
+  @override
+  Future<MarriageCertificate> networkCall(int input) async {
+    return apiClient.execute(GetMarriageCertificateRequest(input));
+  }
+
+  @override
+  void storeCache(MarriageCertificate value) async {
+    // TODO: implement storeCache
+  }
+}
+
 class MarriageCertificateRepository {
   ApiClient apiClient;
 
   MarriageCertificateRepository(this.apiClient);
 
-  Future<List<MarriageCertificate>> getAll() {
-    return MarriageCertificatesRepositoryCall(apiClient).get(null);
+  Future<List<MarriageCertificate>> getAll() async {
+    return await MarriageCertificatesRepositoryCall(apiClient).get(null);
   }
 
-  
+  Future<MarriageCertificate> getById(int certificateId) async {
+    return await MarriageCertificateRepositoryCall(apiClient)
+        .get(certificateId);
+  }
 
+  Future<MarriageCertificate> create(MarriageCertificate certificate) async {
+    return await apiClient
+        .execute(CreateMarriageCertificateRequest(certificate));
+  }
+
+  Future<MarriageCertificate> verify(int certificateId) async {
+    return await apiClient
+        .execute(VerifyMarriageCertificateRequest(certificateId));
+  }
+
+  Future<void> delete(int certificateId) async {
+    return await apiClient
+        .execute(DeleteMarriageCertificateRequest(certificateId));
+  }
 }
