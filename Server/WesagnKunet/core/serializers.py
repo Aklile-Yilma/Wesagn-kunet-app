@@ -106,8 +106,7 @@ class BirthCertificateSerializer(serializers.ModelSerializer):
 
 		class Meta:
 			model= BirthCertificate.ParentInformation
-			fields= "__all__"
-
+			exclude= ('detail', )
 	child= childSerialzer()
 	mother= parentSerialzer()
 	father= parentSerialzer()
@@ -137,7 +136,7 @@ class BirthCertificateSerializer(serializers.ModelSerializer):
 			child = validated_data.get("child").save(),
 			father = validated_data.get("father").save(),
 			mother = validated_data.get("mother").save(),
-
+				
 			detail = detail,
 			birth_date = validated_data["birth_date"]
 		)

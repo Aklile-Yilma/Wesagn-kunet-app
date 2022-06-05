@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:wesagnkunet/presentation/core/AccountSettings.dart';
 import 'package:wesagnkunet/presentation/routes.dart';
 
 void main() {
-  runApp(MaterialApp(
-    home: Accounts(),
-  ));
+  runApp(MainApp());
 }
 
 class MainApp extends StatelessWidget {
