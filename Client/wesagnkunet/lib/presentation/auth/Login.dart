@@ -8,7 +8,14 @@ import 'package:wesagnkunet/application/auth/login/bloc.dart';
 import 'package:wesagnkunet/application/auth/providers.dart';
 
 class LoginForm extends StatelessWidget {
+<<<<<<< HEAD
   @override
+=======
+  const LoginForm({Key? key}) : super(key: key);
+
+
+	@override
+>>>>>>> 0721a885f2de1530ee9bcf9530fceb98a6bbed45
   Widget build(BuildContext context) {
     final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
 
@@ -18,6 +25,7 @@ class LoginForm extends StatelessWidget {
     double _deviceWidth = MediaQuery.of(context).size.width;
     double _deviceHeight = MediaQuery.of(context).size.height;
 
+<<<<<<< HEAD
     return BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
       log("Building for state. Status: ${state.status}");
 
@@ -83,6 +91,139 @@ class LoginForm extends StatelessWidget {
                 if (state.status != LoginStatus.none) {
                   return;
                 }
+=======
+        if(state.status == LoginStatus.loggedIn){
+          WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+            log("Popping back to LaunchPage");
+            context.go("/core");
+          });
+        }
+
+				return Form(
+		    					key: _formkey,
+		    					child: Column(
+		    						mainAxisAlignment: MainAxisAlignment.spaceBetween,
+		    						crossAxisAlignment: CrossAxisAlignment.center,
+		    						children: [
+		    							const Text(
+		    								"LOGIN",
+		    								style: TextStyle(
+		    										fontSize: 50,
+		    										fontWeight: FontWeight.bold,
+		    										color: Color.fromRGBO(0, 0, 139, 1)),
+		    							),
+											
+											Builder(
+												builder:(context) {
+												  if(state.apiException != null){
+														return const Text(
+                              "Incorrect Username of password",
+                              style: TextStyle(
+                                color: Colors.red
+                              ),
+                              );
+													}
+													return SizedBox.shrink();
+												},
+											),
+
+		    							TextFormField(
+		    								controller: usernameController,
+		    								validator: (value) {
+		    									if (value == null || value.isEmpty) {
+		    										return "Please enter email";
+		    									}
+		    									if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
+		    										return "Please enter a valid email address";
+		    									}
+		    									return null;
+		    								},
+		    								decoration: const InputDecoration(
+		    									border: OutlineInputBorder(),
+		    									labelText: 'user@example.com',
+		    									hintText: 'Enter your Email',
+		    								),
+		    							),
+		    							TextFormField(
+		    									controller: passwordController,
+		    									validator: (value) {
+		    										if (value == null || value.isEmpty) {
+		    											return "Please enter your password";
+		    										}
+		    										return null;
+		    									},
+		    									decoration: const InputDecoration(
+		    										border: OutlineInputBorder(),
+		    										labelText: 'Password',
+		    										hintText: 'Enter your password',
+		    									)),
+		    							ElevatedButton(
+		    								style: ElevatedButton.styleFrom(
+		    									primary: const Color.fromRGBO(0, 0, 139, 1),
+		    								),
+		    								onPressed: () {
+													if(state.status != LoginStatus.none) {
+													  return;
+													}
+
+      										log("Logging in username: ${usernameController.text}, password: ${passwordController.text}");
+
+		    									if (_formkey.currentState!.validate()) {
+		    										context.read<LoginBloc>().add(
+		    											SubmitLogin(
+		    												usernameController.text,
+		    												passwordController.text
+		    											)
+		    										);
+		    									}
+		    								},
+		    								child: Builder(
+		    								  builder: (context) {
+                            log("State Status: ${state.status}");
+														if(state.status == LoginStatus.loggingIn){
+															return const CircularProgressIndicator();
+														}
+		    								    return const Text(
+		    								    	'LogIn',
+		    								    	style: TextStyle(fontSize: 20),
+		    								    );
+		    								  }
+		    								),
+		    							),
+		    							Center(
+		    								child: RichText(
+		    									text: TextSpan(
+		    										children: [
+		    											const TextSpan(
+		    												text: "Don't have an account yet? ",
+		    												style: TextStyle(color: Colors.black),
+		    											),
+		    											TextSpan(
+		    													text: 'Sign Up',
+		    													style: const TextStyle(color: Colors.blue),
+		    													recognizer: TapGestureRecognizer()
+		    														..onTap = () {
+		    															context.go("/auth/signup");
+		    														}),
+		    										],
+		    									),
+		    								),
+		    							),
+		    							Container(
+		    								padding: EdgeInsets.only(top: _deviceHeight * 0.1),
+		    								child: Image.asset(
+		    									"assets/images/logo-primary.png",
+		    									width: _deviceWidth * 0.2,
+		    									height: _deviceWidth * 0.2,
+		    								),
+		    							),
+		    							
+		    						],
+		    					),
+		    				);
+		  }
+		);
+>>>>>>> 0721a885f2de1530ee9bcf9530fceb98a6bbed45
 
                 log("Logging in username: ${usernameController.text}, password: ${passwordController.text}");
 

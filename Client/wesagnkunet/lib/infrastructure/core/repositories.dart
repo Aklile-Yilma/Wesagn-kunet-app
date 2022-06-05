@@ -42,6 +42,8 @@ class MarriageCertificateRepository{
     return MarriageCertificatesRepositoryCall(apiClient).get(null);
   }
 
+  
+
 }
 
 
