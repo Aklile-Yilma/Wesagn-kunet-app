@@ -1,6 +1,6 @@
 from django.urls import path
 from rest_framework.routers import SimpleRouter
-from .views import UserViewSet, ClientViewSet, SignupView
+from .views import UserViewSet, ClientViewSet, SignupView, MyAccountView
 
 router=SimpleRouter()
 
@@ -11,5 +11,6 @@ urlpatterns=router.urls
 
 
 urlpatterns += [
-        path('auth/signup', SignupView.as_view())
+        path('auth/signup', SignupView.as_view()),
+        path('auth/my-account', MyAccountView.as_view())
 ]

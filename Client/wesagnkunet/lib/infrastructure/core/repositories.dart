@@ -33,4 +33,7 @@ class MarriageCertificateRepository {
   Future<List<MarriageCertificate>> getAll() {
     return MarriageCertificatesRepositoryCall(apiClient).get(null);
   }
+
+  
+
 }

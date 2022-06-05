@@ -21,9 +21,17 @@ class CertificateDetailSerializer extends Serializer<CertificateDetail>{
 		}
 		
 
+    DateTime? issueDate;
+    if(json["issue_date"] == null){
+      issueDate = null;
+    }
+    else{
+      issueDate = DateTime.parse(json["issue_date"]);
+    }
+
 		return CertificateDetail(
 			users,
-			DateTime.parse(json["issue_date"]),
+			issueDate,
 			DateTime.parse(json["application_date"])
 		);
 	}
@@ -47,8 +55,11 @@ class SpouseSerializer extends Serializer<Spouse>{
 
 	@override
   serialize(Spouse instance) {
-    // TODO: implement serialize
-    throw UnimplementedError();
+    return {
+      "first_name": instance.firstName,
+      "middle_name": instance.middleName,
+      "last_name": instance.lastName
+    };
   }
 
 }
@@ -67,15 +78,19 @@ class MarriageCertificateSerializer extends Serializer<MarriageCertificate>{
 			spouseSerializer.deSerialize(json["wife"]),
 			spouseSerializer.deSerialize(json["husband"]),
 			certificateDetailSerializer.deSerialize(json["detail"]),
-			DateTime.parse(json["marriage_date"])
+			DateTime.parse(json["marriage_date"]),
+      json["verified"]
 		);
 
   }
 
   @override
   serialize(MarriageCertificate instance) {
-    // TODO: implement serialize
-    throw UnimplementedError();
+    return {
+      "wife": spouseSerializer.serialize(instance.wife),
+      "husband": spouseSerializer.serialize(instance.husband),
+      "marriage_date": instance.marriageDate.toString().split(" ")[0]
+    };
   }
 
 

@@ -5,4 +5,4 @@ String API_PATH = "/api/v1";
 
 // AUTH
 String AUTHORIZATION_KEY = "Authorization";
-String AUTHORIZATION_PREFIX = "Token";
+String AUTHORIZATION_PREFIX = "Bearer";

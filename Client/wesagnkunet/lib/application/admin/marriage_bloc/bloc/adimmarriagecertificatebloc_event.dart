@@ -25,13 +25,13 @@ class GetSingleMarriageCertificateEvent
 
 class ApproveMarriageCertificateEvent
     extends AdminMarriageCertificateBlocEvent {
-  ApproveMarriageCertificateEvent(this.marriageCertificate, this.verified);
+  ApproveMarriageCertificateEvent(this.marriageCertificate, this.status);
 
-  bool verified;
+  bool status;
   MarriageCertificate marriageCertificate;
 
   @override
-  List<Object> get props => [marriageCertificate, verified];
+  List<Object> get props => [marriageCertificate, status];
 }
 
 class RejectMarriageCertificateEvent extends AdminMarriageCertificateBlocEvent {

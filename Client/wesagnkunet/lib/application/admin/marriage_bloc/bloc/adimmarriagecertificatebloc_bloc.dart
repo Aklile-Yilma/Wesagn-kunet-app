@@ -9,14 +9,13 @@ part 'adimmarriagecertificatebloc_state.dart';
 class AdminMarriageCertificateBloc extends Bloc<
     AdminMarriageCertificateBlocEvent, AdminMarriageCertificateBlocState> {
   AdminMarriageCertificateBloc() : super(AdimMarriageCertificateBlocInit()) {
-  
+
 
     on<FetchMarriageCertificatesEvent>(
         (FetchMarriageCertificatesEvent event, Emitter emitter) async {
       emitter.call(FetchingMarriageCertificatesState());
 
       try {
-        //TODO fetching
         List<MarriageCertificate> marriageCertificates =
             await (await repository).getAll();
         emitter.call(FetchedMarriageCertificatesState(
@@ -27,54 +26,70 @@ class AdminMarriageCertificateBloc extends Bloc<
       }
     });
 
+
+
     on<GetSingleMarriageCertificateEvent>(
         (GetSingleMarriageCertificateEvent event, Emitter emitter) async {
       MarriageCertificate marriageCertificate;
 
       try {
-        // marriageCertificate =
-        // await (await repository).get(); //TODO the get method
-        // emitter.call(LoadedMarriageCertificateState(marriageCertificate));
+        marriageCertificate =
+            await (await repository).get(); //TODO the get method to fetch particular certificate
+        emitter.call(LoadedMarriageCertificateState(marriageCertificate));
       } catch (error) {
         emitter.call(
             LoadMarriageCertificateErrorState(exception: error as Exception));
       }
     });
 
+
+
     on<ApproveMarriageCertificateEvent>(
         (ApproveMarriageCertificateEvent event, Emitter emitter) async {
       try {
-        //  final uprovedcertificate=await MarriageCertificateRepository.update(event.marriageCertificate, event.status)
+        final uprovedcertificate = await (await repository)
+            .update(event.marriageCertificate, event.status);
 
-        // emitter.call(ApprovedMarriageCertificteState(
-        //     marriageCertificate: uprovedcertificate));
+        emitter.call(ApprovedMarriageCertificteState(
+            marriageCertificate: uprovedcertificate));
       } catch (error) {
         emitter.call(ApprovalError(error as Error));
       }
     });
+
+
     on<RejectMarriageCertificateEvent>(
         (RejectMarriageCertificateEvent event, Emitter emitter) async {
       try {
-        emitter.call(RejectedMarriageCertificateState(event.marriageCertificate));
+        final rejectedMarriageCertificate = await (await repository)
+            .update(event.marriageCertificate, event.rejected);
+        emitter.call(
+            RejectedMarriageCertificateState(rejectedMarriageCertificate));
       } catch (error) {
         emitter.call(RejectionError(error as Error));
       }
     });
 
+
+
     on<UpdateMarriageCertificateEvent>(
-        (UpdateMarriageCertificateEvent event, Emitter emit) async {
+        (UpdateMarriageCertificateEvent event, Emitter emitter) async {
       try {
-        // final updatedMarriageCertificate=await MarriageCertificateRepository.update(event.marriageCertificate, event.issuedTime, event.status);
+        final updatedMarriageCertificate = await (await repository)
+            .update(event.marriageCertificate, event.issuedTime, event.status);
+        emitter.call(UpdatedMarriageCertificateState(
+            marriageCertificate: updatedMarriageCertificate));
       } catch (error) {
-        emit.call(UpdateError(error as Error));
+        emitter.call(UpdateError(error as Error));
       }
     });
+
+
 
     on<DeleteMarriageCertificateEvent>(
         (DeleteMarriageCertificateEvent event, Emitter emitter) async {
       try {
-        // final marriageCertificate =
-        //     await MarriageCertificateRepository.delete(event.marriageCertificate);
+        await (await repository).delete(event.marriageCertificate);
 
         emitter.call(DeletedMarriageCertificateState());
       } catch (error) {
@@ -83,18 +98,10 @@ class AdminMarriageCertificateBloc extends Bloc<
     });
   }
 
+
+
   Future<MarriageCertificateRepository> get repository async {
     return await CoreInfrastractureProvider
         .provideMarriageCertificateRepository();
   }
-
- 
-
-  
-
-  
-
- 
-
-  
 }

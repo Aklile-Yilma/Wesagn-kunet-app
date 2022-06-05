@@ -2,10 +2,11 @@
 
 
 import 'package:wesagnkunet/domain/auth/Client.dart';
+import 'package:wesagnkunet/domain/auth/token.dart';
 
 class SignupResponse{
 
-  String token;
+  JWTToken token;
 
   Client client;
 

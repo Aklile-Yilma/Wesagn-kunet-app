@@ -66,7 +66,7 @@ class RegisterSerializer(serializers.Serializer):
 class UserDetailsSerializer(serializers.ModelSerializer):
 	class Meta:
 		model=get_user_model()
-		fields=('pk', 'username', 'email')
+		fields=('pk', 'username', 'email', "is_admin")
 		read_only_fields=('email',)
 
 

@@ -6,7 +6,7 @@ import 'package:wesagnkunet/domain/auth/user.dart';
 class CertificateDetail{
 
   List<Client> users;
-  DateTime issueDate;
+  DateTime? issueDate;
   DateTime applicationDate;
 
 

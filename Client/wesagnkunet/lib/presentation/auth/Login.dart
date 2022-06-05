@@ -9,6 +9,8 @@ import 'package:wesagnkunet/application/auth/providers.dart';
 
 
 class LoginForm extends StatelessWidget {
+  const LoginForm({Key? key}) : super(key: key);
+
 
 	@override
   Widget build(BuildContext context) {
@@ -26,6 +28,13 @@ class LoginForm extends StatelessWidget {
 		  builder: (context, state) {
 		    
         log("Building for state. Status: ${state.status}");
+
+        if(state.status == LoginStatus.loggedIn){
+          WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+            log("Popping back to LaunchPage");
+            context.go("/core");
+          });
+        }
 
 				return Form(
 		    					key: _formkey,
@@ -131,7 +140,7 @@ class LoginForm extends StatelessWidget {
 		    													style: const TextStyle(color: Colors.blue),
 		    													recognizer: TapGestureRecognizer()
 		    														..onTap = () {
-		    															context.go("/Signup");
+		    															context.go("/auth/signup");
 		    														}),
 		    										],
 		    									),

@@ -1,5 +1,7 @@
 
 
+import 'dart:developer';
+
 import 'package:wesagnkunet/infrastructure/auth/AccountManager.dart';
 import 'package:wesagnkunet/infrastructure/lib/network/AplClient.dart';
 import 'package:wesagnkunet/Config.dart' as config;
@@ -27,6 +29,7 @@ class CoreInfrastractureProvider{
       if(token == null){
         throw Exception("Token not found");
       }
+      log("Token: $token");
       authenticatedApiClient = ApiClient(config.API_HOST, baseUrl: config.API_PATH, token: token);
     }
 
