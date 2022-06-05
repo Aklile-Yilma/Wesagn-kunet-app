@@ -3,55 +3,44 @@ import 'package:wesagnkunet/infrastructure/core/requests.dart';
 import 'package:wesagnkunet/infrastructure/lib/network/AplClient.dart';
 import 'package:wesagnkunet/infrastructure/lib/repository.dart';
 
+class MarriageCertificatesRepositoryCall
+    extends RepositoryCall<void, List<MarriageCertificate>> {
+  ApiClient apiClient;
 
+  MarriageCertificatesRepositoryCall(this.apiClient);
 
+  @override
+  Future<List<MarriageCertificate>?> getCached(input) async {
+    return null;
+  }
 
-class MarriageCertificatesRepositoryCall extends RepositoryCall<void, List<MarriageCertificate>>{
- 
+  @override
+  Future<List<MarriageCertificate>> networkCall(input) async {
+    return apiClient.execute(GetMarriageCertificatesRequest());
+  }
 
-	ApiClient apiClient;
-
-	MarriageCertificatesRepositoryCall(this.apiClient);
- 
-
-	@override
-	Future<List<MarriageCertificate>?> getCached(input) async{
-		return null;
-	}
-
-	@override
-	Future<List<MarriageCertificate>> networkCall(input) async{
-		return apiClient.execute(GetMarriageCertificatesRequest());
-	}
-
-	@override
-	void storeCache(value) {
-		// TODO: implement storeCache
-	}
-
+  @override
+  void storeCache(value) {
+    // TODO: implement storeCache
+  }
 }
 
-
-class MarriageCertificateRepository{
-
+class MarriageCertificateRepository {
   ApiClient apiClient;
 
   MarriageCertificateRepository(this.apiClient);
 
-  Future<List<MarriageCertificate>> getAll() async{
+  Future<List<MarriageCertificate>> getAll() async {
     return await MarriageCertificatesRepositoryCall(apiClient).get(null);
   }
 
-  Future<MarriageCertificate> create(MarriageCertificate certificate) async{
-    return await apiClient.execute(CreateMarriageCertificateRequest(certificate));
+  Future<MarriageCertificate> create(MarriageCertificate certificate) async {
+    return await apiClient
+        .execute(CreateMarriageCertificateRequest(certificate));
   }
 
-  Future<MarriageCertificate> verify(int certificateId) async{
-    return await apiClient.execute(VerifyMarriageCertificateRequest(certificateId));
+  Future<MarriageCertificate> verify(int certificateId) async {
+    return await apiClient
+        .execute(VerifyMarriageCertificateRequest(certificateId));
   }
-
-
-
 }
-
-
