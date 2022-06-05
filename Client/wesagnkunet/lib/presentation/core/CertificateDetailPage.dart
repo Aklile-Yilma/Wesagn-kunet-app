@@ -71,12 +71,27 @@ class MarriageCertificateDetailPage extends StatelessWidget{
                       fontWeight: FontWeight.bold
                     ),
                   ),
-                  Text(
-                    _certificate.detail.issueDate.toString().split(" ")[0],
-                    style: const TextStyle(
-                      fontSize: 15,
-                    ),
-                  ),
+                  
+                  Builder(builder: ((context) {
+                    
+                    if(_certificate.detail.issueDate == null){
+                      return const Text(
+                        "Not Approved Yet",
+                        style: TextStyle(
+                          color: Colors.red
+                        ),
+                      );
+                    }
+
+                    return Text(
+                      _certificate.detail.issueDate.toString().split(" ")[0],
+                      style: const TextStyle(
+                        fontSize: 15,
+                      ),
+                    );
+
+
+                  })),
                   const SizedBox(height: 50),
                   SpouseTile(_certificate.wife, "Wife"),
                   const SizedBox(height: 50),
@@ -91,7 +106,7 @@ class MarriageCertificateDetailPage extends StatelessWidget{
         ),
       ),
 
-      bottomNavigationBar: const CoreBottomNavigation(),
+      bottomNavigationBar: CoreBottomNavigation(0),
 
     );
 

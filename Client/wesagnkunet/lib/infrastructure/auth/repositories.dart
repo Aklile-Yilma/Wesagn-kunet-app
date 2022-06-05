@@ -5,7 +5,9 @@ import 'package:wesagnkunet/domain/auth/Client.dart';
 import 'package:wesagnkunet/domain/auth/signup_response.dart';
 import 'package:wesagnkunet/domain/auth/token.dart';
 import 'package:wesagnkunet/infrastructure/auth/AccountManager.dart';
+import 'package:wesagnkunet/infrastructure/auth/providers.dart';
 import 'package:wesagnkunet/infrastructure/auth/requests.dart';
+import 'package:wesagnkunet/infrastructure/core/providers.dart';
 import 'package:wesagnkunet/infrastructure/lib/network/AplClient.dart';
 import 'package:wesagnkunet/infrastructure/lib/repository.dart';
 
@@ -30,6 +32,8 @@ class AuthRepository{
 
   logout() async{
     await AccountManager.discardToken();
+    AuthInfrastractureProvider.reset();
+    CoreInfrastractureProvider.reset();
   }
 
 }

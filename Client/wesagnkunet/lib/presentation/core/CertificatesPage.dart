@@ -151,7 +151,7 @@ class Certificates extends StatelessWidget {
           }
         ),
       ),
-      bottomNavigationBar: CoreBottomNavigation(),
+      bottomNavigationBar: CoreBottomNavigation(0),
     );
   }
 }

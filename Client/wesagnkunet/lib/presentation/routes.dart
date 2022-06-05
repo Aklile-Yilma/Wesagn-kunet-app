@@ -87,7 +87,7 @@ class WesagnKunetRouter extends GoRouter{
       GoRoute(
           path: "/admin/marriage/certificates/detaile",
           builder: (BuildContext context, GoRouterState state) =>
-              MarriageCertificateDetail()),
+              MarriageCertificateDetail(state.extra! as MarriageCertificate)),
       GoRoute(
           path: "/admin/birth/certificates",
           builder: (BuildContext context, GoRouterState state) =>

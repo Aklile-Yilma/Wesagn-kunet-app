@@ -15,17 +15,17 @@ class CertificateListScreen extends StatelessWidget {
           padding: EdgeInsets.all(5),
           children: [
             CertificatesListView(
-              path: "admin/marriage/certificates",
+              path: "/admin/marriage/certificates",
               image_path: "assets/images/marriage.webp",
               title: "Birth certificates",
             ),
             CertificatesListView(
-              path: "admin/marriage/certificates",
+              path: "/admin/marriage/certificates",
               image_path: "assets/images/marriage.webp",
               title: "Marriage Certificates",
             ),
             CertificatesListView(
-              path: "admin/marriage/certificates",
+              path: "/admin/marriage/certificates",
               image_path: "assets/images/death.jpg",
               title: "Death Certificates",
             ),
@@ -36,7 +36,7 @@ class CertificateListScreen extends StatelessWidget {
             ),
           ],
         ),
-        bottomNavigationBar: CustomeBottomNav());
+        bottomNavigationBar: AdminBottomNavigation(1));
   }
 }
 

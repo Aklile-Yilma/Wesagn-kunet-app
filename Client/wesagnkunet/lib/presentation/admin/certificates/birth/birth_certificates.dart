@@ -25,7 +25,7 @@ class BirthCertificates extends StatelessWidget {
           return Text("Death");
         },
       ),
-      bottomNavigationBar: CustomeBottomNav(),
+      bottomNavigationBar: AdminBottomNavigation(1),
     );
   }
 }

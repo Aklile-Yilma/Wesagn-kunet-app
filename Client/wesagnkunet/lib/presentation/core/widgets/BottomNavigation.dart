@@ -10,61 +10,37 @@ import 'dart:ui';
 
 class CoreBottomNavigation extends StatelessWidget {
 
-  const CoreBottomNavigation({
+  int currentIndex;
+
+  List<String> paths = ["/core/certificates", "/core", "/core/settings"];
+  List<String> labels = ["My Certificates", "Home", "Settings"];
+  List<Icon> icons = const [Icon(Icons.account_box), Icon(Icons.home), Icon(Icons.settings)];
+
+  CoreBottomNavigation(this.currentIndex, {
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
 
-    final double _deviceWidth = window.physicalSize.width/window.devicePixelRatio;
-    final double _deviceHeight = window.physicalSize.height/window.devicePixelRatio;
-    
-    return SizedBox(
-      width: _deviceWidth,
-      height: _deviceHeight * 0.1,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          TextButton(
-            onPressed: () {
-              context.go("/core/certificates");
-            },
-            child: Tooltip(
-              message: "My Certificates",
-              child: Image.asset(
-                "assets/images/certificate_icon.jpg",
-                height: 50,
-              ),
-            ),
-          ),
-          TextButton(
-              onPressed: () {
-                context.go("/core");
-              },
-              child: Tooltip(
-                message: "Home",
-                child: Icon(
-                  Icons.home,
-                  size: 40,
-                  color: Colors.blue,
-                ),
-              )),
-          TextButton(
-              onPressed: () {
-                context.go("/core/settings");
-              },
-              child: Tooltip(
-                message: "Settings",
-                child: Icon(
-                  Icons.settings,
-                  size: 40,
-                  color: Colors.blue,
-                ),
-              ))
-        ],
-      ),
+      List<BottomNavigationBarItem> items = [];
+      for(int i=0; i<paths.length; i++){
+        items.add(
+          BottomNavigationBarItem(
+            icon: icons[i],
+            tooltip: labels[i],
+            label: labels[i]
+          )
+        );
+      }
+
+    return BottomNavigationBar(
+        currentIndex: currentIndex,
+        onTap: (index) {
+          context.go(paths[index]);
+        },
+        items: items
     );
+    
   }
 }
