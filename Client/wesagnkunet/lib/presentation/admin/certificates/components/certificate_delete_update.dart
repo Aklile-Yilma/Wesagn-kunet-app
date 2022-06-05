@@ -64,6 +64,39 @@ class CertificateDeleteUpdateWidget extends StatelessWidget {
 
               context.go("/admin/marriage/certificate");
           }
+
+          if (state is DeletedMarriageCertificateState) {
+            WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text(
+                        "Deleted",
+                        style: TextStyle(
+                          color: Colors.green
+                        ),
+                      ),
+                )
+              );
+
+              context.go("/admin/marriage/certificates");
+
+            });
+          }
+          else if(state is DeletionError){
+
+            ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text(
+                        "Failed to delete",
+                        style: TextStyle(
+                          color: Colors.red
+                        ),
+                      ),
+                )
+              );
+
+              context.go("/admin/marriage/certificate");
+          }
     
           return Padding(
             padding: const EdgeInsets.all(4),
@@ -142,64 +175,19 @@ class CertificateDeleteUpdateWidget extends StatelessWidget {
                       SizedBox(
                         width: 5,
                       ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(5),
-                          child: ElevatedButton(
-                            child: Text("Reject Certificate"),
-                            onPressed: () {
-                              if (state is RejectedMarriageCertificateState) {
-                                Center(
-                                  child: Text("Rejected"),
-                                );
-                                context.go("admin/marriage/certificates");
-                              } else if (state is RejectionError) {
-                                Center(
-                                  child: Text("Failed to reject"),
-                                );
-                                context.go("admin/marriage/certificates");
-                              }
-                            },
-                          ),
-                        ),
-                      ),
-                  Row(
+                      Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(5),
-                          child: ElevatedButton(
-                            child: Text("Update Certificate"),
-                            onPressed: () {
-                              if (state is UpdatedMarriageCertificateState) {
-                                Center(
-                                  child: Text("Updated"),
-                                );
-    
-                                context.go("admin/marriage/certificates");
-                                return;
-                              } else if (state is UpdateError) {
-                                Center(
-                                  child: Text("Failed to update"),
-                                );
-                                context.go("admin/marriage/certificates");
-                                return;
-                              }
-                            },
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
+                      
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.all(5),
                           child: ElevatedButton(
                             child: Text("Delete  Certificate"),
                             onPressed: () {
+                              context.read<AdminMarriageCertificateBloc>().add(DeleteMarriageCertificateEvent(marriageCertificate.id));
+
                               if (state is DeletingMarriageCertificateState) {
                                 Center(
                                   child: CircularProgressIndicator.adaptive(),

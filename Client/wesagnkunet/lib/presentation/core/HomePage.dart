@@ -135,10 +135,10 @@ class HomePage extends StatelessWidget {
                         height: 200,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
-                          itemCount: 12,
+                          itemCount: state.certificates!.length,
                           itemBuilder: (context, index) {
                             
-                            MarriageCertificate certificate = state.certificates![0];
+                            MarriageCertificate certificate = state.certificates![index];
 
                             return SizedBox(
                               width:190,
