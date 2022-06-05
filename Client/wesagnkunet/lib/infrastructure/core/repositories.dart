@@ -1,3 +1,5 @@
+import 'package:wesagnkunet/domain/core/birth_certificate.dart';
+import 'package:wesagnkunet/domain/core/death_certificates.dart';
 import 'package:wesagnkunet/domain/core/marriage_certificate.dart';
 import 'package:wesagnkunet/infrastructure/core/requests.dart';
 import 'package:wesagnkunet/infrastructure/lib/network/AplClient.dart';
@@ -48,17 +50,13 @@ class MarriageCertificateRepositoryCall
 }
 
 class MarriageCertificateRepository {
+
   ApiClient apiClient;
 
   MarriageCertificateRepository(this.apiClient);
 
   Future<List<MarriageCertificate>> getAll() async {
     return await MarriageCertificatesRepositoryCall(apiClient).get(null);
-  }
-
-  Future<MarriageCertificate> getById(int certificateId) async {
-    return await MarriageCertificateRepositoryCall(apiClient)
-        .get(certificateId);
   }
 
   Future<MarriageCertificate> create(MarriageCertificate certificate) async {
@@ -70,9 +68,84 @@ class MarriageCertificateRepository {
     return await apiClient
         .execute(VerifyMarriageCertificateRequest(certificateId));
   }
+}
 
-  Future<void> delete(int certificateId) async {
+class BirthCertificatesRepositoryCall
+    extends RepositoryCall<void, List<BirthCertificate>> {
+  ApiClient apiClient;
+
+  BirthCertificatesRepositoryCall(this.apiClient);
+
+  @override
+  Future<List<BirthCertificate>?> getCached(input) async {
+    return null;
+  }
+
+  @override
+  Future<List<BirthCertificate>> networkCall(input) async {
+    return apiClient.execute(GetBirthCertificatesRequest());
+  }
+
+  @override
+  void storeCache(value) {}
+}
+
+class BirthCertificateRepository {
+  ApiClient apiClient;
+
+  BirthCertificateRepository(this.apiClient);
+
+  Future<List<BirthCertificate>?> getAll() async {
+    return await BirthCertificatesRepositoryCall(apiClient).get(null);
+  }
+
+  Future<BirthCertificate> create(BirthCertificate certificate) async {
+    return await apiClient.execute(CreateBirthCertificateRequest(certificate));
+  }
+
+  Future<BirthCertificate> verify(int certificateId) async {
     return await apiClient
-        .execute(DeleteMarriageCertificateRequest(certificateId));
+        .execute(VerifyBirthCertificateRequest(certificateId));
+  }
+}
+
+class DeathCertificatesRepositoryCall
+    extends RepositoryCall<void, List<DeathCertificate>> {
+  ApiClient apiClient;
+
+  DeathCertificatesRepositoryCall(this.apiClient);
+
+  @override
+  Future<List<DeathCertificate>?> getCached(input) async {
+    return null;
+  }
+
+  @override
+  Future<List<DeathCertificate>> networkCall(input) async {
+    return apiClient.execute(GetDeathCertificatesRequest());
+  }
+
+  @override
+  void storeCache(value) {
+    // TODO: implement storeCache
+  }
+}
+
+class DeathCertificateRepository {
+  ApiClient apiClient;
+
+  DeathCertificateRepository(this.apiClient);
+
+  Future<List<DeathCertificate>> getAll() async {
+    return await DeathCertificatesRepositoryCall(apiClient).get(null);
+  }
+
+  Future<DeathCertificate> create(DeathCertificate certificate) async {
+    return await apiClient.execute(CreateDeathCertificateRequest(certificate));
+  }
+
+  Future<DeathCertificate> verify(int certificateId) async {
+    return await apiClient
+        .execute(VerifyDeathCertificateRequest(certificateId));
   }
 }

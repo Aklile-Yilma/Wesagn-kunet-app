@@ -1,3 +1,4 @@
+
 from django.db import models
 from accounts.models import Client
 
@@ -87,7 +88,6 @@ class BirthCertificate(models.Model):
 	detail= models.ForeignKey(CertificateDetails, on_delete=models.CASCADE)
 	birth_date= models.DateField()
 	gender= models.CharField(max_length=15, choices=GENDERS, blank=False)
-	photo= models.ImageField(upload_to="uploads", blank=True)
 	verified= models.BooleanField(default=False)
 
 

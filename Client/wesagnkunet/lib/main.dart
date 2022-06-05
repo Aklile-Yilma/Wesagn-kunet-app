@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:wesagnkunet/presentation/Forms/DeathForm.dart';
 import 'package:wesagnkunet/presentation/routes.dart';
-import 'package:wesagnkunet/presentation/core/welcomeScreen.dart';
 
 void main() {
-  runApp(MainApp());
+  runApp(MaterialApp(home: DeathForm()));
 }
 
 class MainApp extends StatelessWidget {
