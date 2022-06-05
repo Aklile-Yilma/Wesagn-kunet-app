@@ -18,9 +18,10 @@ class DeathCertificates extends StatelessWidget {
       body: ListView.builder(
         itemCount: 4,
         itemBuilder: (context, int index) {
-          return ListOfParticularCertificate(
-            particularcertificates: "Death Certificate 1",
-          );
+          // return ListOfParticularCertificate(
+          //  marriageCertificate,
+          // );
+          return Text("");
         },
       ),
       bottomNavigationBar: CustomeBottomNav(),

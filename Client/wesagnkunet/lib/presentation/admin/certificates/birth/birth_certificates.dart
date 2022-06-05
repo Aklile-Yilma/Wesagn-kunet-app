@@ -18,9 +18,11 @@ class BirthCertificates extends StatelessWidget {
       body: ListView.builder(
         itemCount: 4,
         itemBuilder: (context, int index) {
-          return ListOfParticularCertificate(
-            particularcertificates: "Birth Certificate 1",
-          );
+          // return ListOfParticularCertificate(
+          //   particularcertificates: "Birth Certificate 1",
+          // );
+
+          return Text("Death");
         },
       ),
       bottomNavigationBar: CustomeBottomNav(),

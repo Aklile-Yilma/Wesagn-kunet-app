@@ -8,6 +8,7 @@ import 'package:wesagnkunet/presentation/admin/certificates/death/death_certific
 import 'package:wesagnkunet/presentation/admin/certificates/death/death_certificates.dart';
 import 'package:wesagnkunet/presentation/admin/certificates/marriage/marriage_certificates.dart';
 import 'package:wesagnkunet/presentation/admin/certificates/marriage/marriage_certiificate_detail.dart';
+import 'package:wesagnkunet/presentation/admin/main.dart';
 import 'package:wesagnkunet/presentation/auth/Login.dart';
 import 'package:wesagnkunet/presentation/auth/SignUpPage.dart';
 import 'package:wesagnkunet/presentation/core/CertificatesPage.dart';
@@ -40,7 +41,15 @@ class WesagnKunetRouter extends GoRouter {
                 builder: (BuildContext context, GoRouterState state) =>
                     MarriageForm()),
             GoRoute(
-                path: "/admin/all/certificates",
+                path: "/admin/dashboard",
+                builder: (BuildContext context, GoRouterState state) =>
+                    AdminMainScreen()),
+            GoRoute(
+              path: "/admin",
+              redirect: (state) => "/admin/dashboard",
+            ),
+            GoRoute(
+                path: "/admin/certificates",
                 builder: (BuildContext context, GoRouterState state) =>
                     CertificateListScreen()),
             GoRoute(
@@ -48,7 +57,7 @@ class WesagnKunetRouter extends GoRouter {
                 builder: (BuildContext context, GoRouterState state) =>
                     MarriageCertificates()),
             GoRoute(
-                path: "/admin/marriage/certificate/detaile",
+                path: "/admin/marriage/certificates/detaile",
                 builder: (BuildContext context, GoRouterState state) =>
                     MarriageCertificateDetail()),
             GoRoute(

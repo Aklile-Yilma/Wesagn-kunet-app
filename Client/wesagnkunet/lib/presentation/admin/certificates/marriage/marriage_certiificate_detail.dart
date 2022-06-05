@@ -15,9 +15,7 @@ class MarriageCertificateDetail extends StatelessWidget {
         title: Text("Marriage Certificate Detail"),
         centerTitle: true,
       ),
-      body: CertificateDeleteUpdateWidget(
-        Certificate: "Marriage Certificate 1",
-      ),
+      body: CertificateDeleteUpdateWidget(),
       floatingActionButton: FloatingActionButton(
         onPressed: () => context.go("/"),
         child: Text("Home"),

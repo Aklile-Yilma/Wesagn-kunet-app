@@ -16,7 +16,7 @@ class BirthCertificateDetail extends StatelessWidget {
         centerTitle: true,
       ),
       body: CertificateDeleteUpdateWidget(
-        Certificate: "Birth Certificate 1",
+        
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => context.go("/"),

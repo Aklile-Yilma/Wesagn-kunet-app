@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
 import 'components/bottom_nav.dart';
 
 class CertificateListScreen extends StatelessWidget {
@@ -16,22 +15,22 @@ class CertificateListScreen extends StatelessWidget {
           padding: EdgeInsets.all(5),
           children: [
             CertificatesListView(
-              path: "marriage_certificates",
+              path: "admin/marriage/certificates",
               image_path: "assets/images/marriage.webp",
               title: "Birth certificates",
             ),
             CertificatesListView(
-              path: "marriage_certificates",
+              path: "admin/marriage/certificates",
               image_path: "assets/images/marriage.webp",
               title: "Marriage Certificates",
             ),
             CertificatesListView(
-              path: "marriage_certificates",
+              path: "admin/marriage/certificates",
               image_path: "assets/images/death.jpg",
               title: "Death Certificates",
             ),
             CertificatesListView(
-              path: "marriage_certificates",
+              path: "admin/marriage/certificates",
               image_path: "assets/images/marriage.webp",
               title: "Marriage Certificates",
             ),
