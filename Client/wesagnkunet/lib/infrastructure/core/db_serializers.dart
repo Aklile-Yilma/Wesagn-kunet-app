@@ -1,16 +1,13 @@
-
-
+import 'package:wesagnkunet/domain/core/birth_certificate.dart';
 import 'package:wesagnkunet/domain/core/certificate.dart';
 import 'package:wesagnkunet/domain/core/marriage_certificate.dart';
 import 'package:wesagnkunet/infrastructure/lib/network/Serializer.dart';
 
-class MarriageCertificateDBSerializer extends Serializer<MarriageCertificate>{
-
+class MarriageCertificateDBSerializer extends Serializer<MarriageCertificate> {
   @override
   Map<String, dynamic> serialize(instance) {
-
     String? issueDate = null;
-    if(instance.detail.issueDate != null){
+    if (instance.detail.issueDate != null) {
       issueDate = instance.detail.issueDate.toString();
     }
 
@@ -25,32 +22,66 @@ class MarriageCertificateDBSerializer extends Serializer<MarriageCertificate>{
       "issue_date": issueDate,
       "application_date": instance.detail.applicationDate.toString()
     };
-
   }
-  
+
   @override
   MarriageCertificate deSerialize(dynamic json) {
-
     return MarriageCertificate(
-                        json["id"],
-                        Spouse(
-                          json["wife_first_name"],
-                          json["wife_middle_name"],
-                          json["wife_last_name"]
-                        ),
-                        Spouse(
-                          json["husband_first_name"],
-                          json["husband_middle_name"],
-                          json["husband_last_name"]
-                        ),
-                        CertificateDetail(
-                          [],
-                          DateTime.parse(json["issue_date"]),
-                          DateTime.parse(json["application_date"])
-                        ),
-                        DateTime.parse(json["marriage_date"]),
-                        false
-                      );
+        json["id"],
+        Spouse(json["wife_first_name"], json["wife_middle_name"],
+            json["wife_last_name"]),
+        Spouse(json["husband_first_name"], json["husband_middle_name"],
+            json["husband_last_name"]),
+        CertificateDetail([], DateTime.parse(json["issue_date"]),
+            DateTime.parse(json["application_date"])),
+        DateTime.parse(json["marriage_date"]),
+        false);
+  }
+}
 
+class BirthCertificateDBSerializer extends Serializer<BirthCertificate> {
+  @override
+  Map<String, dynamic> serialize(instance) {
+    String? issueDate = null;
+    if (instance.detail.issueDate != null) {
+      issueDate = instance.detail.issueDate.toString();
+    }
+
+    return {
+      "id": instance.id,
+      "child_first_name": instance.child.first_name,
+      "child_middle_name": instance.child.middle_name,
+      "child_last_name": instance.child.last_name,
+      "child_gender": instance.gender,
+      "child_birth_date": instance.birthDate,
+      "father_first_name": instance.father.first_name,
+      "father_middle_name": instance.father.middle_name,
+      "father_last_name": instance.father.last_name,
+      "mother_first_name": instance.mother.first_name,
+      "mother_middle_name": instance.mother.middle_name,
+      "mother_last_name": instance.mother.last_name,
+      "issue_date": issueDate,
+      "application_date": instance.detail.applicationDate.toString()
+    };
+  }
+
+  @override
+  BirthCertificate deSerialize(dynamic json) {
+    return BirthCertificate(
+        json["id"],
+        Child(json["child_first_name"], json["child_middle_name"],
+            json["child_last_name"]),
+        ParentInformation(
+          json["father_first_name"],
+          json["father_middle_name"],
+          json["father_last_name"],
+        ),
+        ParentInformation(json["mother_first_name"], json["mother_middle_name"],
+            json["mother_last_name"]),
+        CertificateDetail([], DateTime.parse(json["issue_date"]),
+            DateTime.parse(json["application_date"])),
+        json["gender"],
+        DateTime.parse(json["birth_date"]),
+        false);
   }
 }
