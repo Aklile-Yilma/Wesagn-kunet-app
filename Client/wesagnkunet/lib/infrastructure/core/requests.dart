@@ -27,6 +27,18 @@ class GetMarriageCertificatesRequest
   }
 }
 
+class GetMarriageCertificateRequest extends Request<MarriageCertificate> {
+  MarriageCertificateSerializer serializer = MarriageCertificateSerializer();
+
+  GetMarriageCertificateRequest(int certificateId)
+      : super("/core/marriage/$certificateId");
+
+  @override
+  MarriageCertificate deserializeObject(response) {
+    return serializer.deSerialize(jsonDecode(response));
+  }
+}
+
 class CreateMarriageCertificateRequest extends Request<MarriageCertificate> {
   MarriageCertificateSerializer serializer = MarriageCertificateSerializer();
   MarriageCertificate certificate;
@@ -57,6 +69,16 @@ class VerifyMarriageCertificateRequest extends Request<MarriageCertificate> {
   @override
   MarriageCertificate deserializeObject(response) {
     return serializer.deSerialize(jsonDecode(response));
+  }
+}
+
+class DeleteMarriageCertificateRequest extends Request<void> {
+  DeleteMarriageCertificateRequest(int certificateId)
+      : super("/core/marriage/$certificateId/", method: Method.delete);
+
+  @override
+  void deserializeObject(response) {
+    return;
   }
 }
 
