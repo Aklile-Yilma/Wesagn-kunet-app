@@ -5,7 +5,7 @@ void main() {
 }
 
 class Certificates extends StatelessWidget {
-  const Certificates({super.key});
+  const Certificates({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -1,0 +1,4 @@
+#Sat Jun 04 23:48:49 EAT 2022
+base.0=/home/aklile/Documents/labs and projects/3rd year/3rd year second semister/Flutter+Dart/Wesagn-kunet-app/Client/wesagnkunet/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
+renamed.0=classes.dex
+path.0=classes.dex
