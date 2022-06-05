@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:wesagnkunet/presentation/Forms/BirthForm.dart';
 import 'package:wesagnkunet/presentation/routes.dart';
 
 void main() {
-  runApp(MainApp());
+  runApp(MaterialApp(home: BirthForm()));
 }
 
 class MainApp extends StatelessWidget {
