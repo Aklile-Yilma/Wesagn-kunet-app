@@ -99,6 +99,18 @@ class GetBirthCertificatesRequest extends Request<List<BirthCertificate>> {
   }
 }
 
+class GetBirthCertificateRequest extends Request<BirthCertificate> {
+  BirthCertificateSerializer serializer = BirthCertificateSerializer();
+
+  GetBirthCertificateRequest(int certificateId)
+      : super("/core/birth/$certificateId");
+
+  @override
+  BirthCertificate deserializeObject(response) {
+    return serializer.deSerialize(jsonDecode(response));
+  }
+}
+
 class CreateBirthCertificateRequest extends Request<BirthCertificate> {
   BirthCertificateSerializer serializer = BirthCertificateSerializer();
 
@@ -133,6 +145,16 @@ class VerifyBirthCertificateRequest extends Request<BirthCertificate> {
   }
 }
 
+class DeleteBirthCertificateRequest extends Request<void> {
+  DeleteBirthCertificateRequest(int certificateId)
+      : super("/core/birth/$certificateId/", method: Method.delete);
+
+  @override
+  void deserializeObject(response) {
+    return;
+  }
+}
+
 class GetDeathCertificatesRequest extends Request<List<DeathCertificate>> {
   GetDeathCertificatesRequest() : super("/core/death/");
 
@@ -148,6 +170,18 @@ class GetDeathCertificatesRequest extends Request<List<DeathCertificate>> {
     }
 
     return certificateList;
+  }
+}
+
+class GetDeathCertificateRequest extends Request<DeathCertificate> {
+  DeathCertificateSerializer serializer = DeathCertificateSerializer();
+
+  GetDeathCertificateRequest(int certificateId)
+      : super("/core/death/$certificateId");
+
+  @override
+  DeathCertificate deserializeObject(response) {
+    return serializer.deSerialize(jsonDecode(response));
   }
 }
 
@@ -181,5 +215,15 @@ class VerifyDeathCertificateRequest extends Request<DeathCertificate> {
   @override
   DeathCertificate deserializeObject(response) {
     return serializer.deSerialize(jsonDecode(response));
+  }
+}
+
+class DeleteDeathCertificateRequest extends Request<void> {
+  DeleteDeathCertificateRequest(int certificateId)
+      : super("/core/death/$certificateId/", method: Method.delete);
+
+  @override
+  void deserializeObject(response) {
+    return;
   }
 }

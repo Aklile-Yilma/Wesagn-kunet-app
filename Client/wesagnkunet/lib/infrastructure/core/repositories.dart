@@ -105,6 +105,28 @@ class BirthCertificatesRepositoryCall
   void storeCache(value) {}
 }
 
+class BirthCertificateRepositoryCall
+    extends RepositoryCall<int, BirthCertificate> {
+  ApiClient apiClient;
+
+  BirthCertificateRepositoryCall(this.apiClient);
+
+  @override
+  Future<BirthCertificate?> getCached(int input) async {
+    return null;
+  }
+
+  @override
+  Future<BirthCertificate> networkCall(int input) async {
+    return apiClient.execute(GetBirthCertificateRequest(input));
+  }
+
+  @override
+  void storeCache(BirthCertificate value) async {
+    // TODO: implement storeCache
+  }
+}
+
 class BirthCertificateRepository {
   ApiClient apiClient;
 
@@ -114,6 +136,11 @@ class BirthCertificateRepository {
     return await BirthCertificatesRepositoryCall(apiClient).get(null);
   }
 
+  Future<BirthCertificate> getById(int certificateId) async {
+    return await BirthCertificateRepositoryCall(apiClient)
+        .get(certificateId);
+  }
+
   Future<BirthCertificate> create(BirthCertificate certificate) async {
     return await apiClient.execute(CreateBirthCertificateRequest(certificate));
   }
@@ -121,6 +148,10 @@ class BirthCertificateRepository {
   Future<BirthCertificate> verify(int certificateId) async {
     return await apiClient
         .execute(VerifyBirthCertificateRequest(certificateId));
+  }
+  Future<void> delete(int certificateId) async {
+    return await apiClient
+        .execute(DeleteBirthCertificateRequest(certificateId));
   }
 }
 
@@ -146,6 +177,28 @@ class DeathCertificatesRepositoryCall
   }
 }
 
+class DeathCertificateRepositoryCall
+    extends RepositoryCall<int, DeathCertificate> {
+  ApiClient apiClient;
+
+  DeathCertificateRepositoryCall(this.apiClient);
+
+  @override
+  Future<DeathCertificate?> getCached(int input) async {
+    return null;
+  }
+
+  @override
+  Future<DeathCertificate> networkCall(int input) async {
+    return apiClient.execute(GetDeathCertificateRequest(input));
+  }
+
+  @override
+  void storeCache(DeathCertificate value) async {
+    // TODO: implement storeCache
+  }
+}
+
 class DeathCertificateRepository {
   ApiClient apiClient;
 
@@ -155,6 +208,11 @@ class DeathCertificateRepository {
     return await DeathCertificatesRepositoryCall(apiClient).get(null);
   }
 
+    Future<DeathCertificate> getById(int certificateId) async {
+    return await DeathCertificateRepositoryCall(apiClient)
+        .get(certificateId);
+  }
+
   Future<DeathCertificate> create(DeathCertificate certificate) async {
     return await apiClient.execute(CreateDeathCertificateRequest(certificate));
   }
@@ -162,5 +220,10 @@ class DeathCertificateRepository {
   Future<DeathCertificate> verify(int certificateId) async {
     return await apiClient
         .execute(VerifyDeathCertificateRequest(certificateId));
+  }
+
+   Future<void> delete(int certificateId) async {
+    return await apiClient
+        .execute(DeleteDeathCertificateRequest(certificateId));
   }
 }
