@@ -1,7 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:wesagnkunet/infrastructure/core/providers.dart';
 import 'package:wesagnkunet/infrastructure/core/repositories.dart';
 
+import '../../../../domain/core/death_certificates.dart';
 import '../../../../domain/core/marriage_certificate.dart';
 
 part 'admindeathcertificatebloc_event.dart';
@@ -9,18 +11,16 @@ part 'admindeathcertificatebloc_state.dart';
 
 class AdminDeathCertificateBloc extends Bloc<AdminDeathCertificateBlocEvent,
     AdminDeathCertificateBlocState> {
-  MarriageCertificateRepository repository;
-
-  AdminDeathCertificateBloc(this.repository) : super(AdminDeathCertificateBlocInitial()) {
+  AdminDeathCertificateBloc() : super(AdminDeathCertificateBlocInitial()) {
     on<FetchDeathCertificatesEvent>(
         (FetchDeathCertificatesEvent event, Emitter emitter) async {
       emitter.call(FetchingDeathCertificatesState());
 
       try {
-        List<MarriageCertificate> marriageCertificates =
+        List<DeathCertificate> deathCertificates =
             await (await repository).getAll();
         emitter.call(FetchedDeathCertificatesState(
-            marriageCertificates: marriageCertificates));
+            deathCertificates: deathCertificates));
       } catch (error) {
         emitter.call(
             FetchDeathCertificatesErrorsState(exception: error as Exception));
@@ -29,12 +29,12 @@ class AdminDeathCertificateBloc extends Bloc<AdminDeathCertificateBlocEvent,
 
     on<GetSingleDeathCertificateEvent>(
         (GetSingleDeathCertificateEvent event, Emitter emitter) async {
-      MarriageCertificate marriageCertificate;
+      DeathCertificate deathCertificate;
 
       try {
-        marriageCertificate =
+        deathCertificate =
             await (await repository).getById(event.certificateId);
-        emitter.call(LoadedDeathCertificateState(marriageCertificate));
+        emitter.call(LoadedDeathCertificateState(deathCertificate));
       } catch (error) {
         emitter.call(
             LoadDeathCertificateErrorState(exception: error as Exception));
@@ -47,8 +47,8 @@ class AdminDeathCertificateBloc extends Bloc<AdminDeathCertificateBlocEvent,
         final uprovedcertificate =
             await (await repository).verify(event.certificateId);
 
-        emitter.call(ApprovedDeathCertificteState(
-            marriageCertificate: uprovedcertificate));
+        emitter.call(
+            ApprovedDeathCertificteState(deathCertificate: uprovedcertificate));
       } catch (error) {
         emitter.call(ApprovalError(error as Error));
       }
@@ -57,10 +57,9 @@ class AdminDeathCertificateBloc extends Bloc<AdminDeathCertificateBlocEvent,
     on<RejectDeathCertificateEvent>(
         (RejectDeathCertificateEvent event, Emitter emitter) async {
       try {
-        final rejectedMarriageCertificate =
+        final rejectedDeathCertificate =
             await (await repository).verify(event.certificateId);
-        emitter
-            .call(RejectedDeathCertificateState(rejectedMarriageCertificate));
+        emitter.call(RejectedDeathCertificateState(rejectedDeathCertificate));
       } catch (error) {
         emitter.call(RejectionError(error as Error));
       }
@@ -69,10 +68,10 @@ class AdminDeathCertificateBloc extends Bloc<AdminDeathCertificateBlocEvent,
     on<UpdateDeathCertificateEvent>(
         (UpdateDeathCertificateEvent event, Emitter emitter) async {
       try {
-        final updatedMarriageCertificate =
+        final updatedDeathCertificate =
             await (await repository).verify(event.certificateId);
         emitter.call(UpdatedDeathCertificateState(
-            marriageCertificate: updatedMarriageCertificate));
+            deathCertificate: updatedDeathCertificate));
       } catch (error) {
         emitter.call(UpdateError(error as Error));
       }
@@ -90,8 +89,7 @@ class AdminDeathCertificateBloc extends Bloc<AdminDeathCertificateBlocEvent,
     });
   }
 
-  // Future<MarriageCertificateRepository> get repository async {
-  //   return await CoreInfrastractureProvider
-  //       .provideMarriageCertificateRepository();
-  // }
+  Future<DeathCertificateRepository> get repository async {
+    return await CoreInfrastractureProvider.provideDeathCertificateRepository();
+  }
 }

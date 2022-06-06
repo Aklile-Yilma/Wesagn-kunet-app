@@ -16,10 +16,10 @@ class FetchingDeathCertificatesState extends AdminDeathCertificateBlocState {
 }
 
 class FetchedDeathCertificatesState extends AdminDeathCertificateBlocState {
-  List<MarriageCertificate> marriageCertificates;
-  FetchedDeathCertificatesState({required this.marriageCertificates});
+  List<DeathCertificate> deathCertificates;
+  FetchedDeathCertificatesState({required this.deathCertificates});
   @override
-  List<Object> get props => [marriageCertificates];
+  List<Object> get props => [deathCertificates];
 }
 
 class FetchDeathCertificatesErrorsState extends AdminDeathCertificateBlocState {
@@ -37,10 +37,10 @@ class GettingDeathCertificateState extends AdminDeathCertificateBlocState {
 }
 
 class LoadedDeathCertificateState extends AdminDeathCertificateBlocState {
-  LoadedDeathCertificateState(this.marriageCertificate);
-  MarriageCertificate marriageCertificate;
+  LoadedDeathCertificateState(this.deathCertificate);
+  DeathCertificate deathCertificate;
   @override
-  List<Object> get props => [marriageCertificate];
+  List<Object> get props => [deathCertificate];
 }
 
 class LoadDeathCertificateErrorState extends AdminDeathCertificateBlocState {
@@ -66,10 +66,10 @@ class DeletionError extends AdminDeathCertificateBlocState {
 }
 
 class ApprovedDeathCertificteState extends AdminDeathCertificateBlocState {
-  MarriageCertificate marriageCertificate;
-  ApprovedDeathCertificteState({required this.marriageCertificate});
+  DeathCertificate deathCertificate;
+  ApprovedDeathCertificteState({required this.deathCertificate});
   @override
-  List<Object> get props => [marriageCertificate];
+  List<Object> get props => [deathCertificate];
 }
 
 class ApprovalError extends AdminDeathCertificateBlocState {
@@ -80,10 +80,10 @@ class ApprovalError extends AdminDeathCertificateBlocState {
 }
 
 class RejectedDeathCertificateState extends AdminDeathCertificateBlocState {
-  MarriageCertificate marriageCertificate;
-  RejectedDeathCertificateState(this.marriageCertificate);
+  DeathCertificate deathCertificate;
+  RejectedDeathCertificateState(this.deathCertificate);
   @override
-  List<Object> get props => [marriageCertificate];
+  List<Object> get props => [deathCertificate];
 }
 
 class RejectionError extends AdminDeathCertificateBlocState {
@@ -94,11 +94,11 @@ class RejectionError extends AdminDeathCertificateBlocState {
 }
 
 class UpdatedDeathCertificateState extends AdminDeathCertificateBlocState {
-  MarriageCertificate marriageCertificate;
-  UpdatedDeathCertificateState({required this.marriageCertificate});
+  DeathCertificate deathCertificate;
+  UpdatedDeathCertificateState({required this.deathCertificate});
 
   @override
-  List<Object> get props => [marriageCertificate];
+  List<Object> get props => [deathCertificate];
 }
 
 class UpdateError extends AdminDeathCertificateBlocState {

@@ -16,10 +16,10 @@ class FetchingBirthCertificatesState extends AdminBirthCertificateBlocState {
 }
 
 class FetchedBirthCertificatesState extends AdminBirthCertificateBlocState {
-  List<MarriageCertificate> marriageCertificates;
-  FetchedBirthCertificatesState({required this.marriageCertificates});
+  List<BirthCertificate> birthCertificates;
+  FetchedBirthCertificatesState({required this.birthCertificates});
   @override
-  List<Object> get props => [marriageCertificates];
+  List<Object> get props => [birthCertificates];
 }
 
 class FetchBirthCertificatesErrorsState extends AdminBirthCertificateBlocState {
@@ -37,10 +37,10 @@ class GettingBirthCertificateState extends AdminBirthCertificateBlocState {
 }
 
 class LoadedBirthCertificateState extends AdminBirthCertificateBlocState {
-  LoadedBirthCertificateState(this.marriageCertificate);
-  MarriageCertificate marriageCertificate;
+  LoadedBirthCertificateState(this.birthCertificate);
+  BirthCertificate birthCertificate;
   @override
-  List<Object> get props => [marriageCertificate];
+  List<Object> get props => [birthCertificate];
 }
 
 class LoadBirthCertificateErrorState extends AdminBirthCertificateBlocState {
@@ -66,10 +66,10 @@ class DeletionError extends AdminBirthCertificateBlocState {
 }
 
 class ApprovedBirthCertificteState extends AdminBirthCertificateBlocState {
-  MarriageCertificate marriageCertificate;
-  ApprovedBirthCertificteState({required this.marriageCertificate});
+  BirthCertificate birthCertificate;
+  ApprovedBirthCertificteState({required this.birthCertificate});
   @override
-  List<Object> get props => [marriageCertificate];
+  List<Object> get props => [birthCertificate];
 }
 
 class ApprovalError extends AdminBirthCertificateBlocState {
@@ -80,10 +80,10 @@ class ApprovalError extends AdminBirthCertificateBlocState {
 }
 
 class RejectedBirthCertificateState extends AdminBirthCertificateBlocState {
-  MarriageCertificate marriageCertificate;
-  RejectedBirthCertificateState(this.marriageCertificate);
+  BirthCertificate birthCertificate;
+  RejectedBirthCertificateState(this.birthCertificate);
   @override
-  List<Object> get props => [marriageCertificate];
+  List<Object> get props => [birthCertificate];
 }
 
 class RejectionError extends AdminBirthCertificateBlocState {
@@ -94,11 +94,11 @@ class RejectionError extends AdminBirthCertificateBlocState {
 }
 
 class UpdatedBirthCertificateState extends AdminBirthCertificateBlocState {
-  MarriageCertificate marriageCertificate;
-  UpdatedBirthCertificateState({required this.marriageCertificate});
+  BirthCertificate birthCertificate;
+  UpdatedBirthCertificateState({required this.birthCertificate});
 
   @override
-  List<Object> get props => [marriageCertificate];
+  List<Object> get props => [birthCertificate];
 }
 
 class UpdateError extends AdminBirthCertificateBlocState {

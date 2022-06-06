@@ -1,26 +1,26 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:wesagnkunet/domain/core/birth_certificate.dart';
 import 'package:wesagnkunet/infrastructure/core/repositories.dart';
 
 import '../../../../domain/core/marriage_certificate.dart';
+import '../../../../infrastructure/core/providers.dart';
 
 part 'adminbirthcertificatebloc_event.dart';
 part 'adminbirthcertificatebloc_state.dart';
 
 class AdminBirthCertificateBlocBloc extends Bloc<AdminBirthCertificateBlocEvent,
     AdminBirthCertificateBlocState> {
-  MarriageCertificateRepository repository;
-  AdminBirthCertificateBlocBloc(this.repository)
-      : super(AdminBirthCertificateBlocInitial()) {
+  AdminBirthCertificateBlocBloc() : super(AdminBirthCertificateBlocInitial()) {
     on<FetchBirthCertificatesEvent>(
         (FetchBirthCertificatesEvent event, Emitter emitter) async {
       emitter.call(FetchingBirthCertificatesState());
 
       try {
-        List<MarriageCertificate> marriageCertificates =
+        List<BirthCertificate>? birthCertificates =
             await (await repository).getAll();
         emitter.call(FetchedBirthCertificatesState(
-            marriageCertificates: marriageCertificates));
+            birthCertificates: birthCertificates!));
       } catch (error) {
         emitter.call(
             FetchBirthCertificatesErrorsState(exception: error as Exception));
@@ -29,12 +29,12 @@ class AdminBirthCertificateBlocBloc extends Bloc<AdminBirthCertificateBlocEvent,
 
     on<GetSingleBirthCertificateEvent>(
         (GetSingleBirthCertificateEvent event, Emitter emitter) async {
-      MarriageCertificate marriageCertificate;
+      BirthCertificate birthCertificate;
 
       try {
-        marriageCertificate =
+        birthCertificate =
             await (await repository).getById(event.certificateId);
-        emitter.call(LoadedBirthCertificateState(marriageCertificate));
+        emitter.call(LoadedBirthCertificateState(birthCertificate));
       } catch (error) {
         emitter.call(
             LoadBirthCertificateErrorState(exception: error as Exception));
@@ -47,8 +47,8 @@ class AdminBirthCertificateBlocBloc extends Bloc<AdminBirthCertificateBlocEvent,
         final uprovedcertificate =
             await (await repository).verify(event.certificateId);
 
-        emitter.call(ApprovedBirthCertificteState(
-            marriageCertificate: uprovedcertificate));
+        emitter.call(
+            ApprovedBirthCertificteState(birthCertificate: uprovedcertificate));
       } catch (error) {
         emitter.call(ApprovalError(error as Error));
       }
@@ -57,10 +57,9 @@ class AdminBirthCertificateBlocBloc extends Bloc<AdminBirthCertificateBlocEvent,
     on<RejectBirthCertificateEvent>(
         (RejectBirthCertificateEvent event, Emitter emitter) async {
       try {
-        final rejectedMarriageCertificate =
+        final rejectedBirthCertificate =
             await (await repository).verify(event.certificateId);
-        emitter
-            .call(RejectedBirthCertificateState(rejectedMarriageCertificate));
+        emitter.call(RejectedBirthCertificateState(rejectedBirthCertificate));
       } catch (error) {
         emitter.call(RejectionError(error as Error));
       }
@@ -69,10 +68,10 @@ class AdminBirthCertificateBlocBloc extends Bloc<AdminBirthCertificateBlocEvent,
     on<UpdateBirthCertificateEvent>(
         (UpdateBirthCertificateEvent event, Emitter emitter) async {
       try {
-        final updatedMarriageCertificate =
+        final updatedBirthCertificate =
             await (await repository).verify(event.certificateId);
         emitter.call(UpdatedBirthCertificateState(
-            marriageCertificate: updatedMarriageCertificate));
+            birthCertificate: updatedBirthCertificate));
       } catch (error) {
         emitter.call(UpdateError(error as Error));
       }
@@ -90,8 +89,7 @@ class AdminBirthCertificateBlocBloc extends Bloc<AdminBirthCertificateBlocEvent,
     });
   }
 
-  // Future<MarriageCertificateRepository> get repository async {
-  //   return await CoreInfrastractureProvider
-  //       .provideMarriageCertificateRepository();
-  // }
+  Future<BirthCertificateRepository> get repository async {
+    return await CoreInfrastractureProvider.provideBirthCertificateRepository();
+  }
 }
