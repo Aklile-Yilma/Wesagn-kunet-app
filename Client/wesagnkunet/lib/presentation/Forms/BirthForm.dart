@@ -71,17 +71,18 @@ class BirthForm extends StatelessWidget {
                     ElevatedButton(
                         onPressed: () {
                           if (_formkey.currentState!.validate()) {
-                            SubmiteBirthCertificateFormEvent(
-                                _controllers[0].text,
-                                _controllers[1].text,
-                                _controllers[2].text,
-                                _controllers[3].text,
-                                _controllers[4].text,
-                                _controllers[5].text,
-                                _controllers[6].text,
-                                _controllers[7].text,
-                                _controllers[8].text,
-                                _datePickerController.date);
+                            context.read<BirthCertificateFormBloc>().add(
+                                SubmiteBirthCertificateFormEvent(
+                                    _controllers[0].text,
+                                    _controllers[1].text,
+                                    _controllers[2].text,
+                                    _controllers[3].text,
+                                    _controllers[4].text,
+                                    _controllers[5].text,
+                                    _controllers[6].text,
+                                    _controllers[7].text,
+                                    _controllers[8].text,
+                                    _datePickerController.date));
                           }
 
                           if (state is SubmittingBirthCertificateFormState) {
