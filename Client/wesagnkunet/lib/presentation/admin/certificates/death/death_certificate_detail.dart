@@ -15,14 +15,14 @@ class DeathCertificateDetail extends StatelessWidget {
         title: Text("Death Certificate Detail"),
         centerTitle: true,
       ),
-      body: CertificateDeleteUpdateWidget(
+      // body: CertificateDeleteUpdateWidget(
     
-      ),
+      // ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => context.go("/"),
         child: Text("Home"),
       ),
-      bottomNavigationBar: CustomeBottomNav(),
+      bottomNavigationBar: AdminBottomNavigation(1),
     );
   }
 }

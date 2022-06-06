@@ -6,8 +6,11 @@ import 'dart:developer';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wesagnkunet/domain/auth/Client.dart';
+import 'package:wesagnkunet/domain/core/marriage_certificate.dart';
 import 'package:wesagnkunet/infrastructure/auth/providers.dart';
 import 'package:wesagnkunet/infrastructure/auth/repositories.dart';
+import 'package:wesagnkunet/infrastructure/core/providers.dart';
+import 'package:wesagnkunet/infrastructure/core/repositories.dart';
 import 'package:wesagnkunet/infrastructure/lib/network/AplClient.dart';
 
 abstract class HomeEvent extends Equatable{
@@ -32,14 +35,16 @@ class HomeState extends Equatable{
   HomeStatus status;
 
   Client? client;
+  List<MarriageCertificate>? certificates;
 
   HomeState([
     this.status = HomeStatus.loading,
-    this.client
+    this.client,
+    this.certificates
   ]);
 
   @override
-  List<Object?> get props => [status];
+  List<Object?> get props => [status, client, certificates];
 
 }
 
@@ -54,6 +59,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState>{
     return await AuthInfrastractureProvider.provideAuthenticatedRepository();
   }
 
+  Future<MarriageCertificateRepository> get certificateRepository async{
+    return await CoreInfrastractureProvider.provideMarriageCertificateRepository();
+  }
+
   void _initialize(HomeEvent event, Emitter<HomeState> emitter) async{
 
     emitter.call(
@@ -63,11 +72,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState>{
     try{
 
       Client client = await (await repository).getMyAccount();
+      List<MarriageCertificate> certificates = await (await certificateRepository).getAll();
       log("Fetched Client. Setting loaded");
       emitter.call(
         HomeState(
           HomeStatus.loaded,
-          client
+          client,
+          certificates
         )
       );
 

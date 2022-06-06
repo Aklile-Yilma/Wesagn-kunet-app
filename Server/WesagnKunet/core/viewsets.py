@@ -7,6 +7,8 @@ from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
+from datetime import date
+
 from .serializers import MarriageCertificateSerializer, DeathCertificateSerializer, BirthCertificateSerializer
 from .models import BirthCertificate, MarriageCertificate, CertificateDetails, DeathCertificate
 
@@ -17,7 +19,7 @@ class CertificateViewSet:
 	def _is_authenticated(self, certificate, request) -> bool:
 
 		return (
-					certificate.verified and 
+				#certificate.verified and 
 					request.user in [client.user for client in certificate.detail.users.all()]
 				) or \
 					request.user.is_admin
@@ -54,6 +56,8 @@ class MarriageCertificateViewSet(viewsets.ViewSet, CertificateViewSet):
 			raise PermissionDenied()
 		instance = get_object_or_404(MarriageCertificate, pk=pk)
 		instance.verified = request.data.get("verified")
+		instance.detail.issue_date = date.today()
+		instance.detail.save()
 		instance.save()
 		return Response(MarriageCertificateSerializer(instance).data)
 	

@@ -41,7 +41,7 @@ class ListOfParticularCertificate extends StatelessWidget {
             ElevatedButton(
                 child: Text("Detail Screen"),
                 onPressed: (() => context.go(
-                    "admin/marriage/certificates/${marriageCertificate.id}"))),
+                    "/admin/marriage/certificates/detaile", extra: marriageCertificate))),
           ]),
         ),
       ),

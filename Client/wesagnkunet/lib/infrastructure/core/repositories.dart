@@ -60,8 +60,8 @@ class MarriageCertificateRepository {
 
   MarriageCertificateRepository(this.apiClient, this.dbClient);
 
-  Future<List<MarriageCertificate>> getAll() async {
-    return await MarriageCertificatesRepositoryCall(apiClient, dbClient).get(null);
+  Future<List<MarriageCertificate>> getAll([cached=true]) async {
+    return await MarriageCertificatesRepositoryCall(apiClient, dbClient).get(null, cached);
   }
 
   Future<MarriageCertificate> getById(int certificateId) async {

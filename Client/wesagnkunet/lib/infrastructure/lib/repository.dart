@@ -11,11 +11,18 @@ abstract class RepositoryCall<I, O>{
 
 	Future<O> networkCall(I input);
 
-	Future<O> get(I input, [cached= true, cache=true] ) async{
+	Future<O> get(I input, [getcached= true, cache=true] ) async{
 
-		O? cached = await getCached(input);
+    O? cached = null;
 
-		if(cached != null){
+    try{
+  		O? cached = await getCached(input);
+    }
+    catch (e){
+      log("Failed to Fetch from cache $e");
+    }
+
+		if(getcached && cached != null){
       log("Returing Cached Value");
 			return cached;
 		}
@@ -25,7 +32,12 @@ abstract class RepositoryCall<I, O>{
 
 		if(cache){
       log("Storing to Cache");
-			storeCache(value);
+      try{
+  			storeCache(value);
+      }
+      catch (e){
+        log("Error Storing Cache $e");
+      }
 		}
 
     log("Returning Network Value");

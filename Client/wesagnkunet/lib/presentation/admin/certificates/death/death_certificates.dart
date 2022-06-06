@@ -24,7 +24,7 @@ class DeathCertificates extends StatelessWidget {
           return Text("");
         },
       ),
-      bottomNavigationBar: CustomeBottomNav(),
+      bottomNavigationBar: AdminBottomNavigation(1),
     );
   }
 }

@@ -97,7 +97,9 @@ class LoginForm extends StatelessWidget {
 		    										border: OutlineInputBorder(),
 		    										labelText: 'Password',
 		    										hintText: 'Enter your password',
-		    									)),
+		    									),
+                          obscureText: true,  
+                        ),
 		    							ElevatedButton(
 		    								style: ElevatedButton.styleFrom(
 		    									primary: const Color.fromRGBO(0, 0, 139, 1),

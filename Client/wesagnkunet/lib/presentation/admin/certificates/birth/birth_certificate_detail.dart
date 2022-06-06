@@ -15,14 +15,14 @@ class BirthCertificateDetail extends StatelessWidget {
         title: Text("Birth Certificate Detail"),
         centerTitle: true,
       ),
-      body: CertificateDeleteUpdateWidget(
+      // body: CertificateDeleteUpdateWidget(
         
-      ),
+      // ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => context.go("/"),
         child: Text("Home"),
       ),
-      bottomNavigationBar: CustomeBottomNav(),
+      bottomNavigationBar: AdminBottomNavigation(1),
     );
   }
 }

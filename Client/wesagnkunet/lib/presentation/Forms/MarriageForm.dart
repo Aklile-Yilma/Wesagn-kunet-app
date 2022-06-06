@@ -31,7 +31,7 @@ class MarriageForm extends StatelessWidget {
       body: Align(
         alignment: Alignment.center,
         child: SizedBox(
-          width: _deviceWidth * 0.6,
+          width: _deviceWidth * 0.7,
           height: _deviceHeight,
           child: BlocProvider<MarriageCertificateFormBloc>(
 
@@ -62,92 +62,106 @@ class MarriageForm extends StatelessWidget {
 
                 return Form(
                     key: _formkey,
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          const Text(
-                            "Marriage Information",
-                            style: TextStyle(
-                              fontSize: 50,
-                              fontWeight: FontWeight.bold,
-                              color: Color.fromRGBO(0, 0, 139, 1),
-                            ),
-                          ),
+                    child: SingleChildScrollView(
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
 
-                          Builder(
-                            builder: (_) {
+                            SizedBox(height: 50),
 
-                              if(state.error){
-                                return const Text(
-                                          "Your form seems to contain errors. Please review it.",
-                                          style: TextStyle(
-                                              color: Colors.red
-                                          ),
-                                         );
-                              }
-
-                              return SizedBox.shrink();
-
-                            }
-                          ),
-
-
-                          _textField("Wife's First Name", _controllers[0]),
-                          _textField("Wife's Middle Name", _controllers[1]),
-                          _textField("Wife's Last Name", _controllers[2]),
-                          _textField("Husbands's First Name", _controllers[3]),
-                          _textField("Husbands's Middle Name", _controllers[4]),
-                          _textField("Husbands's Last Name", _controllers[5]),
-                          DatePickerButton(controller: _datePickerController, child: Text("Date of Marriage")),
-                          SizedBox(
-                            width: 150,
-                            child: ElevatedButton(
-                              key: Key("elevButton"),
-                              style: ElevatedButton.styleFrom(
-                                primary: const Color.fromRGBO(0, 0, 139, 1),
+                            const Text(
+                              "Marriage Information",
+                              style: TextStyle(
+                                fontSize: 50,
+                                fontWeight: FontWeight.bold,
+                                color: Color.fromRGBO(0, 0, 139, 1),
                               ),
-                              onPressed: () {
-
-                                if(state.status == MarriageCertificateFormStatus.loading){
-                                  return;
-                                }
-
-                                if (_formkey.currentState!.validate()) {
-                                  context.read<MarriageCertificateFormBloc>().add(
-                                    SubmitForm(
-                                      _controllers[0].text,
-                                      _controllers[1].text,
-                                      _controllers[2].text,
-                                      _controllers[3].text,
-                                      _controllers[4].text,
-                                      _controllers[5].text,
-                                      _datePickerController.date
-                                    )
-                                  );
-                                }
-                              },
-                              child: Builder(
-                                builder: (context) {
-                                  if(state.status == MarriageCertificateFormStatus.loading){
-                                    return CircularProgressIndicator();
-                                  }
-
+                            ),
+                    
+                            Builder(
+                              builder: (_) {
+                    
+                                if(state.error){
                                   return const Text(
-                                    'Submit',
-                                    style: TextStyle(fontSize: 20),
-                                  );
+                                            "Your form seems to contain errors. Please review it.",
+                                            style: TextStyle(
+                                                color: Colors.red
+                                            ),
+                                           );
                                 }
+                    
+                                return SizedBox.shrink();
+                    
+                              }
+                            ),
+                    
+                    
+                            SizedBox(height: 50),
+                            _textField("Wife's First Name", _controllers[0]),
+                            SizedBox(height: 20),
+                            _textField("Wife's Middle Name", _controllers[1]),
+                            SizedBox(height: 20),
+                            _textField("Wife's Last Name", _controllers[2]),
+                            SizedBox(height: 20),
+                            _textField("Husbands's First Name", _controllers[3]),
+                            SizedBox(height: 20),
+                            _textField("Husbands's Middle Name", _controllers[4]),
+                            SizedBox(height: 20),
+                            _textField("Husbands's Last Name", _controllers[5]),
+                            SizedBox(height: 20),
+                            DatePickerButton(controller: _datePickerController, child: Text("Date of Marriage")),
+                            SizedBox(height: 20),
+                            SizedBox(
+                              width: 150,
+                              child: ElevatedButton(
+                                key: Key("elevButton"),
+                                style: ElevatedButton.styleFrom(
+                                  primary: const Color.fromRGBO(0, 0, 139, 1),
+                                ),
+                                onPressed: () {
+                    
+                                  if(state.status == MarriageCertificateFormStatus.loading){
+                                    return;
+                                  }
+                    
+                                  if (_formkey.currentState!.validate()) {
+                                    context.read<MarriageCertificateFormBloc>().add(
+                                      SubmitForm(
+                                        _controllers[0].text,
+                                        _controllers[1].text,
+                                        _controllers[2].text,
+                                        _controllers[3].text,
+                                        _controllers[4].text,
+                                        _controllers[5].text,
+                                        _datePickerController.date
+                                      )
+                                    );
+                                  }
+                                },
+                                child: Builder(
+                                  builder: (context) {
+                                    if(state.status == MarriageCertificateFormStatus.loading){
+                                      return CircularProgressIndicator();
+                                    }
+                    
+                                    return const Text(
+                                      'Submit',
+                                      style: TextStyle(fontSize: 20),
+                                    );
+                                  }
+                                ),
                               ),
                             ),
-                          ),
-                        ]),
+                            SizedBox(height: 70),
+                          ]),
+                    ),
                   );
               }
             )
           )
         )
       ),
-      bottomNavigationBar: const CoreBottomNavigation(),
+      bottomNavigationBar: CoreBottomNavigation(0),
     );
   }
 

@@ -101,6 +101,24 @@ class Accounts extends StatelessWidget {
                           height: _deviceHeight * .05,
                         ),
 
+                        Builder(
+                          builder: (context) {
+
+                            if(state.client!.user.isAdmin){
+                              return _tile("Admin Mode", [255, 255, 255], (){
+                                  context.go("/admin");
+                                });
+                            }
+
+                            return SizedBox.shrink();
+
+                          }
+                        ),
+
+                        
+                        SizedBox(
+                          height: _deviceHeight * .05,
+                        ),
                         _tile("Signout", [255, 255, 255], (){
                           context.read<SettingsBloc>().add(SignoutEvent());
                         }),
@@ -117,7 +135,7 @@ class Accounts extends StatelessWidget {
             }
               ),
           ),
-          bottomNavigationBar: CoreBottomNavigation()
+          bottomNavigationBar: CoreBottomNavigation(2)
         );
   }
 

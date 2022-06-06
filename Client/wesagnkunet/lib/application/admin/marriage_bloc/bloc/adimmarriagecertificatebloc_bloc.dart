@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:wesagnkunet/domain/core/marriage_certificate.dart';
@@ -11,11 +13,13 @@ class AdminMarriageCertificateBloc extends Bloc<
   AdminMarriageCertificateBloc() : super(AdimMarriageCertificateBlocInit()) {
     on<FetchMarriageCertificatesEvent>(
         (FetchMarriageCertificatesEvent event, Emitter emitter) async {
+
+          log("Fetching Certificates");
       emitter.call(FetchingMarriageCertificatesState());
 
       try {
         List<MarriageCertificate> marriageCertificates =
-            await (await repository).getAll();
+            await (await repository).getAll(false);
         emitter.call(FetchedMarriageCertificatesState(
             marriageCertificates: marriageCertificates));
       } catch (error) {

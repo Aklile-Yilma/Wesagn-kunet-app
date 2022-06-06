@@ -17,35 +17,35 @@ class SideMenu extends StatelessWidget {
               title: "Dashboard",
               icon: Icon(Icons.dashboard),
               press: () {
-                context.go("admin/dashboard");
+                context.go("/admin/dashboard");
               },
             ),
             DrawerListTile(
               title: "Users",
               icon: Icon(Icons.verified_user_sharp),
               press: () {
-                context.go("admin/users");
+                context.go("/admin/users");
               },
             ),
             DrawerListTile(
               title: "Certificates",
               icon: Icon(Icons.folder),
               press: () {
-                context.go("admin/certificates");
+                context.go("/admin/certificates");
               },
             ),
             DrawerListTile(
               title: "Notification",
               icon: Icon(Icons.notifications),
               press: () {
-                context.go("admin/"); 
+                context.go("/admin/"); 
               },
             ),
             DrawerListTile(
               title: "Profile",
               icon: Icon(Icons.account_box),
               press: () {
-                context.go("admin/dashboard"); 
+                context.go("/admin/dashboard"); 
               },
             ),
             DrawerListTile(

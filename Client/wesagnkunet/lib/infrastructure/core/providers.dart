@@ -39,14 +39,13 @@ class CoreInfrastractureProvider{
     return authenticatedApiClient!;
   }
 
-  static DBClient provideDBClient(){
-    dbClient ??= DBClient(config.CACHE_DB_PATH);
+  static Future<DBClient> provideDBClient() async{
+    dbClient ??= DBClient("${await AccountManager.getSessionID()}.sqlite");
     return dbClient!;
   }
 
-
   static Future<MarriageCertificateRepository> provideMarriageCertificateRepository()async{
-    marriageCertificateRepository ??= MarriageCertificateRepository(await provideAuthenticatedApiClient(), provideDBClient());
+    marriageCertificateRepository ??= MarriageCertificateRepository(await provideAuthenticatedApiClient(), await provideDBClient());
     return marriageCertificateRepository!;
   }
 
@@ -63,4 +62,17 @@ class CoreInfrastractureProvider{
         DeathCertificateRepository(await provideAuthenticatedApiClient());
     return deathCertificateRepository!;
   }
+
+  static void reset(){
+
+    cleanApiClient = null;
+    authenticatedApiClient = null;
+    dbClient = null;
+    marriageCertificateRepository = null;
+    birthCertificateRepository = null;
+    deathCertificateRepository = null;
+
+
+  }
+
 }

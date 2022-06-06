@@ -20,6 +20,13 @@ class AuthInfrastractureProvider{
     return authenticatedAuthRepository!;
   }
 
+  static void reset(){
+
+    authRepository = null;
+    authenticatedAuthRepository = null;
+
+  }
+
 
 
 
